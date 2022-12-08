@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "dynamicImport": false,
+      "decorators": true
+    },
+    "preserveAllComments": false,
+    "baseUrl": "./src",
+    "loose": false,
+    "externalHelpers": false,
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true
+    }
+  },
+   "minify": false,
+    "module": {
+    "type": "commonjs"
+  }
+}
