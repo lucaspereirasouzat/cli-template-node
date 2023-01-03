@@ -5,27 +5,40 @@ Object.defineProperty(exports, "__esModule", {
 });
 var _commander = require("commander");
 var program = new _commander.Command();
-program.version("0.0.3").description("An example CLI for ordering pizza's").option("-p, --peppers", "Add peppers").option("-P, --pineapple", "Add pineapple").option("-b, --bbq", "Add bbq sauce").option("-c, --cheese <type>", "Add the specified type of cheese [marble]").option("-C, --no-cheese", "You do not want any cheese").parse(process.argv);
+program.name("string-util").description("CLI to some JavaScript string utilities").version("0.8.0");
+console.log("entrou clise");
+program.command("create <name>").description("Create a new file based on a template").option("-c, --controller", "Create Controller").option("-u, --useCases", "Create Controller")// .option('-t, --template <template>', 'Template to use')
+// .option('-d, --directory <directory>', 'Directory to save the file')
+.action(function(name, options) {
+    console.log(name, options);
+//  const result = makeController().handle('src/resources/views/templates/Controller.html')
+//   console.log(result);
+//     try {
+// console.log('entrou clise options',name, options)
+//     // Read the template file
+//     const templateContent = fs.readFileSync(options.template, 'utf8');
+//     console.log(templateContent);
+//     const fileContent = templateContent
+//    .replace('{{ className }}', 'MyClass')
+//   .replace(
+//     '{{ properties }}',
+//     JSON.stringify([{ name: 'myProp', type: 'string' }])
+//   );
+//   try {
+//     if(existsSync(options.directory)){
+//         fs.mkdirSync(`${options.directory}`);
+//     }
+//   } catch (error) {
+//   }
+//     // Create the new file
+//     const filePath = `${options.directory}/${name}`;
+//     fs.writeFileSync(filePath, fileContent);
+//     const result = fs.readFileSync(filePath, 'utf8');
+//     console.log(result);
+//     } catch (error) {
+//       console.log(error);
+//     }
+});
+program.parse(process.argv);
 var options = program.opts();
-console.log("you ordered a pizza with:", options);
-if (options.peppers) console.log("  - peppers");
-if (options.pineapple) console.log("  - pineapple");
-if (options.bbq) console.log("  - bbq");
-if (!process.argv.slice(2).length) {
-    program.outputHelp();
-} // commander
- //   .version('0.0.3')
- //   .description("An example CLI for ordering pizza's")
- //   .option('-p, --peppers', 'Add peppers')
- //   .option('-P, --pineapple', 'Add pineapple')
- //   .option('-b, --bbq', 'Add bbq sauce')
- //   .option('-c, --cheese <type>', 'Add the specified type of cheese [marble]')
- //   .option('-C, --no-cheese', 'You do not want any cheese')
- //   .parse(process.argv);
- // import Chalk from "chalk";
- // const chalk = new Chalk()
- // console.log(
- //   chalk.red(
- //     'hellow'
- //   )
- // );
+if (options.debug) console.log(options);
