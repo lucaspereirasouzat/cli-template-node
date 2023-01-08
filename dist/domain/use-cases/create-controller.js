@@ -13,6 +13,7 @@ function _classCallCheck(instance, Constructor) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
+var PATH_CONTROLLER = "../../src/resources/views/templates/Controller.html";
 var CreateController = /*#__PURE__*/ function() {
     "use strict";
     function CreateController(fileStorage) {
@@ -21,9 +22,25 @@ var CreateController = /*#__PURE__*/ function() {
     }
     var _proto = CreateController.prototype;
     _proto.handle = function handle(path) {
-        return this.fileStorage.readFileString({
-            path: path
+        var fileInString = this.fileStorage.readFileString({
+            path: PATH_CONTROLLER
         });
+        if (!fileInString) {
+            throw new Error("File Not found");
+        }
+        var replacedFileString = fileInString.replace("{{ className }}", "MyClass");
+        if (!this.fileStorage.folderExists({
+            path: PATH_CONTROLLER
+        })) {
+            this.fileStorage.makeDir({
+                path: PATH_CONTROLLER
+            });
+        }
+        this.fileStorage.writeFileString({
+            path: "".concat(path, "/Controller.ts"),
+            content: replacedFileString
+        });
+        return replacedFileString;
     };
     return CreateController;
 }();

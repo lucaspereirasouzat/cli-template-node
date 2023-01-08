@@ -26,7 +26,6 @@ var FileStorage = /*#__PURE__*/ function() {
     }
     var _proto = FileStorage.prototype;
     _proto.readFileString = function readFileString(input) {
-        console.log("input", input);
         var templateFile = _fs.default.readFileSync(input.path, "utf8");
         return templateFile;
     };

@@ -7,7 +7,7 @@ const program = new Command();
 
 program
   .name('template-clean-arquiteture')
-    .description('CLI based on template clean arquiteture') 
+    .description('CLI based on template clean arquiteture')
   .version('0.0.1');
 
 console.log('entrou clise')
@@ -25,46 +25,46 @@ program
   .action((name, options) => {
     console.log(name, options);
 
+    console.log(__dirname)
 
-    
-  //  const result = makeController().handle('src/resources/views/templates/Controller.html')
-  //   console.log(result);
-    
-   //     try {
+   const result = makeController().handle(__dirname)
+    console.log(result);
 
-// console.log('entrou clise options',name, options)
+       try {
 
-//     // Read the template file
-//     const templateContent = fs.readFileSync(options.template, 'utf8');
-//     console.log(templateContent);
-    
-//     const fileContent = templateContent
-//    .replace('{{ className }}', 'MyClass')
-//   .replace(
-//     '{{ properties }}',
-//     JSON.stringify([{ name: 'myProp', type: 'string' }])
-//   );
+console.log('entrou clise options',name, options)
 
-//   try {
-    
-//     if(existsSync(options.directory)){
-//         fs.mkdirSync(`${options.directory}`);
-//     }
-//   } catch (error) {
-    
-//   }
-    
+    // Read the template file
+    const templateContent = fs.readFileSync(options.template, 'utf8');
+    console.log(templateContent);
 
-//     // Create the new file
-//     const filePath = `${options.directory}/${name}`;
-//     fs.writeFileSync(filePath, fileContent);
+    const fileContent = templateContent
+   .replace('{{ className }}', 'MyClass')
+  .replace(
+    '{{ properties }}',
+    JSON.stringify([{ name: 'myProp', type: 'string' }])
+  );
 
-//     const result = fs.readFileSync(filePath, 'utf8');
-//     console.log(result);
-          
-//     } catch (error) {
-//       console.log(error);
-//     }
+  try {
+
+    if(existsSync(options.directory)){
+        fs.mkdirSync(`${options.directory}`);
+    }
+  } catch (error) {
+
+  }
+
+
+    // Create the new file
+    const filePath = `${options.directory}/${name}`;
+    fs.writeFileSync(filePath, fileContent);
+
+    const result = fs.readFileSync(filePath, 'utf8');
+    console.log(result);
+
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   program.parse(process.argv);
