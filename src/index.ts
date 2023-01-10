@@ -30,41 +30,41 @@ program
    const result = makeController().handle(__dirname)
     console.log(result);
 
-       try {
+//        try {
 
-console.log('entrou clise options',name, options)
+// console.log('entrou clise options',name, options)
 
-    // Read the template file
-    const templateContent = fs.readFileSync(options.template, 'utf8');
-    console.log(templateContent);
+//     // Read the template file
+//     const templateContent = fs.readFileSync(options.template, 'utf8');
+//     console.log(templateContent);
 
-    const fileContent = templateContent
-   .replace('{{ className }}', 'MyClass')
-  .replace(
-    '{{ properties }}',
-    JSON.stringify([{ name: 'myProp', type: 'string' }])
-  );
+//     const fileContent = templateContent
+//    .replace('{{ className }}', 'MyClass')
+//   .replace(
+//     '{{ properties }}',
+//     JSON.stringify([{ name: 'myProp', type: 'string' }])
+//   );
 
-  try {
+//   try {
 
-    if(existsSync(options.directory)){
-        fs.mkdirSync(`${options.directory}`);
-    }
-  } catch (error) {
+//     if(existsSync(options.directory)){
+//         fs.mkdirSync(`${options.directory}`);
+//     }
+//   } catch (error) {
 
-  }
+//   }
 
 
-    // Create the new file
-    const filePath = `${options.directory}/${name}`;
-    fs.writeFileSync(filePath, fileContent);
+//     // Create the new file
+//     const filePath = `${options.directory}/${name}`;
+//     fs.writeFileSync(filePath, fileContent);
 
-    const result = fs.readFileSync(filePath, 'utf8');
-    console.log(result);
+//     const result = fs.readFileSync(filePath, 'utf8');
+//     console.log(result);
 
-    } catch (error) {
-      console.log(error);
-    }
+//     } catch (error) {
+//       console.log(error);
+//     }
   });
 
   program.parse(process.argv);

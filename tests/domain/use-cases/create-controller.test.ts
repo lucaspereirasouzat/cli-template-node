@@ -2,7 +2,7 @@ import {it, describe,expect,beforeEach,  vitest} from 'vitest'
 import { CreateController } from '../../../src/domain/use-cases/create-controller'
 import { ReadFile, FolderExists,MakeDir,WriteFile } from '../../../src/domain/contracts'
 
-describe('Create Controller', () => { 
+describe('Create Controller', () => {
     let useCase: CreateController
     let fileStorage: ReadFile & FolderExists & MakeDir & WriteFile
 
@@ -21,7 +21,7 @@ describe('Create Controller', () => {
     it('should be able to create a new file', () => {
          useCase.handle('aa')
         expect(fileStorage.readFileString).toHaveReturnedTimes(1)
-        expect(fileStorage.readFileString).toBeCalledWith({path: '../../src/resources/views/templates/Controller.html'})
+        expect(fileStorage.readFileString).toBeCalledWith({path: '/home/lucasp/Documents/cli-template-node/cli-template-node/src/resources/views/templates/Controller.html'})
     })
     it('should be able validate if not exists ', () => {
         const error = new Error('File Not found')
@@ -32,19 +32,19 @@ describe('Create Controller', () => {
     it('should be able validate if folder exists ', () => {
         useCase.handle('aa')
         expect(fileStorage.folderExists).toHaveReturnedTimes(1)
-        expect(fileStorage.folderExists).toBeCalledWith({path: '../../src/resources/views/templates/Controller.html'})
+        expect(fileStorage.folderExists).toBeCalledWith({path: 'aa'})
     })
     it('should be able to create folder ', () => {
         fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false)
         useCase.handle('aa')
-      
+
         expect(fileStorage.makeDir).toHaveReturnedTimes(1)
-        expect(fileStorage.makeDir).toBeCalledWith({path: '../../src/resources/views/templates/Controller.html'})
+        expect(fileStorage.makeDir).toBeCalledWith({path: 'aa'})
     })
     it('should be able to create folder ', () => {
         useCase.handle('aa')
-      
+
         expect(fileStorage.writeFileString).toHaveReturnedTimes(1)
-        expect(fileStorage.writeFileString).toBeCalledWith({content: "MyClass", path: "aa/Controller.ts"})
+        expect(fileStorage.writeFileString).toBeCalledWith({content: "MyClass", path: "/home/lucasp/Documents/cli-template-node/cli-template-node/aa/Controller.ts"})
     })
-}) 
+})

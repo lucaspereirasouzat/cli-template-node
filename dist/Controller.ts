@@ -1,4 +1,4 @@
-class {{ className }} {
+class MyClass {
   {{#properties}}
   {{ name }}: {{ type }};
   {{/properties}}

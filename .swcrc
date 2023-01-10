@@ -1,10 +1,17 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "minify": true,
   "jsc": {
     "parser": {
       "syntax": "typescript",
       "dynamicImport": false,
       "decorators": true
+    },
+    "target": "es2020",
+    "paths": {
+      "@domain/*": ["./domain/*"],
+      "@factories/*": ["./factories/*"],
+      "@resources/*": ["./resources/*"],
+      "@infra/*": ["./infra/*"]
     },
     "preserveAllComments": false,
     "baseUrl": "./src",
@@ -15,8 +22,7 @@
       "decoratorMetadata": true
     }
   },
-   "minify": false,
-    "module": {
+  "module": {
     "type": "commonjs"
   }
 }

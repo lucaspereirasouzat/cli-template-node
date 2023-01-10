@@ -1,14 +1,21 @@
+import fs from 'fs';
+import path from 'path';
 import { FolderExists, MakeDir, ReadFile, WriteFile } from '../contracts'
 
-const PATH_CONTROLLER = '../../src/resources/views/templates/Controller.html'
+const PATH_CONTROLLER = '../../resources/views/templates/Controller.html'
 
 export class CreateController {
   constructor(private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir) {
-    
+
   }
 
- handle(path: string): string {
-      const fileInString = this.fileStorage.readFileString({path:PATH_CONTROLLER})
+ handle(pathFull: string): string {
+
+  console.log(path.resolve(__dirname, PATH_CONTROLLER));
+
+ const fileInString = this.fileStorage.readFileString({path:path.resolve(__dirname,PATH_CONTROLLER)})
+
+console.log(fileInString);
 
 
       if(!fileInString){
@@ -16,13 +23,13 @@ export class CreateController {
       }
 
       const replacedFileString = fileInString.replace('{{ className }}', 'MyClass')
-      
-      if(!this.fileStorage.folderExists({path:PATH_CONTROLLER})){
-          this.fileStorage.makeDir({ path: PATH_CONTROLLER })
+
+      if(!this.fileStorage.folderExists({path:pathFull})){
+          this.fileStorage.makeDir({ path: pathFull })
       }
 
-      this.fileStorage.writeFileString({ path: `${path}/Controller.ts`, content: replacedFileString })
-      
+      this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/Controller.ts`), content: replacedFileString })
+
       return replacedFileString
   }
 }
