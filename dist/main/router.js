@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"default",{enumerable:true,get:()=>_default});const _useCases=require("../factories/domain/use-cases/index");const _default=(name,option,fullpath)=>{console.log(option,name,fullpath);return({controller:(0,_useCases.makeController)().handle(fullpath,name)})[option]};

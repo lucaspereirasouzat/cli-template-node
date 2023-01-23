@@ -29,7 +29,7 @@ describe("FileStorage", () => {
     expect(sut.makeDir).toBeDefined();
 
     sut.makeDir({ path: "aaa" });
-    expect(fs.mkdirSync).toHaveBeenCalledWith("aaa");
+    expect(fs.mkdirSync).toHaveBeenCalledWith("aaa", { recursive: true });
   });
   it("should validate readFileString", () => {
     sut.readFileString({ path: "aaa" });

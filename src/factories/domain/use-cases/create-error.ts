@@ -1,9 +1,9 @@
 import { makePath } from "../../infra/gateway/path"
-import { CreateUseCase } from "../../../domain/use-cases/create-use-case"
+import { CreateError } from "../../../domain/use-cases/create-error"
 import { makeFileStorage } from "../../infra/gateway/file-storage"
 
-export const makeUseCase = (): CreateUseCase => {
-  return new CreateUseCase(
+export const makeError = (): CreateError => {
+  return new CreateError(
     makeFileStorage(),
     makePath()
   )

@@ -6,10 +6,12 @@ import {
   MakeDir,
   WriteFile,
 } from "../../../src/domain/contracts";
+import { Resolve } from "../../../src/domain/contracts/Resolve";
 
 describe("Create Controller", () => {
   let useCase: CreateController;
   let fileStorage: ReadFile & FolderExists & MakeDir & WriteFile;
+  let pathresolve: Resolve;
 
   beforeEach(() => {
     fileStorage = vitest.fn();
@@ -18,17 +20,22 @@ describe("Create Controller", () => {
     fileStorage.folderExists = vitest.fn(() => true);
     fileStorage.makeDir = vitest.fn(() => true);
     fileStorage.writeFileString = vitest.fn(() => true);
+
+
+    pathresolve = vitest.fn();
+    pathresolve.pathresolve = vitest.fn(() => 'path')
   });
 
   beforeEach(() => {
-    useCase = new CreateController(fileStorage);
+    useCase = new CreateController(fileStorage, pathresolve);
   });
   it("should be able to create a new file", () => {
     useCase.handle("aa");
     // expect(fileStorage.readFileString).toHaveReturnedTimes(1);
     expect(fileStorage.readFileString).toBeCalledWith({
-      path: "/home/lucasp/Documents/cli-template-node/cli-template-node/src/resources/views/templates/Controller.html",
+      path: "path",
     });
+    // /home/lucasp/Documents/cli-template-node/cli-template-node/src/resources/views/templates/Controller.html
   });
   it("should be able validate if not exists ", () => {
     const error = new Error("File Not found");

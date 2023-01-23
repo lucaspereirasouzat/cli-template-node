@@ -1,4 +1,3 @@
-
 export interface FolderExists {
   folderExists(input: FolderExists.Input): FolderExists.Output;
 }

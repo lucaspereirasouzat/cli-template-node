@@ -1,4 +1,3 @@
-
 export interface MakeDir {
   makeDir(input: MakeDir.Input): MakeDir.Output;
 }
