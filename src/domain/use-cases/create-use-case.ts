@@ -2,11 +2,13 @@ import { FileNotFound, CouldNotWrite } from "../entities/errors";
 import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { Resolve } from "@domain/contracts/Resolve";
 import { PATH_USE_CASE } from "../../constants";
+import { LogFailure, LogSuccess } from "@domain/contracts/logger";
 
 export class CreateUseCase {
   constructor(
     private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
-    private readonly pathResolver: Resolve
+    private readonly pathResolver: Resolve,
+    private readonly logger: LogFailure & LogSuccess
   ) { }
 
   handle(pathFull: string, name = "UseCase", test = true): string {
@@ -23,12 +25,12 @@ export class CreateUseCase {
       name
     );
 
-    if (!this.fileStorage.folderExists({ path: pathFull })) {
-      this.fileStorage.makeDir({ path: pathFull });
+    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/domain/use-cases/` })) {
+      this.fileStorage.makeDir({ path: `${pathFull}/src/domain/use-cases/` });
     }
 
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/domain/use-cases/${name}.ts`)
-    console.log('\n diretorio do usecase', pathToWrite, '\n');
+    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/domain/use-cases/${name}.ts`)
+    this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
 
     this.fileStorage.writeFileString({
       path: pathToWrite,
@@ -48,7 +50,7 @@ export class CreateUseCase {
       // if(!this.fileStorage.folderExists({path:pathFull})){
       //     this.fileStorage.makeDir({ path: pathFull })
       // }
-      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
+      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/src/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
     }
 
     return replacedFileString;

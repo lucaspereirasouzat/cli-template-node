@@ -2,11 +2,13 @@ import { FileNotFound, CouldNotWrite } from "../entities/errors";
 import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { Resolve } from "@domain/contracts/Resolve";
 import { PATH_GATEWAY } from "../../constants";
+import { LogFailure, LogSuccess } from "@domain/contracts/logger";
 
 export class CreateGateway {
   constructor(
     private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
-    private readonly pathResolver: Resolve
+    private readonly pathResolver: Resolve,
+    private readonly logger: LogFailure & LogSuccess
   ) { }
 
   handle(pathFull: string, name = "Gateway", test = true): string {
@@ -23,12 +25,12 @@ export class CreateGateway {
       name
     );
 
-    if (!this.fileStorage.folderExists({ path: pathFull })) {
-      this.fileStorage.makeDir({ path: pathFull });
+    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/infra/gateway/factories/` })) {
+      this.fileStorage.makeDir({ path: `${pathFull}/src/infra/gateway/factories/` });
     }
 
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/domain/entities/error/${name}.ts`)
-    console.log('\n diretorio do gateway', pathToWrite, '\n');
+    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/infra/gateway/factories/${name}.ts`)
+    this.logger.log({ message: `\n diretorio do gateway ${pathToWrite}` });
 
     this.fileStorage.writeFileString({
       path: pathToWrite,
@@ -48,7 +50,7 @@ export class CreateGateway {
       // if(!this.fileStorage.folderExists({path:pathFull})){
       //     this.fileStorage.makeDir({ path: pathFull })
       // }
-      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
+      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/src/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
     }
 
     return replacedFileString;
