@@ -1,6 +1,6 @@
-import { FileNotFound } from "../entities/errors";
+import { CouldNotWrite, FileNotFound } from "../entities/errors";
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { PATH_ENTITY } from "../../constants";
+import { PATH_ENTITY, PATH_ENTITY_TEST } from "../../constants";
 import { Resolve } from "../../domain/contracts/Resolve";
 import { FormatDocument, TitleConversion } from "../../domain/entities";
 import { CreateFile } from "../../domain/entities/CreateFile";
@@ -39,7 +39,6 @@ export class CreateEntity {
 
     const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
-
     this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
 
     this.fileStorage.appendFile({
@@ -47,20 +46,24 @@ export class CreateEntity {
       content: `export * from './${titleFormated}'\n`
     })
 
-    // const fileInTestString = this.fileStorage.readFileString({
-    //   path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_TEST),
-    // });
+    const fileInTestString = this.fileStorage.readFileString({
+      path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY_TEST),
+    });
 
-    // if (!fileInString) {
-    //   throw new CouldNotWrite();
-    // }
+    if (!fileInString) {
+      throw new CouldNotWrite();
+    }
 
     if (test) {
-      // const replacedFileTestString = fileInTestString.replace(new RegExp('{{ className }}','g'), name)
-      // if(!this.fileStorage.folderExists({path:pathFull})){
-      //     this.fileStorage.makeDir({ path: pathFull })
-      // }
-      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/src/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver,
+      );
+
+      const pathTestFolder = `${pathFull}/test/${PATH_ENTITY_PATH}`;
+
+      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated);
+      this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
     }
 
     return replacedFileString;

@@ -38,6 +38,10 @@ export class CreateController {
 
     this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` });
 
+    this.fileStorage.appendFile({
+      path: `${pathFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
     const fileInTestString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER_TEST),
     });
@@ -45,22 +49,17 @@ export class CreateController {
     if (!fileInString) {
       throw new CouldNotWrite();
     }
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated}'\n`
-    })
 
     if (test) {
-      // const replacedFileTestString = fileInTestString.replace(new RegExp('{{ className }}', 'g'), name)
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver,
+      );
 
-      // const pathFolderTest = `${pathFull}/tests/${pathController}`
-      // if (!this.fileStorage.folderExists({ path: pathFolderTest })) {
-      //   this.fileStorage.makeDir({ path: pathFolderTest })
-      // }
+      const pathTestFolder = `${pathFull}/test/${PATH_CONTROLLER_APLICATION}`;
 
-      // const pathFileTest = this.pathResolver.pathresolve(`${pathFolderTest}/${titleFormated}.ts`)
-      // this.fileStorage.writeFileString({ path: pathFileTest, content: replacedFileTestString })
-      // this.logger.log({ message: `\n diretorio do teste da controller: ${pathFileTest} ` })
+      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated);
+      this.logger.log({ message: `\n diretorio da controller test ${pathToWriteTest}` });
     }
 
     return fileInTestString;

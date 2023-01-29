@@ -41,21 +41,7 @@ export class CreateContract {
       path: `${pathFolder}/index.ts`,
       content: `export * from './${titleFormated}'\n`
     })
-    // const fileInTestString = this.fileStorage.readFileString({
-    //   path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT_TEST),
-    // });
 
-    // if (!fileInString) {
-    //   throw new CouldNotWrite();
-    // }
-
-    if (test) {
-      // const replacedFileTestString = fileInTestString.replace(new RegExp('{{ className }}','g'), name)
-      // if(!this.fileStorage.folderExists({path:pathFull})){
-      //     this.fileStorage.makeDir({ path: pathFull })
-      // }
-      // this.fileStorage.writeFileString({ path: path.resolve(`${pathFull}/src/domain/use-cases/test/${name}.ts`), content: replacedFileTestString })
-    }
 
     return replacedFileString;
   }
