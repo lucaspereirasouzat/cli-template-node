@@ -5,8 +5,9 @@ interface Options {
 }
 
 export default (name: string, options: Options, fullpath: string) => {
-  const keys = Object.keys({controller: true})
-  console.log('adapter', keys);
+  const { test, properties, ...rest } = options;
+  const keys = Object.keys(rest)
+  console.log('adapter', keys, options);
 
   keys.forEach(element => {
     console.log(element);

@@ -1,11 +1,8 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import fs, { existsSync } from "fs";
 import adapter from './main/adapter'
-// import { makeController } from "./factories/domain/use-cases/create-usecase";
 
 const program = new Command();
-// console.log(process.cwd())
 program
   .name("template-clean-arquiteture")
   .description("CLI based on template clean arquiteture")
@@ -21,9 +18,9 @@ program
   .option("-g, --gateWay", "Create Gateway")
   .option("-r, --repo", "Create repository")
   .option("-e, --entity", "Create entity")
+  .option('-p', "--properties", "Properties")
   .action((name, options) => {
     adapter(name, options, process.cwd())
-    // console.log('ithens', name, options, __dirname);
   });
 
 program.parse(process.argv);
