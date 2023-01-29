@@ -5,12 +5,14 @@ import {
   FolderExists,
   MakeDir,
   WriteFile,
+  LogFailure, LogSuccess
 } from "../../../src/domain/contracts";
 import { Resolve } from "../../../src/domain/contracts/Resolve";
 
 describe("Create Controller", () => {
   let useCase: CreateController;
   let fileStorage: ReadFile & FolderExists & MakeDir & WriteFile;
+  let logger: LogFailure & LogSuccess;
   let pathresolve: Resolve;
 
   beforeEach(() => {
@@ -24,10 +26,14 @@ describe("Create Controller", () => {
 
     pathresolve = vitest.fn();
     pathresolve.pathresolve = vitest.fn(() => 'path')
+
+      logger = vitest.fn();
+      logger.error = vitest.fn()
+      logger.log = vitest.fn()
   });
 
   beforeEach(() => {
-    useCase = new CreateController(fileStorage, pathresolve);
+    useCase = new CreateController(fileStorage, pathresolve, logger);
   });
   it("should be able to create a new file", () => {
     useCase.handle("aa");

@@ -1,7 +1,5 @@
-import { makePath } from "../../infra/gateway/path"
 import { CreateContract } from "../../../domain/use-cases/create-contract"
-import { makeFileStorage } from "../../infra/gateway/file-storage"
-import { makeLogger } from "../../infra/gateway/logger"
+import { makeFileStorage,makeLogger,makePath } from "../../infra/gateway"
 
 export const makeContract = (): CreateContract => {
   return new CreateContract(

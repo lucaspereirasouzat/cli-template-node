@@ -1,41 +1,51 @@
-import { FileNotFound, CouldNotWrite } from "../entities/errors";
-import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { Resolve } from "@domain/contracts/Resolve";
-import { PATH_ERROR } from "../../constants";
-import { LogFailure, LogSuccess } from "@domain/contracts/logger";
+import { FileNotFound } from "../entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { PATH_ENTITY } from "../../constants";
+import { Resolve } from "../../domain/contracts/Resolve";
+import { FormatDocument, TitleConversion } from "../../domain/entities";
+import { CreateFile } from "../../domain/entities/CreateFile";
+
+const PATH_ENTITY_PATH = 'domain/entities'
 
 export class CreateEntity {
   constructor(
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = "Entity", test = true): string {
+  handle(pathFull: string, name = "Entity", test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_ERROR),
+      path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY),
     });
 
     if (!fileInString) {
       throw new FileNotFound();
     }
 
-    const replacedFileString = fileInString.replace(
-      new RegExp("{{ className }}", "g"),
-      name
+    const titleConversion = new TitleConversion(name)
+
+    const UpperCase = titleConversion.GetCamelCaseName()
+    const titleFormated = titleConversion.GetFormatedTitleFileName()
+
+    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+
+    const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}`;
+
+    const createFile = new CreateFile(
+      this.fileStorage,
+      this.pathResolver,
     );
 
-    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/domain/entities/` })) {
-      this.fileStorage.makeDir({ path: `${pathFull}/src/domain/entities/` });
-    }
+    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/domain/entities/${name}.ts`)
 
-    this.fileStorage.writeFileString({
-      path: pathToWrite,
-      content: replacedFileString,
-    });
     this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
+
+    this.fileStorage.appendFile({
+      path: `${pathFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
 
     // const fileInTestString = this.fileStorage.readFileString({
     //   path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_TEST),

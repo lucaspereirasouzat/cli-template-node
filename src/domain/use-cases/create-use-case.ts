@@ -1,17 +1,20 @@
-import { FileNotFound, CouldNotWrite } from "../entities/errors";
-import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { Resolve } from "@domain/contracts/Resolve";
+import { FileNotFound } from "../entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { PATH_USE_CASE } from "../../constants";
-import { LogFailure, LogSuccess } from "@domain/contracts/logger";
+import { Resolve } from "../../domain/contracts/Resolve";
+import { FormatDocument, TitleConversion } from "../../domain/entities";
+import { CreateFile } from "../../domain/entities/CreateFile";
+
+const PATH_USE_CASE_DOMAIN = 'domain/use-cases'
 
 export class CreateUseCase {
   constructor(
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = "UseCase", test = true): string {
+  handle(pathFull: string, name = "UseCase", test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE),
     });
@@ -20,22 +23,24 @@ export class CreateUseCase {
       throw new FileNotFound();
     }
 
-    const replacedFileString = fileInString.replace(
-      new RegExp("{{ className }}", "g"),
-      name
+    const titleConversion = new TitleConversion(name)
+    const UpperCase = titleConversion.GetCamelCaseName()
+    const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+    const pathFolder = `${pathFull}/src/${PATH_USE_CASE_DOMAIN}`;
+
+    const createFile = new CreateFile(
+      this.fileStorage,
+      this.pathResolver,
     );
 
-    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/domain/use-cases/` })) {
-      this.fileStorage.makeDir({ path: `${pathFull}/src/domain/use-cases/` });
-    }
+    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/domain/use-cases/${name}.ts`)
+    this.fileStorage.appendFile({
+      path: `${pathFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
     this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
-
-    this.fileStorage.writeFileString({
-      path: pathToWrite,
-      content: replacedFileString,
-    });
 
     // const fileInTestString = this.fileStorage.readFileString({
     //   path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_TEST),

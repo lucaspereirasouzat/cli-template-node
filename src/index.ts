@@ -20,6 +20,7 @@ program
   .option("-u, --useCase", "Create UseCases")
   .option("-g, --gateWay", "Create Gateway")
   .option("-r, --repo", "Create repository")
+  .option("-e, --entity", "Create entity")
   .action((name, options) => {
     adapter(name, options, process.cwd())
     // console.log('ithens', name, options, __dirname);

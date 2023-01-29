@@ -5,13 +5,19 @@
   "compilerOptions": {
     "target": "es2021",
     "module": "commonjs",
-    "lib": ["es6", "es2015", "dom"],
+    "lib": [
+      "es6",
+      "es2015",
+      "dom"
+    ],
     "declaration": true,
     "outDir": "lib",
     "rootDir": "./src",
     "baseUrl": "./src",
     "strict": false,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -19,13 +25,21 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-      "paths": {
-      "@domain/*": ["./domain/*"],
-      "@factories/*": ["./factories/*"],
-      "@resources/*": ["./resources/*"],
-      "@infra/*": ["./infra/*"]
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+      // "@domain/*": ["./domain/*"],
+      // "@factories/*": ["./factories/*"],
+      // "@resources/*": ["./resources/*"],
+      // "@infra/*": ["./infra/*"]
     },
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/node_modules/**/**", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "**/node_modules/**/**",
+    "dist"
+  ]
 }

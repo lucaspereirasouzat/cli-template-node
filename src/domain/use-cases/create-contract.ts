@@ -1,17 +1,18 @@
 import { FileNotFound } from "../entities/errors";
-import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { Resolve } from "@domain/contracts/Resolve";
-import { PATH_CONTRACT } from "../../constants";
-import { LogFailure, LogSuccess } from "@domain/contracts/logger";
+import { FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } from "../contracts";
+import { PATH_CONTRACT, DOMAIN_CONTRACT_PATH } from "../../constants";
+import { Resolve } from "../../domain/contracts/Resolve";
+import { TitleConversion, FormatDocument } from "../../domain/entities";
+import { CreateFile } from "../../domain/entities/CreateFile";
 
 export class CreateContract {
   constructor(
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = "Contract", test = true): string {
+  handle(pathFull: string, name = "Contract", test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT),
     });
@@ -20,25 +21,26 @@ export class CreateContract {
       throw new FileNotFound();
     }
 
-    const fullpath = GetCamelCaseArray(name)
+    const titleConversion = new TitleConversion(name)
 
-    const replacedFileString = fileInString.replace(
-      new RegExp("{{ className }}", "g"),
-      name
+    const UpperCase = titleConversion.GetCamelCaseName()
+    const titleFormated = titleConversion.GetFormatedTitleFileName()
+
+    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+
+    const pathFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
+
+    const createFile = new CreateFile(
+      this.fileStorage,
+      this.pathResolver,
     );
 
-    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/domain/contracts/` })) {
-      this.fileStorage.makeDir({ path: `${pathFull}/src/domain/contracts/` });
-    }
-
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/domain/contracts/${name}.ts`)
-
-    this.fileStorage.writeFileString({
-      path: pathToWrite,
-      content: replacedFileString,
-    });
-
+    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
     this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` });
+    this.fileStorage.appendFile({
+      path: `${pathFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
     // const fileInTestString = this.fileStorage.readFileString({
     //   path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT_TEST),
     // });

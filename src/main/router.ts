@@ -2,7 +2,7 @@ import { makeContract, makeController, makeEntity, makeError, makeGateway, makeU
 
 
 export default (name: string, option: string, fullpath: string) => {
-  console.log(option, name, fullpath);
+  console.log(name, option, fullpath);
 
   return {
     controller: makeController().handle(fullpath, name),
@@ -12,5 +12,5 @@ export default (name: string, option: string, fullpath: string) => {
     error: makeError().handle(fullpath, name),
     entity: makeEntity().handle(fullpath, name),
     contract: makeContract().handle(fullpath, name)
-  }[option]
+  }[name]
 }

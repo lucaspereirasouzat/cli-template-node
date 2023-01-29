@@ -1,17 +1,20 @@
-import { FileNotFound, CouldNotWrite } from "../entities/errors";
-import { FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { Resolve } from "@domain/contracts/Resolve";
-import { PATH_GATEWAY } from "../../constants";
-import { LogFailure, LogSuccess } from "@domain/contracts/logger";
+import { FileNotFound } from "../entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { PATH_GATEWAY, PATH_FACTORY_GATEWAY } from "../../constants";
+import { Resolve } from "../../domain/contracts/Resolve";
+import { FormatDocument, TitleConversion } from "../../domain/entities";
+import { CreateFile } from "../../domain/entities/CreateFile";
+
+const GATEWAY_PATH = 'infra/gateway'
 
 export class CreateGateway {
   constructor(
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = "Gateway", test = true): string {
+  handle(pathFull: string, name = "Gateway", test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY),
     });
@@ -20,23 +23,42 @@ export class CreateGateway {
       throw new FileNotFound();
     }
 
-    const replacedFileString = fileInString.replace(
-      new RegExp("{{ className }}", "g"),
-      name
+    const titleConversion = new TitleConversion(name)
+    const UpperCase = titleConversion.GetCamelCaseName()
+    const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+
+    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}`;
+    const createFile = new CreateFile(
+      this.fileStorage,
+      this.pathResolver,
     );
 
-    if (!this.fileStorage.folderExists({ path: `${pathFull}/src/infra/gateway/factories/` })) {
-      this.fileStorage.makeDir({ path: `${pathFull}/src/infra/gateway/factories/` });
-    }
+    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
-    const pathToWrite = this.pathResolver.pathresolve(`${pathFull}/src/infra/gateway/factories/${name}.ts`)
     this.logger.log({ message: `\n diretorio do gateway ${pathToWrite}` });
 
-    this.fileStorage.writeFileString({
-      path: pathToWrite,
-      content: replacedFileString,
-    });
+    this.fileStorage.appendFile({
+      path: `${pathFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
 
+    const replacedFactoryFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+
+    const pathFactoryFolder = `${pathFull}/src/${PATH_FACTORY_GATEWAY}`;
+    const createFactoryFile = new CreateFile(
+      this.fileStorage,
+      this.pathResolver,
+    );
+
+    const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated);
+
+    this.logger.log({ message: `\n diretorio do gateway ${pathToFactoryWrite}` });
+
+    this.fileStorage.appendFile({
+      path: `${pathFactoryFolder}/index.ts`,
+      content: `export * from './${titleFormated}'\n`
+    })
     // const fileInTestString = this.fileStorage.readFileString({
     //   path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_TEST),
     // });

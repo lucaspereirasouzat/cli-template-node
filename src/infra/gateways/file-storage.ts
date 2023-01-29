@@ -1,7 +1,13 @@
 import fs from 'fs'
-import { ReadFile, WriteFile, FolderExists, MakeDir } from '../../domain/contracts'
+import { ReadFile, WriteFile, FolderExists, MakeDir,AppendFile, FileExists } from '../../domain/contracts'
 
-export class FileStorage implements ReadFile, WriteFile, FolderExists, MakeDir {
+export class FileStorage implements ReadFile, WriteFile, FolderExists, MakeDir, AppendFile, FileExists {
+  fileExists (input: FileExists.Input): FileExists.Output {
+    return fs.existsSync(input.path)
+  }
+  appendFile (input: AppendFile.Input): void {
+      fs.appendFileSync(input.path,input.content)
+  }
   readFileString(input: ReadFile.Input): string {
     return fs.readFileSync(input.path, 'utf8')
   }
@@ -17,5 +23,6 @@ export class FileStorage implements ReadFile, WriteFile, FolderExists, MakeDir {
   makeDir(input: MakeDir.Input): MakeDir.Output {
     fs.mkdirSync(input.path, { recursive: true })
   }
+
 }
 

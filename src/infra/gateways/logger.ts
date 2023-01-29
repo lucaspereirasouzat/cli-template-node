@@ -1,5 +1,6 @@
 
-import { LogFailure, LogSuccess } from '@domain/contracts/logger'
+
+import { LogFailure, LogSuccess } from 'domain/contracts/logger'
 import pino from 'pino'
 export class Logger implements LogFailure, LogSuccess {
   logger: any

@@ -8,10 +8,9 @@
     },
     "target": "es2020",
     "paths": {
-      "@domain/*": ["./domain/*"],
-      "@factories/*": ["./factories/*"],
-      "@resources/*": ["./resources/*"],
-      "@infra/*": ["./infra/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "preserveAllComments": false,
     "baseUrl": "./src",
