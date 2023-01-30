@@ -8,10 +8,10 @@ export class TitleConversion {
   }
 
   public GetCamelCaseName() {
-    return this.getSplitedArray().map(item => item.charAt(0).toUpperCase()).join('')
+    return this.getSplitedArray().map(item => `${item.charAt(0).toUpperCase()}${item.slice(1)}`).join('')
   }
 
   public GetFormatedTitleFileName() {
-    return this.getSplitedArray().map(item => item.charAt(0).toLowerCase()).join('-')
+    return this.getSplitedArray().map(item => `${item.charAt(0).toLowerCase()}${item.slice(1)}`).join('-')
   }
 }

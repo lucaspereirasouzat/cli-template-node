@@ -42,7 +42,6 @@ export class CreateContract {
       content: `export * from './${titleFormated}'\n`
     })
 
-
     return replacedFileString;
   }
 }

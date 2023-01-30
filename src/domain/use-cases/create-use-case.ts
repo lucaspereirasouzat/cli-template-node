@@ -58,7 +58,7 @@ export class CreateUseCase {
 
       const pathTestFolder = `${pathFull}/test/${PATH_USE_CASE_DOMAIN}`;
 
-      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated);
+      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'));
       this.logger.log({ message: `\n diretorio do usecase test ${pathToWriteTest}` });
     }
     return replacedFileString;

@@ -76,7 +76,7 @@ export class CreateGateway {
 
       const pathTestFolder = `${pathFull}/test/${GATEWAY_PATH}`;
 
-      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated);
+      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'));
       this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
     }
     return replacedFileString;
