@@ -1,9 +1,12 @@
-// import
-export class {{ className }} implements  {
+//import { {{ className }} } from '@/infra/gateways'
 
-  constructor(){}
+export class {{ className }} // implements
+{
+  constructor(
+    // private readonly httpClient: HttpGetClient,
+  ){}
 
-  handle(){
+  async handle(input: Input): Promise<void>{
 
   }
 }

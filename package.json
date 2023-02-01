@@ -1,5 +1,5 @@
 {
-  "name": "template_node",
+  "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
   "keywords": [
@@ -15,7 +15,7 @@
     "typeorm"
   ],
   "bin": {
-    "template_node": "./dist/index.js"
+    "clean_code_template_cli": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "scripts": {
