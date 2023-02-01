@@ -1,10 +1,10 @@
-//import { LoadCustomerEmail, CreateCustomer } from '@/domain/contracts/repos'
+//import { {{ className }}, CreateCustomer } from '@/domain/contracts/repos'
 //import { PgRepository } from '@/infra/repos/postgres/repository'
 //import { PgCustomer } from './entities'
 
 export class {{ className }} extends PgRepository implements {
-async {{ className }} (input: LoadCustomerEmail.Input): Promise<LoadCustomerEmail.Output> {
+  async {{ className }} (input: {{ className }}.Input): Promise<{{ className }}.Output> {
 
   }
 
-  }
+}
