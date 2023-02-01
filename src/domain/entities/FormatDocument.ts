@@ -7,7 +7,8 @@ export class FormatDocument {
 
   public formatDocument() {
     return this.document
-      .replace(new RegExp('{{ className }}', 'g'), this.titleDocument)
-      .replace(new RegExp('{{ properites }}', 'g'), this.properties ? JSON.stringify(this.properties) : '')
+      .replace(/{{ className }}/g, this.titleDocument)
+      .replace(/{{ classNameLower }}/g, this.titleDocument.toLowerCase())
+      .replace(/{{ properites }}/g, this.properties ? JSON.stringify(this.properties) : '')
   }
 }
