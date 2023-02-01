@@ -40,7 +40,7 @@ export class CreateGateway {
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated}'\n`
+      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
     })
 
     const fileFactoryInString = this.fileStorage.readFileString({
@@ -61,7 +61,7 @@ export class CreateGateway {
 
     this.fileStorage.appendFile({
       path: `${pathFactoryFolder}/index.ts`,
-      content: `export * from './${titleFormated}'\n`
+      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
     })
 
     const fileInTestString = this.fileStorage.readFileString({

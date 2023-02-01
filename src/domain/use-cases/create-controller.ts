@@ -40,7 +40,7 @@ export class CreateController {
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated}'\n`
+      content: `export * from './${titleFormated.replace('.ts','')}'\n`
     })
     const fileInTestString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER_TEST)

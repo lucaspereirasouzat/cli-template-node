@@ -2,6 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
+  "version": "0.0.1",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -11,8 +12,7 @@
     "design patterns",
     "node",
     "typescript",
-    "jest",
-    "typeorm"
+    "jest"
   ],
   "bin": {
     "clean_code_template_cli": "./dist/index.js"

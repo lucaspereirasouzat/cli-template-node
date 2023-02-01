@@ -38,7 +38,7 @@ export class CreateUseCase {
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated}'\n`
+      content: `export * from './${titleFormated.replace('.ts','')}'\n`
     })
     this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
 
