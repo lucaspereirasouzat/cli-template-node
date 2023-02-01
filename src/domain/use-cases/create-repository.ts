@@ -1,22 +1,22 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_GATEWAY, PATH_FACTORY_GATEWAY, PATH_GATEWAY_TEST } from '../../constants'
-import { Resolve } from '../../domain/contracts/Resolve'
-import { FormatDocument, TitleConversion, CreateFile } from '../../domain/entities'
+import { PATH_REPOSITORY, PATH_FACTORY_REPOSITORY, PATH_REPOSITORY_TEST } from '../../constants'
+import { Resolve } from '../contracts/Resolve'
+import { FormatDocument, TitleConversion, CreateFile } from '../entities'
 
-const GATEWAY_PATH = 'infra/gateways'
-const GATEWAY_FACTORY_PATH = 'factories/infra/gateways'
+const REPOSITORY_PATH = 'infra/repos/postgres'
+const REPOSITORY_FACTORY_PATH = 'factories/infra/repos/postgres'
 
-export class CreateGateway {
+export class CreateRepository {
   constructor(
     private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = 'Gateway', test = true, properites = {}): string {
+  handle(pathFull: string, name = 'Repository', test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY)
+      path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
     })
 
     if (fileInString.length === 0) {
@@ -28,7 +28,7 @@ export class CreateGateway {
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}`
+    const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}`
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -36,7 +36,7 @@ export class CreateGateway {
 
     const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
 
-    this.logger.log({ message: `\n diretorio do gateway ${pathToWrite}` })
+    this.logger.log({ message: `\n diretorio do repository ${pathToWrite}` })
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
@@ -44,12 +44,12 @@ export class CreateGateway {
     })
 
     const fileFactoryInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_GATEWAY)
+      path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_REPOSITORY)
     })
 
     const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
 
-    const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}`
+    const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}`
     const createFactoryFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -57,7 +57,7 @@ export class CreateGateway {
 
     const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated)
 
-    this.logger.log({ message: `\n diretorio do factory gateway ${pathToFactoryWrite}` })
+    this.logger.log({ message: `\n diretorio do factory repository ${pathToFactoryWrite}` })
 
     this.fileStorage.appendFile({
       path: `${pathFactoryFolder}/index.ts`,
@@ -65,7 +65,7 @@ export class CreateGateway {
     })
 
     const fileInTestString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY_TEST)
+      path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY_TEST)
     })
 
     if (fileInTestString === '') {
@@ -78,7 +78,7 @@ export class CreateGateway {
         this.pathResolver
       )
 
-      const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH}`
+      const pathTestFolder = `${pathFull}/tests/${REPOSITORY_PATH}`
 
       const testnameFile = titleFormated.replace('.ts', '.spec.ts')
 

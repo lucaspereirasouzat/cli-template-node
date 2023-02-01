@@ -1,5 +1,19 @@
 {
   "name": "template_node",
+  "description": "Professional API using Clean Architecture and TDD.",
+  "license": "GPL-3.0-or-later",
+  "keywords": [
+    "clean architecture",
+    "clean code",
+    "tdd",
+    "ddd",
+    "solid",
+    "design patterns",
+    "node",
+    "typescript",
+    "jest",
+    "typeorm"
+  ],
   "bin": {
     "template_node": "./dist/index.js"
   },
@@ -13,10 +27,11 @@
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
-    "arg": "^5.0.2",
     "chalk": "^5.1.2",
     "commander": "^9.4.1",
     "inquirer": "^9.1.4",
@@ -34,6 +49,11 @@
     "regenerator-runtime": "^0.13.11",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
+    "eslint": "^7.32.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
     "vitest": "^0.28.3"
   }
 }

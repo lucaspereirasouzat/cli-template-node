@@ -12,6 +12,6 @@ export class TitleConversion {
   }
 
   public GetFormatedTitleFileName() {
-    return this.getSplitedArray().map(item => `${item.charAt(0).toLowerCase()}${item.slice(1)}`).join('-')
+    return `${this.getSplitedArray().map(item => `${item.charAt(0).toLowerCase()}${item.slice(1)}`).join('-')}.ts`
   }
 }

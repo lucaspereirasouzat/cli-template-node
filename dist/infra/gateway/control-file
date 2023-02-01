@@ -1,7 +1,5 @@
 // import
-
-
-export class my.ts implements  {
+export class ControlFile implements  {
 
   constructor(){}
 

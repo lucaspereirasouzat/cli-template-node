@@ -8,26 +8,26 @@ type HttpRequest = { message: string, topic: string }
 type Model = Error | { success: boolean }
 
 export class {{ className }} extends Controller {
-  constructor (private readonly createMessage: CreateMessage) {
-    super()
-  }
+constructor (private readonly createMessage: CreateMessage) {
+super()
+}
 
-  async perform ({ message, topic }: HttpRequest): Promise<HttpResponse<Model>> {
-    try {
-      const result = await this.createMessage({ message, topic })
-      return ok(result)
-    } catch (error) {
-      if (error instanceof AuthenticationError) return unauthorized()
-      throw error
-    }
+async perform ({ message, topic }: HttpRequest): Promise<HttpResponse<Model>> {
+  try {
+  const result = await this.createMessage({ message, topic })
+  return ok(result)
+  } catch (error) {
+  if (error instanceof AuthenticationError) return unauthorized()
+  throw error
+  }
   }
 
   /*
   override buildValidators ({ message, topic }: HttpRequest): Validator[] {
-    return [
-      ...Builder.of({ value: message, fieldName: 'message' }).required().build(),
-      ...Builder.of({ value: topic, fieldName: 'topic' }).required().build()
-    ]
+  return [
+  ...Builder.of({ value: message, fieldName: 'message' }).required().build(),
+  ...Builder.of({ value: topic, fieldName: 'topic' }).required().build()
+  ]
   }
   */
-}
+  }
