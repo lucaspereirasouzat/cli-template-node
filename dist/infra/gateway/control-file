@@ -1,9 +1,0 @@
-// import
-export class ControlFile implements  {
-
-  constructor(){}
-
-  handle(){
-
-  }
-}

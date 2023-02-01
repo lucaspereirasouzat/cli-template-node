@@ -7,11 +7,11 @@ export class TitleConversion {
     return this.name.replace(REGEX_SPLITED_CAMEL_CASE, '$1 $2').split(' ')
   }
 
-  public GetCamelCaseName(): string {
+  public GetCamelCaseName (): string {
     return this.getSplitedArray().map(item => `${item.charAt(0).toUpperCase()}${item.slice(1)}`).join('')
   }
 
-  public GetFormatedTitleFileName(): string {
+  public GetFormatedTitleFileName (): string {
     return `${this.getSplitedArray().map(item => `${item.charAt(0).toLowerCase()}${item.slice(1)}`).join('-')}.ts`
   }
 }

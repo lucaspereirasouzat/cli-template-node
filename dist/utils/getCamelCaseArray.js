@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"GetCamelCaseArray",{enumerable:true,get:()=>GetCamelCaseArray});function GetCamelCaseArray(camel){var reg=/([a-z0-9])([A-Z])/g;return camel.replace(reg,"$1 $2").split(" ")}
