@@ -5,7 +5,7 @@ import { Resolve } from '../contracts/Resolve'
 import { FormatDocument, TitleConversion, CreateFile } from '../entities'
 
 const REPOSITORY_PATH = 'infra/repos/postgres'
-const REPOSITORY_FACTORY_PATH = 'factories/infra/repos/postgres'
+const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
 
 export class CreateRepository {
   constructor(

@@ -5,7 +5,7 @@ import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion, CreateFile } from '../../domain/entities'
 
 const GATEWAY_PATH = 'infra/gateways'
-const GATEWAY_FACTORY_PATH = 'factories/infra/gateways'
+const GATEWAY_FACTORY_PATH = 'main/factories/infra/gateways'
 
 export class CreateGateway {
   constructor(

@@ -5,7 +5,7 @@ import { Resolve } from "../../domain/contracts/Resolve";
 import { FormatDocument, TitleConversion } from "../../domain/entities";
 import { CreateFile } from "../../domain/entities/CreateFile";
 
-const PATH_ERROR = 'domain/entities/error/'
+const PATH_ERROR = 'domain/entities/errors/'
 
 export class CreateError {
   constructor(
