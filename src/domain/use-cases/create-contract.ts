@@ -17,7 +17,7 @@ export class CreateContract {
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT)
     })
 
-    if (fileInString === "") {
+    if (fileInString === '') {
       throw new FileNotFound()
     }
 
@@ -25,10 +25,11 @@ export class CreateContract {
 
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.path
 
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`
+    const pathFolder = `${pathFull}/src/${path}${DOMAIN_CONTRACT_PATH}`
 
     const createFile = new CreateFile(
       this.fileStorage,
