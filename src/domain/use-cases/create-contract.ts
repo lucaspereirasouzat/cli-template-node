@@ -25,7 +25,7 @@ export class CreateContract {
 
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
-    const path = titleConversion.path
+    const path = titleConversion.getPathFromTitle()
 
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
