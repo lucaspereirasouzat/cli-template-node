@@ -1,0 +1,30 @@
+import { {{ className }} } from '@/domain/use-cases'
+/*
+import {
+AppendFile
+} from "../../../src/domain/contracts";
+*/
+describe('{{className}}', () => {
+  let sut: {{className}}
+ // let fileStorage: AppendFile
+
+  beforeAll(() => {
+    // fileStorage = vitest.fn()
+
+    // fileStorage.aaa = vitest.fn(() => true)
+  })
+
+  beforeEach(() => {
+    sut = new {{className}}(
+      //fileStorage
+    )
+  })
+
+  it('should call handle sucess', async () => {
+    const response = await sut.handle({{ properties }})
+
+    void expect(response).toEqual({
+      success: true
+    })
+  })
+})
