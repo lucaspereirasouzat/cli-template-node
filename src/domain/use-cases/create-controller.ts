@@ -13,7 +13,7 @@ export class CreateController {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Controller', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Controller', test = true, properites = undefined): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER)
     })

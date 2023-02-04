@@ -14,7 +14,7 @@ export class CreateError {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Error', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Error', test = true, properites = undefined): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE)
     })

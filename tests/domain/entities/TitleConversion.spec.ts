@@ -28,5 +28,9 @@ describe('TitleConversion', () => {
       const sut2 = new TitleConversion('/aaa/testA')
       expect(sut2.GetFormatedTitleFileName()).toBe('test-a.ts')
     })
+    it('should return a title formated', () => {
+      const sut2 = new TitleConversion('aaa/testA')
+      expect(sut2.getPathFromTitle()).toBe('aaa/')
+    })
 
 });

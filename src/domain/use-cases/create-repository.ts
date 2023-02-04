@@ -14,7 +14,7 @@ export class CreateRepository {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Repository', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Repository', test = true, properites = undefined): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
     })

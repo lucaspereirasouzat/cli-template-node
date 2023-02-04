@@ -14,7 +14,7 @@ export class CreateEntity {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Entity', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Entity', test = true, properites = undefined): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY)
     })
