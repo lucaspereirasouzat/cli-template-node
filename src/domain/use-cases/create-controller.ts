@@ -57,7 +57,7 @@ export class CreateController {
         this.pathResolver
       )
 
-      const pathTestFolder = `${pathFull}/test/${PATH_CONTROLLER_APLICATION}/${titleFormated}`
+      const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/`
 
       const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'))
       this.logger.log({ message: `\n diretorio da controller test ${pathToWriteTest}` })

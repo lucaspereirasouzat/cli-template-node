@@ -30,13 +30,7 @@ export class CreateContract {
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
     const pathFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}/${path}`
-    console.log(pathFolder)
 
-    console.log('itens', fileInString, UpperCase, properites, titleFormated)
-    console.log('fileInString', fileInString)
-    console.log('UpperCase', UpperCase)
-    console.log('properites', properites)
-    console.log('titleFormated', titleFormated)
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver

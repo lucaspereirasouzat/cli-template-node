@@ -59,7 +59,7 @@ export class CreateEntity {
         this.pathResolver
       )
 
-      const pathTestFolder = `${pathFull}/test/${PATH_ENTITY_PATH}/${titleFormated}`
+      const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/${titleFormated}`
 
       const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'))
       this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` })
