@@ -5,25 +5,16 @@ const NOT_FOUND_INDEX = -1
 export class TitleConversion {
   path = ''
   constructor (private readonly name: string) {
-    // this.getPathFromTitle()
-    // this.separateTitle()
   }
 
   public getPathFromTitle (): string {
     const lastIndexPath = this.name.lastIndexOf('/')
-    console.log('lastIndex', lastIndexPath)
-
-    if (lastIndexPath === NOT_FOUND_INDEX) {
-      return ''
-    }
 
     if (this.name.indexOf('/') === FIRST_INDEX) {
       return this.name.substring(SECOND_INDEX, lastIndexPath + SECOND_INDEX)
     }
 
     const path = this.name.slice(FIRST_INDEX, lastIndexPath + SECOND_INDEX)
-
-    console.log('path', path)
 
     return path
   }
@@ -32,7 +23,7 @@ export class TitleConversion {
     const lastIndex = this.name.lastIndexOf('/')
 
     if (lastIndex === NOT_FOUND_INDEX) {
-      return ''
+      return this.name
     }
 
     return this.name.substring(lastIndex + SECOND_INDEX)

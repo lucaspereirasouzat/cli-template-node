@@ -27,7 +27,7 @@ export class CreateController {
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
-    const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}`
+    const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${titleFormated}`
 
     const createFile = new CreateFile(
       this.fileStorage,
@@ -56,7 +56,7 @@ export class CreateController {
         this.pathResolver
       )
 
-      const pathTestFolder = `${pathFull}/test/${PATH_CONTROLLER_APLICATION}`
+      const pathTestFolder = `${pathFull}/test/${PATH_CONTROLLER_APLICATION}/${titleFormated}`
 
       const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'))
       this.logger.log({ message: `\n diretorio da controller test ${pathToWriteTest}` })

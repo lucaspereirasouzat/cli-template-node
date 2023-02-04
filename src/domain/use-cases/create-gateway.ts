@@ -8,18 +8,18 @@ const GATEWAY_PATH = 'infra/gateways'
 const GATEWAY_FACTORY_PATH = 'main/factories/infra/gateways'
 
 export class CreateGateway {
-  constructor(
+  constructor (
     private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = 'Gateway', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Gateway', test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY)
     })
 
-    if (fileInString.length === 0) {
+    if (fileInString === '') {
       throw new FileNotFound()
     }
 
@@ -28,7 +28,7 @@ export class CreateGateway {
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}`
+    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}/${titleFormated}`
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -49,7 +49,7 @@ export class CreateGateway {
 
     const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
 
-    const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}`
+    const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}/${titleFormated}`
     const createFactoryFile = new CreateFile(
       this.fileStorage,
       this.pathResolver

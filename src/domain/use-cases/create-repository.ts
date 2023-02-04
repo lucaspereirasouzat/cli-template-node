@@ -8,18 +8,18 @@ const REPOSITORY_PATH = 'infra/repos/postgres'
 const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
 
 export class CreateRepository {
-  constructor(
+  constructor (
     private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle(pathFull: string, name = 'Repository', test = true, properites = {}): string {
+  handle (pathFull: string, name = 'Repository', test = true, properites = {}): string {
     const fileInString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
     })
 
-    if (fileInString.length === 0) {
+    if (fileInString === '') {
       throw new FileNotFound()
     }
 
@@ -40,7 +40,7 @@ export class CreateRepository {
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts','')}'\n`
+      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
     })
 
     const fileFactoryInString = this.fileStorage.readFileString({
@@ -61,7 +61,7 @@ export class CreateRepository {
 
     this.fileStorage.appendFile({
       path: `${pathFactoryFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts','')}'\n`
+      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
     })
 
     const fileInTestString = this.fileStorage.readFileString({

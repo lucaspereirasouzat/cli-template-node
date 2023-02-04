@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.7",
+  "version": "0.0.13",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -25,6 +25,7 @@
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
     "create": "npm run build && npm run test",
     "build": "swc src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "local:link": "npm run prepublishOnly && npm link && npm run postpublish",
     "local": "sudo npm i -g && template_node",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
     "test": "vitest",
