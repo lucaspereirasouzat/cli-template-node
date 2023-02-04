@@ -19,19 +19,18 @@ export class CreateEntity {
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY)
     })
 
-    if (!fileInString) {
+    if (fileInString === '') {
       throw new FileNotFound()
     }
 
     const titleConversion = new TitleConversion(name)
-
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.getPathFromTitle()
 
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}`
-
+    const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}/${path}`
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -50,7 +49,7 @@ export class CreateEntity {
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY_TEST)
     })
 
-    if (!fileInString) {
+    if (fileInString === '') {
       throw new CouldNotWrite()
     }
 

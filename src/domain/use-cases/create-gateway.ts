@@ -26,9 +26,10 @@ export class CreateGateway {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}/${titleFormated}`
+    const pathFolder = `${pathFull}/src/${GATEWAY_PATH}/${path}`
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -49,7 +50,7 @@ export class CreateGateway {
 
     const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
 
-    const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}/${titleFormated}`
+    const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}/${path}`
     const createFactoryFile = new CreateFile(
       this.fileStorage,
       this.pathResolver

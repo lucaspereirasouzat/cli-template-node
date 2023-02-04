@@ -26,8 +26,9 @@ export class CreateController {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
-    const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${titleFormated}`
+    const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${path}`
 
     const createFile = new CreateFile(
       this.fileStorage,

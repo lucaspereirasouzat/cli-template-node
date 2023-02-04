@@ -26,9 +26,10 @@ export class CreateError {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${PATH_ERROR}/${titleFormated}`
+    const pathFolder = `${pathFull}/src/${PATH_ERROR}/${titleFormated}/${path}`
 
     const createFile = new CreateFile(
       this.fileStorage,

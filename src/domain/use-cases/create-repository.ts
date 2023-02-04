@@ -26,9 +26,10 @@ export class CreateRepository {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
+    const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}`
+    const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}/${path}`
     const createFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
@@ -49,7 +50,7 @@ export class CreateRepository {
 
     const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
 
-    const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}`
+    const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}/${path}`
     const createFactoryFile = new CreateFile(
       this.fileStorage,
       this.pathResolver
