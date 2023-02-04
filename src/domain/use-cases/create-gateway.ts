@@ -1,11 +1,8 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_GATEWAY, PATH_FACTORY_GATEWAY, PATH_GATEWAY_TEST } from '../../constants'
+import { PATH_GATEWAY, PATH_FACTORY_GATEWAY, PATH_GATEWAY_TEST, GATEWAY_PATH, GATEWAY_FACTORY_PATH } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion, CreateFile } from '../../domain/entities'
-
-const GATEWAY_PATH = 'infra/gateways'
-const GATEWAY_FACTORY_PATH = 'main/factories/infra/gateways'
 
 export class CreateGateway {
   constructor (
@@ -19,7 +16,7 @@ export class CreateGateway {
       path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 

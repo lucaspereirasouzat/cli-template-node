@@ -19,7 +19,7 @@ export class CreateRepository {
       path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 

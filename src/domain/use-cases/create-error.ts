@@ -19,7 +19,7 @@ export class CreateError {
       path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 
@@ -29,7 +29,7 @@ export class CreateError {
     const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${PATH_ERROR}/${titleFormated}/${path}`
+    const pathFolder = `${pathFull}/src/${PATH_ERROR}/${path}`
 
     const createFile = new CreateFile(
       this.fileStorage,

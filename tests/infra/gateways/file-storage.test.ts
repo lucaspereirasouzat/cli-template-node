@@ -40,4 +40,14 @@ describe("FileStorage", () => {
     expect(sut.writeFileString).toBeDefined();
     expect(fs.writeFileSync).toHaveBeenCalledWith("aaa", "bbb");
   });
+  it("should validate fileExists", () => {
+    sut.fileExists({ path: "aaa" });
+    expect(sut.fileExists).toBeDefined();
+    expect(fs.existsSync).toHaveBeenCalledWith("aaa");
+  });
+  it("should validate appendFile", () => {
+    sut.appendFile({ path: "aaa", content: "bbb"  });
+    expect(sut.appendFile).toBeDefined();
+    expect(fs.appendFileSync).toHaveBeenCalledWith("aaa", "bbb");
+  });
 });

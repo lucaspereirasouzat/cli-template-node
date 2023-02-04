@@ -1,6 +1,7 @@
 export const PATH_CONTROLLER = '../../resources/views/templates/Controller.html'
 export const PATH_CONTROLLER_TEST =
   '../../resources/views/templates/ControllerTest.html'
+export const PATH_CONTROLLER_APLICATION = 'application/controllers'
 
 export const PATH_CONTRACT = '../../resources/views/templates/Contract.html'
 
@@ -9,8 +10,10 @@ export const PATH_ERROR = '../../resources/views/templates/Error.html'
 export const PATH_USE_CASE = '../../resources/views/templates/UseCase.html'
 export const PATH_USE_CASE_TEST = '../../resources/views/templates/UseCaseTest.html'
 
+export const GATEWAY_PATH = 'infra/gateways'
 export const PATH_GATEWAY = '../../resources/views/templates/Gateways.html'
 export const PATH_GATEWAY_TEST = '../../resources/views/templates/GatewaysTest.html'
+export const GATEWAY_FACTORY_PATH = 'main/factories/infra/gateways'
 
 export const PATH_FACTORY_GATEWAY = '../../resources/views/templates/FactoryGateway.html'
 

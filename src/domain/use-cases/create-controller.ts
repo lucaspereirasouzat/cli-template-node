@@ -1,15 +1,14 @@
 import { FileNotFound, CouldNotWrite } from '../../domain/entities/errors'
-import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile } from '../contracts'
-import { PATH_CONTROLLER, PATH_CONTROLLER_TEST } from '../../constants'
+import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } from '../contracts'
+import { PATH_CONTROLLER, PATH_CONTROLLER_TEST, PATH_CONTROLLER_APLICATION } from '../../constants'
 import { LogFailure, LogSuccess } from '../../domain/contracts/logger'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../entities/CreateFile'
 
-const PATH_CONTROLLER_APLICATION = 'application/controllers'
 export class CreateController {
   constructor (
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
@@ -19,7 +18,7 @@ export class CreateController {
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 

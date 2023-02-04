@@ -1,5 +1,5 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
+import { AppendFile, FileExists, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
 import { PATH_ENTITY, PATH_ENTITY_TEST } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
@@ -9,7 +9,7 @@ const PATH_ENTITY_PATH = 'domain/entities'
 
 export class CreateEntity {
   constructor (
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
     private readonly pathResolver: Resolve,
     private readonly logger: LogFailure & LogSuccess
   ) { }
@@ -19,7 +19,7 @@ export class CreateEntity {
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 
@@ -49,7 +49,7 @@ export class CreateEntity {
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY_TEST)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new CouldNotWrite()
     }
 

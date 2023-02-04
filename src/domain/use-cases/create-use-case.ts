@@ -19,7 +19,7 @@ export class CreateUseCase {
       path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 
@@ -36,7 +36,6 @@ export class CreateUseCase {
     )
 
     const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
-    console.log(fileInString, UpperCase, properites, titleFormated)
 
     this.fileStorage.appendFile({
       path: `${pathFolder}/index.ts`,
@@ -48,7 +47,7 @@ export class CreateUseCase {
       path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_TEST)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new CouldNotWrite()
     }
 

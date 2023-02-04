@@ -17,7 +17,7 @@ export class CreateContract {
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT)
     })
 
-    if (fileInString === '') {
+    if (fileInString == null) {
       throw new FileNotFound()
     }
 
