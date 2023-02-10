@@ -15,6 +15,8 @@ export class CreateUseCase {
   ) { }
 
   handle (pathFull: string, name = 'UseCase', test = true, properites = undefined, onlyTest = false): string {
+    console.log('entrou use case')
+
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()

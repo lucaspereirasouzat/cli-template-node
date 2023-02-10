@@ -3,7 +3,7 @@ import { makeContract, makeController, makeEntity, makeError, makeGateway, makeU
 export default (option: string) => {
   return {
     controller: makeController(),
-    useCases: makeUseCase(),
+    useCase: makeUseCase(),
     repo: makeRepository(),
     gateWay: makeGateway(),
     error: makeError(),
