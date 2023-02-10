@@ -15,8 +15,6 @@ export class CreateUseCase {
   ) { }
 
   handle (pathFull: string, name = 'UseCase', test = true, properites = undefined, onlyTest = false): string {
-    console.log('entrou use case')
-
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
@@ -62,9 +60,9 @@ export class CreateUseCase {
         this.pathResolver
       )
 
-      const pathTestFolder = `${pathFull}/tests/${PATH_USE_CASE_DOMAIN}`
-
-      const pathToWriteTest = createFile.createFile(pathTestFolder, fileInTestString, titleFormated.replace('.ts', '.spec.ts'))
+      const pathTestFolder = `${pathFull}/tests/${PATH_USE_CASE_DOMAIN}/${path}`
+      const replacedFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument()
+      const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFileString, titleFormated.replace('.ts', '.spec.ts'))
       this.logger.log({ message: `\n diretorio do usecase test ${pathToWriteTest}` })
     }
     return 'replacedFileString'
