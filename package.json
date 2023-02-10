@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.21",
+  "version": "0.0.24",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -57,6 +57,6 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "vitest": "^0.28.3"
+    "vitest": "^0.28.4"
   }
 }

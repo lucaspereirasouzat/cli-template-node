@@ -1,11 +1,9 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FileExists, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_ENTITY, PATH_ENTITY_TEST } from '../../constants'
+import { PATH_ENTITY, PATH_ENTITY_TEST, PATH_ENTITY_PATH } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
-
-const PATH_ENTITY_PATH = 'domain/entities'
 
 export class CreateEntity {
   constructor (
@@ -14,42 +12,44 @@ export class CreateEntity {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Entity', test = true, properites = undefined): string {
-    const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY)
-    })
-
-    if (fileInString == null) {
-      throw new FileNotFound()
-    }
-
+  handle (pathFull: string, name = 'Entity', test = true, properites = undefined, onlyTest = false): string {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const path = titleConversion.getPathFromTitle()
 
-    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+    if (!onlyTest) {
+      const fileInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY)
+      })
 
-    const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}/${path}`
-    const createFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
+      if (fileInString == null) {
+        throw new FileNotFound()
+      }
 
-    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+      const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` })
+      const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}/${path}`
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
 
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
+      const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+
+      this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` })
+
+      this.fileStorage.appendFile({
+        path: `${pathFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
+    }
 
     const fileInTestString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY_TEST)
     })
 
-    if (fileInString == null) {
+    if (fileInTestString == null) {
       throw new CouldNotWrite()
     }
 
@@ -65,6 +65,6 @@ export class CreateEntity {
       this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` })
     }
 
-    return replacedFileString
+    return fileInTestString
   }
 }

@@ -1,24 +1,27 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
+// import packajson from 'package.json'
 import adapter from './main/adapter'
 
 const program = new Command()
 program
-  .name('template-clean-arquiteture')
+  .name('clean_code_template_cli')
   .description('CLI based on template clean arquiteture')
-  .version('0.0.1')
+  .version('0.0.24')
 
 program
   .command('create <name>')
   .description('Create a new file based on a template')
-  .option('-t, --tests', 'Create test')
-  .option('-co, --contract', 'Create Contract')
-  .option('-c, --controller', 'Create Controller')
-  .option('-u, --useCase', 'Create UseCases')
-  .option('-g, --gateWay', 'Create Gateway')
-  .option('-r, --repo', 'Create repository')
-  .option('-e, --entity', 'Create entity')
-  .option('-p', '--properties', 'Properties')
+  .option('-test, --tests', 'Create test')
+  .option('-cta, --contract', 'Create Contract')
+  .option('-ctl, --controller', 'Create Controller')
+  .option('-use, --useCase', 'Create UseCases')
+  .option('-gat, --gateWay', 'Create Gateway')
+  .option('-rep, --repo', 'Create repository')
+  .option('-ent, --entity', 'Create entity')
+  .option('-err, --error', 'Create error')
+  .option('-pro', '--properties', 'Properties')
+  .option('-onlyTest', '--onlyTest', 'Run only test')
   .action((name, options) => {
     console.log('entrou')
 

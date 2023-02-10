@@ -1,7 +1,6 @@
-import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository } from "../factories/domain/use-cases";
+import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository } from '../factories/domain/use-cases'
 
-
-export default (name: string, option: string, fullpath: string, test = false, properites = undefined) => {
+export default (option: string) => {
   return {
     controller: makeController(),
     useCases: makeUseCase(),

@@ -13,44 +13,47 @@ export class CreateController {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Controller', test = true, properites = undefined): string {
-    const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER)
-    })
-
-    if (fileInString == null) {
-      throw new FileNotFound()
-    }
-
+  handle (pathFull: string, name = 'Controller', test = true, properites = undefined, onlyTest = false): string {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const path = titleConversion.getPathFromTitle()
-    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
-    const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${path}`
+    if (!onlyTest) {
+      const fileInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER)
+      })
 
-    const createFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
+      if (fileInString == null) {
+        throw new FileNotFound()
+      }
 
-    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+      const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+      const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${path}`
 
-    this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` })
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
 
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
+      const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+
+      this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` })
+
+      this.fileStorage.appendFile({
+        path: `${pathFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
+    }
+
     const fileInTestString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_CONTROLLER_TEST)
     })
 
-    if (fileInString === '') {
+    if (fileInTestString === '') {
       throw new CouldNotWrite()
     }
 
-    if (test) {
+    if (onlyTest || test) {
       const createFile = new CreateFile(
         this.fileStorage,
         this.pathResolver

@@ -12,37 +12,39 @@ export class CreateContract {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Contract', test = true, properites = undefined): string {
-    const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT)
-    })
+  handle (pathFull: string, name = 'Contract', test = true, properites = undefined, onlyTest = false): string {
+    if (!onlyTest) {
+      const fileInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_CONTRACT)
+      })
 
-    if (fileInString == null) {
-      throw new FileNotFound()
+      if (fileInString == null) {
+        throw new FileNotFound()
+      }
+
+      const titleConversion = new TitleConversion(name)
+
+      const UpperCase = titleConversion.GetCamelCaseName()
+      const titleFormated = titleConversion.GetFormatedTitleFileName()
+      const path = titleConversion.getPathFromTitle()
+
+      const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+
+      const pathFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}/${path}`
+
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
+
+      const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+      this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` })
+      this.fileStorage.appendFile({
+        path: `${pathFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
+
+      return replacedFileString
     }
-
-    const titleConversion = new TitleConversion(name)
-
-    const UpperCase = titleConversion.GetCamelCaseName()
-    const titleFormated = titleConversion.GetFormatedTitleFileName()
-    const path = titleConversion.getPathFromTitle()
-
-    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
-
-    const pathFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}/${path}`
-
-    const createFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
-
-    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
-    this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` })
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
-
-    return replacedFileString
   }
 }

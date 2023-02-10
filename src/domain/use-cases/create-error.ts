@@ -1,11 +1,9 @@
 import { FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_USE_CASE } from '../../constants'
+import { PATH_ERROR, PATH_ERROR_APLICATION } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
-
-const PATH_ERROR = 'domain/entities/errors'
 
 export class CreateError {
   constructor (
@@ -14,9 +12,9 @@ export class CreateError {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Error', test = true, properites = undefined): string {
+  handle (pathFull: string, name = 'Error', test = true, properites = undefined, onlyTest = false): string {
     const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE)
+      path: this.pathResolver.pathresolve(__dirname, PATH_ERROR)
     })
 
     if (fileInString == null) {
@@ -29,7 +27,7 @@ export class CreateError {
     const path = titleConversion.getPathFromTitle()
     const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${PATH_ERROR}/${path}`
+    const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}/${path}`
 
     const createFile = new CreateFile(
       this.fileStorage,

@@ -1,11 +1,11 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_REPOSITORY, PATH_FACTORY_REPOSITORY, PATH_REPOSITORY_TEST } from '../../constants'
+import {
+  PATH_REPOSITORY, PATH_FACTORY_REPOSITORY, PATH_REPOSITORY_TEST,
+  REPOSITORY_PATH, REPOSITORY_FACTORY_PATH
+} from '../../constants'
 import { Resolve } from '../contracts/Resolve'
 import { FormatDocument, TitleConversion, CreateFile } from '../entities'
-
-const REPOSITORY_PATH = 'infra/repos/postgres'
-const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
 
 export class CreateRepository {
   constructor (
@@ -14,56 +14,59 @@ export class CreateRepository {
     private readonly logger: LogFailure & LogSuccess
   ) { }
 
-  handle (pathFull: string, name = 'Repository', test = true, properites = undefined): string {
-    const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
-    })
-
-    if (fileInString == null) {
-      throw new FileNotFound()
-    }
-
+  handle (pathFull: string, name = 'Repository', test = true, properites = undefined, onlyTest = false): string {
     const titleConversion = new TitleConversion(name)
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const path = titleConversion.getPathFromTitle()
-    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}/${path}`
-    const createFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
+    if (!onlyTest) {
+      const fileInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY)
+      })
 
-    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
+      if (fileInString == null) {
+        throw new FileNotFound()
+      }
 
-    this.logger.log({ message: `\n diretorio do repository ${pathToWrite}` })
+      const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
 
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
+      const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}/${path}`
+      const createFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
 
-    const fileFactoryInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_REPOSITORY)
-    })
+      const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
 
-    const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
+      this.logger.log({ message: `\n diretorio do repository ${pathToWrite}` })
 
-    const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}/${path}`
-    const createFactoryFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
+      this.fileStorage.appendFile({
+        path: `${pathFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
 
-    const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated)
+      const fileFactoryInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_REPOSITORY)
+      })
 
-    this.logger.log({ message: `\n diretorio do factory repository ${pathToFactoryWrite}` })
+      const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
 
-    this.fileStorage.appendFile({
-      path: `${pathFactoryFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
+      const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}/${path}`
+      const createFactoryFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
+
+      const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated)
+
+      this.logger.log({ message: `\n diretorio do factory repository ${pathToFactoryWrite}` })
+
+      this.fileStorage.appendFile({
+        path: `${pathFactoryFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
+    }
 
     const fileInTestString = this.fileStorage.readFileString({
       path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY_TEST)
@@ -73,7 +76,7 @@ export class CreateRepository {
       throw new CouldNotWrite()
     }
 
-    if (test) {
+    if (onlyTest || test) {
       const createFile = new CreateFile(
         this.fileStorage,
         this.pathResolver
@@ -88,6 +91,6 @@ export class CreateRepository {
       const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFactoryTestFileString, testnameFile)
       this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` })
     }
-    return replacedFileString
+    return 'replacedFileString'
   }
 }
