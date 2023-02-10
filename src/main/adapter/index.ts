@@ -10,6 +10,7 @@ export default (name: string, options: Options, fullpath: string) => {
   keys.forEach(element => {
     console.log(name, element, fullpath)
     try {
+      console.log(routes(element))
       routes(element)?.handle(fullpath, name, test, properties, onlyTest)
     } catch (error) {
       console.log(error)
