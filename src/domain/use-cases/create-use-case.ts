@@ -5,7 +5,8 @@ import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
 
-const NEXT_INDEX = 1;
+const NEXT_INDEX = 1
+const FIRST_INDEX = 0
 
 export class CreateUseCase {
   constructor (
@@ -56,7 +57,7 @@ export class CreateUseCase {
         console.log(nextPath);
 
         if (pathSplited && nextPath) {
-          pathCombined += `/${pathSplited}`
+          pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `${pathSplited}`
           this.fileStorage.appendFile({
             path: `${pathFull}/src/${pathCombined}`,
             content: `export * from './${nextPath}'\n`
