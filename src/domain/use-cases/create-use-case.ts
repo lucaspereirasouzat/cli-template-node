@@ -52,8 +52,8 @@ export class CreateUseCase {
 
       splitedPath.forEach((pathSplited, index) => {
         console.log('splitedPath  for',pathSplited, index);
-
-        const nextPath = splitedPath[index + NEXT_INDEX]
+//NEXT_INDEX
+        const nextPath = splitedPath[index]
         console.log('nextPath',nextPath);
 
         if (pathSplited && nextPath) {
