@@ -13,8 +13,11 @@ export const PATH_CONTRACT = '../../resources/views/templates/Contract.html'
 export const PATH_ERROR = '../../resources/views/templates/Error.html'
 export const PATH_ERROR_APLICATION = 'domain/entities/errors'
 
+export const PATH_USE_CASE_DOMAIN = 'domain/use-cases'
+export const PATH_USE_CASE_GATEWAY = 'main/factories/domain/use-cases'
 export const PATH_USE_CASE = '../../resources/views/templates/UseCase.html'
 export const PATH_USE_CASE_TEST = '../../resources/views/templates/UseCaseTest.html'
+export const PATH_USE_CASE_FACTORY = '../../resources/views/templates/FactoryUseCase.html'
 
 export const GATEWAY_PATH_APLICATION = 'infra/gateways'
 export const PATH_GATEWAY = '../../resources/views/templates/Gateways.html'
@@ -33,4 +36,3 @@ export const PATH_FACTORY_REPOSITORY = '../../resources/views/templates/Reposito
 
 export const REPOSITORY_PATH = 'infra/repos/postgres'
 export const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
-export const PATH_USE_CASE_DOMAIN = 'domain/use-cases'

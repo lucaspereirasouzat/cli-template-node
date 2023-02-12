@@ -7,7 +7,7 @@ const program = new Command()
 program
   .name('clean_code_template_cli')
   .description('CLI based on template clean arquiteture')
-  .version('0.0.36')
+  .version('0.0.37')
 
 program
   .command('create <name>')

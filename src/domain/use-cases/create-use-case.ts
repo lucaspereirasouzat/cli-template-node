@@ -1,9 +1,11 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_USE_CASE, PATH_USE_CASE_TEST, PATH_USE_CASE_DOMAIN } from '../../constants'
+import { PATH_USE_CASE, PATH_USE_CASE_TEST, PATH_USE_CASE_DOMAIN, PATH_USE_CASE_FACTORY, PATH_USE_CASE_GATEWAY } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
+
+const NEXT_INDEX = 1;
 
 export class CreateUseCase {
   constructor (
@@ -43,11 +45,46 @@ export class CreateUseCase {
 
       const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
 
+      let pathCombined = ''
+      const splitedPath = path.split('/')
+
+      splitedPath.forEach((pathSplited, index) => {
+        const nextPath = splitedPath[index + NEXT_INDEX]
+        if (pathSplited && nextPath) {
+          pathCombined += `/${pathSplited}`
+          this.fileStorage.appendFile({
+            path: `${pathFull}/src/${pathCombined}`,
+            content: `export * from './${nextPath}'\n`
+          })
+        }
+      })
+
       this.fileStorage.appendFile({
         path: `${pathFolder}/index.ts`,
         content: `export * from './${titleFormated.replace('.ts', '')}'\n`
       })
       this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` })
+
+      const fileFactoryInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY)
+      })
+
+      const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
+
+      const pathFactoryFolder = `${pathFull}/src/${PATH_USE_CASE_GATEWAY}/${path}`
+      const createFactoryFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
+
+      const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated)
+
+      this.logger.log({ message: `\n diretorio do factory gateway ${pathToFactoryWrite}` })
+
+      this.fileStorage.appendFile({
+        path: `${pathFactoryFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
     }
 
     const fileInTestString = this.fileStorage.readFileString({
