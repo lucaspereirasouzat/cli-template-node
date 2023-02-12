@@ -59,7 +59,7 @@ export class CreateUseCase {
         if (pathSplited && nextPath) {
           pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `${pathSplited}`
           this.fileStorage.appendFile({
-            path: `${pathFull}/src/${pathCombined}`,
+            path: `${pathFull}/src/${pathCombined}/index.ts`,
             content: `export * from './${nextPath}'\n`
           })
         }
