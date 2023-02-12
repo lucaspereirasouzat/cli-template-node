@@ -51,14 +51,14 @@ export class CreateUseCase {
         console.log(splitedPath);
 
       splitedPath.forEach((pathSplited, index) => {
-        console.log(pathSplited, index);
+        console.log('splitedPath  for',pathSplited, index);
 
         const nextPath = splitedPath[index + NEXT_INDEX]
-        console.log(nextPath);
+        console.log('nextPath',nextPath);
 
         if (pathSplited && nextPath) {
           pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `${pathSplited}`
-          console.log(pathCombined)
+          console.log('pathCombined',pathCombined)
           this.fileStorage.makeDir({
             path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/${pathCombined}`
           })
