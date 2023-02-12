@@ -3,6 +3,11 @@ export const PATH_CONTROLLER_TEST =
   '../../resources/views/templates/ControllerTest.html'
 export const PATH_CONTROLLER_APLICATION = 'application/controllers'
 
+export const CONTROLLER_FACTORY_PATH = 'main/factories/application/controllers'
+export const PATH_FACTORY_CONTROLLER =
+  '../../resources/views/templates/FactoryController.html'
+
+export const DOMAIN_CONTRACT_PATH = 'domain/contracts'
 export const PATH_CONTRACT = '../../resources/views/templates/Contract.html'
 
 export const PATH_ERROR = '../../resources/views/templates/Error.html'
@@ -21,8 +26,6 @@ export const PATH_FACTORY_GATEWAY = '../../resources/views/templates/FactoryGate
 export const PATH_ENTITY_PATH = 'domain/entities'
 export const PATH_ENTITY = '../../resources/views/templates/Entity.html'
 export const PATH_ENTITY_TEST = '../../resources/views/templates/EntityTest.html'
-
-export const DOMAIN_CONTRACT_PATH = 'domain/contracts'
 
 export const PATH_REPOSITORY = '../../resources/views/templates/Repository.html'
 export const PATH_REPOSITORY_TEST = '../../resources/views/templates/RepositoryTest.html'

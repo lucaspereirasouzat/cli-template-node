@@ -4,8 +4,8 @@ import {
 AppendFile
 } from "../../../src/domain/contracts";
 */
-describe('{{className}}', () => {
-  let sut: {{className}}
+describe('{{ className }}', () => {
+  let sut: {{ className }}
  // let fileStorage: AppendFile
 
   beforeAll(() => {
@@ -15,7 +15,7 @@ describe('{{className}}', () => {
   })
 
   beforeEach(() => {
-    sut = new {{className}}(
+    sut = new {{ className }}(
       //fileStorage
     )
   })
@@ -27,4 +27,21 @@ describe('{{className}}', () => {
       success: true
     })
   })
+
+
+    it('should return 500 if fails new Error', async () => {
+      mockUseCase = jest.fn()
+      mockUseCase.mockRejectedValueOnce(new Error())
+
+      sut = new GetTenantKeycloakController(mockUseCase)
+
+      const httpResponse = await sut.handle(mockHttpRequestInput)
+
+      expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: new ServerError()
+      })
+    })
+
+
 })

@@ -1,6 +1,6 @@
 import { FileNotFound, CouldNotWrite } from '../../domain/entities/errors'
 import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } from '../contracts'
-import { PATH_CONTROLLER, PATH_CONTROLLER_TEST, PATH_CONTROLLER_APLICATION } from '../../constants'
+import { PATH_CONTROLLER, PATH_CONTROLLER_TEST, PATH_CONTROLLER_APLICATION, PATH_FACTORY_CONTROLLER,CONTROLLER_FACTORY_PATH } from '../../constants'
 import { LogFailure, LogSuccess } from '../../domain/contracts/logger'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
@@ -41,6 +41,27 @@ export class CreateController {
 
       this.fileStorage.appendFile({
         path: `${pathFolder}/index.ts`,
+        content: `export * from './${titleFormated.replace('.ts', '')}'\n`
+      })
+
+      const fileFactoryInString = this.fileStorage.readFileString({
+        path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_CONTROLLER)
+      })
+
+      const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument()
+
+      const pathFactoryFolder = `${pathFull}/src/${CONTROLLER_FACTORY_PATH}/${path}`
+      const createFactoryFile = new CreateFile(
+        this.fileStorage,
+        this.pathResolver
+      )
+
+      const pathToFactoryWrite = createFactoryFile.createFile(pathFactoryFolder, replacedFactoryFileString, titleFormated)
+
+      this.logger.log({ message: `\n diretorio do factory gateway ${pathToFactoryWrite}` })
+
+      this.fileStorage.appendFile({
+        path: `${pathFactoryFolder}/index.ts`,
         content: `export * from './${titleFormated.replace('.ts', '')}'\n`
       })
     }
