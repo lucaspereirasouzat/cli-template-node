@@ -1,11 +1,9 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_USE_CASE, PATH_USE_CASE_TEST } from '../../constants'
+import { PATH_USE_CASE, PATH_USE_CASE_TEST,PATH_USE_CASE_DOMAIN } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
-
-const PATH_USE_CASE_DOMAIN = 'domain/use-cases'
 
 export class CreateUseCase {
   constructor (
@@ -54,7 +52,7 @@ export class CreateUseCase {
       throw new CouldNotWrite()
     }
 
-    if (test) {
+    if (onlyTest || test) {
       const createFile = new CreateFile(
         this.fileStorage,
         this.pathResolver

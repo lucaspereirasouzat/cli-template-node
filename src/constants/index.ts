@@ -30,3 +30,4 @@ export const PATH_FACTORY_REPOSITORY = '../../resources/views/templates/Reposito
 
 export const REPOSITORY_PATH = 'infra/repos/postgres'
 export const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
+export const PATH_USE_CASE_DOMAIN = 'domain/use-cases'
