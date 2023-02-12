@@ -1,6 +1,6 @@
 import { CouldNotWrite, FileNotFound } from '../entities/errors'
 import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_USE_CASE, PATH_USE_CASE_TEST,PATH_USE_CASE_DOMAIN } from '../../constants'
+import { PATH_USE_CASE, PATH_USE_CASE_TEST, PATH_USE_CASE_DOMAIN } from '../../constants'
 import { Resolve } from '../../domain/contracts/Resolve'
 import { FormatDocument, TitleConversion } from '../../domain/entities'
 import { CreateFile } from '../../domain/entities/CreateFile'
@@ -17,7 +17,13 @@ export class CreateUseCase {
     const UpperCase = titleConversion.GetCamelCaseName()
     const titleFormated = titleConversion.GetFormatedTitleFileName()
     const path = titleConversion.getPathFromTitle()
-
+    console.log('usecase')
+    console.log(
+      titleConversion,
+      UpperCase,
+      titleFormated,
+      path
+    )
     if (!onlyTest) {
       const fileInString = this.fileStorage.readFileString({
         path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE)

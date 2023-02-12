@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "keywords": [
     "clean architecture",
     "clean code",
