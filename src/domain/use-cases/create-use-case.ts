@@ -47,9 +47,14 @@ export class CreateUseCase {
 
       let pathCombined = ''
       const splitedPath = path.split('/')
+        console.log(splitedPath);
 
       splitedPath.forEach((pathSplited, index) => {
+        console.log(pathSplited, index);
+
         const nextPath = splitedPath[index + NEXT_INDEX]
+        console.log(nextPath);
+
         if (pathSplited && nextPath) {
           pathCombined += `/${pathSplited}`
           this.fileStorage.appendFile({

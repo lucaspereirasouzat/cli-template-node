@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -21,7 +21,7 @@
   "scripts": {
     "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist",
     "postpublish": "git clean -fd",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
     "create": "npm run build && npm run test",
     "build": "swc src --extensions \".js,.ts\" --out-dir dist --copy-files",
