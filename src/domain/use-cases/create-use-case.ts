@@ -59,6 +59,9 @@ export class CreateUseCase {
         if (pathSplited && nextPath) {
           pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `${pathSplited}`
           console.log(pathCombined)
+          this.fileStorage.makeDir({
+            path: `${pathFull}/src/${pathCombined}`
+          })
           this.fileStorage.appendFile({
             path: `${pathFull}/src/${pathCombined}/index.ts`,
             content: `export * from './${nextPath}'\n`
