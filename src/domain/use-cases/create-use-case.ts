@@ -48,17 +48,35 @@ export class CreateUseCase {
 
       let pathCombined = ''
       const splitedPath = path.split('/')
-        console.log(splitedPath);
+      console.log(splitedPath)
 
       splitedPath.forEach((pathSplited, index) => {
-        console.log('splitedPath  for',pathSplited, index);
+        console.log('splitedPath  for', pathSplited, index)
 
         const nextPath = splitedPath[index + NEXT_INDEX]
-        console.log('nextPath',nextPath);
+        console.log('nextPath', nextPath)
 
         if (pathSplited && nextPath) {
           pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`
-          console.log('pathCombined',pathCombined)
+          console.log('pathCombined', pathCombined)
+          if (index === FIRST_INDEX) {
+            const indexFileString = this.fileStorage.readFileString({
+              path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY)
+            })
+
+            let isInsideString = false
+            if (indexFileString) {
+              isInsideString = indexFileString.includes(`export * from './${nextPath}'`)
+            }
+
+            if (!isInsideString) {
+              this.fileStorage.appendFile({
+                path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/index.ts`,
+                content: `export * from './${nextPath}'\n`
+              })
+            }
+          }
+
           this.fileStorage.makeDir({
             path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/${pathCombined}`
           })

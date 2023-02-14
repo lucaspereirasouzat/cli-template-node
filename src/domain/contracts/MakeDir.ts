@@ -1,8 +1,7 @@
 export interface MakeDir {
-  makeDir(input: MakeDir.Input): MakeDir.Output;
+  makeDir: (input: MakeDir.Input) => void
 }
 
 export namespace MakeDir {
-  export type Input = { path: string; };
-  export type Output = void;
+  export type Input = { path: string }
 }

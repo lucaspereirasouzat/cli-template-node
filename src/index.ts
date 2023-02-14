@@ -23,8 +23,6 @@ program
   .option('-rep, --repo', 'Create repository')
   .option('-ent, --entity', 'Create entity')
   .action((name, options) => {
-    console.log('entrou')
-
     adapter(name, options, process.cwd())
   })
 

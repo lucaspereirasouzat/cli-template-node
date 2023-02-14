@@ -7,5 +7,4 @@ export namespace AppendFile {
     path: string
     content: string
   }
-  export type Output = void
 }
