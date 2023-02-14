@@ -1,0 +1,8 @@
+import { make{{ className }} } from '@/main/factories/domain/use-cases'
+import { Controller, {{ className }}Controller } from '@/application/controllers'
+import { makePgTransactionController } from '@/main/factories/application/decorators'
+
+export const make{{ className }}Controller = (): Controller => {
+  const controller = new {{ className }}Controller(make{{ className }}())
+  return makePgTransactionController(controller)
+}
