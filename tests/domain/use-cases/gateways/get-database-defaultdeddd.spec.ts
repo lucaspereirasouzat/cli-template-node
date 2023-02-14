@@ -1,11 +1,11 @@
-import { {{ className }} } from '@/domain/use-cases'
+import { GetDatabaseDefaultdeddd } from '@/domain/use-cases'
 /*
 import {
 AppendFile
 } from "../../../src/domain/contracts";
 */
-describe('{{ className }}', () => {
-  let sut: {{ className }}
+describe('GetDatabaseDefaultdeddd', () => {
+  let sut: GetDatabaseDefaultdeddd
  // let fileStorage: AppendFile
 
   beforeAll(() => {
@@ -15,7 +15,7 @@ describe('{{ className }}', () => {
   })
 
   beforeEach(() => {
-    sut = new {{ className }}(
+    sut = new GetDatabaseDefaultdeddd(
       //fileStorage
     )
   })

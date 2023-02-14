@@ -8,6 +8,8 @@ export default (option: string) => {
     gateWay: makeGateway(),
     error: makeError(),
     entity: makeEntity(),
-    contract: makeContract()
+    contract: makeContract(),
+    route: () => {},
+    midleware: () => {}
   }[option]
 }

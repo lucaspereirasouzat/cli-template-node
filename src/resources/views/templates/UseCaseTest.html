@@ -1,27 +1,24 @@
-import { {{ className }} } from '@/domain/use-cases'
-/*
-import {
-AppendFile
-} from "../../../src/domain/contracts";
-*/
+import { {{ className }}, setup{{ className }} } from '@/domain/use-cases'
+// import { AppendFile } from "../../../src/domain/contracts";
+
 describe('{{ className }}', () => {
   let sut: {{ className }}
  // let fileStorage: AppendFile
 
   beforeAll(() => {
-    // fileStorage = vitest.fn()
+    // fileStorage = jest.fn()
 
-    // fileStorage.aaa = vitest.fn(() => true)
+    // fileStorage.aaa = jest.fn(() => true)
   })
 
   beforeEach(() => {
-    sut = new {{ className }}(
+    sut = setup{{ className }}(
       //fileStorage
     )
   })
 
   it('should call handle sucess', async () => {
-    const response = await sut.handle({{ properties }})
+    const response = await sut({{ properties }})
 
     void expect(response).toEqual({
       success: true
@@ -35,7 +32,7 @@ describe('{{ className }}', () => {
 
       sut = new GetTenantKeycloakController(mockUseCase)
 
-      const httpResponse = await sut.handle(mockHttpRequestInput)
+      const httpResponse = await sut(mockHttpRequestInput)
 
       expect(httpResponse).toEqual({
       statusCode: 500,

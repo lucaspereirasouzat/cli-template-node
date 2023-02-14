@@ -16,6 +16,8 @@ program
   .option('-onlyTest', '--onlyTest', 'Run only test')
   .option('-pro', '--properties', 'Properties')
   .option('-cta, --contract', 'Create Contract')
+  .option('-rot, --route', 'Create Route')
+  .option('-mid, --midleware', 'Create Midleware')
   .option('-err, --error', 'Create error')
   .option('-ctl, --controller', 'Create Controller')
   .option('-use, --useCase', 'Create UseCases')
