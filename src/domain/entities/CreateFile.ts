@@ -22,21 +22,21 @@ export class CreateFile {
     return pathToWrite
   }
 
-  createIndex () {
-    const indexFileString = this.fileStorage.readFileString({
-      // path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY)
-    })
+  // createIndex (path: string): void {
+  //   const indexFileString = this.fileStorage.readFileString({
+  //     // path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY)
+  //   })
 
-    let isInsideString = false
-    if (indexFileString) {
-      // isInsideString = indexFileString.includes(`export * from './${nextPath}'`)
-    }
+  //   let isInsideString = false
+  //   if (indexFileString) {
+  //     // isInsideString = indexFileString.includes(`export * from './${nextPath}'`)
+  //   }
 
-    if (!isInsideString) {
-      this.fileStorage.appendFile({
-        // path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/index.ts`,
-        // content: `export * from './${nextPath}'\n`
-      })
-    }
-  }
+  //   if (!isInsideString) {
+  //     this.fileStorage.appendFile({
+  //       // path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/index.ts`,
+  //       // content: `export * from './${nextPath}'\n`
+  //     })
+  //   }
+  // }
 }

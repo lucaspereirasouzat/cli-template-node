@@ -18,6 +18,6 @@ export class Logger implements LogFailure, LogSuccess {
   }
 
   log ({ message }: LogSuccess.Input): void {
-    this.logger.info(message)
+    console.log(message)
   }
 }
