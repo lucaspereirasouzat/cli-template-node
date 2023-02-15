@@ -1,7 +1,7 @@
 import { LogFailure, LogSuccess } from 'domain/contracts/logger'
-import pino from 'pino'
+import pino, {BaseLogger} from 'pino'
 export class Logger implements LogFailure, LogSuccess {
-  logger: any
+  logger: BaseLogger
   constructor () {
     this.logger = pino({
       transport: {

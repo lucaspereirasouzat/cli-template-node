@@ -1,47 +1,44 @@
-import { FileNotFound } from '../entities/errors'
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from '../contracts'
-import { PATH_ERROR, PATH_ERROR_APLICATION } from '../../constants'
-import { Resolve } from '../../domain/contracts/Resolve'
-import { FormatDocument, TitleConversion } from '../../domain/entities'
-import { CreateFile } from '../../domain/entities/CreateFile'
+import { FileNotFound } from "../entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { PATH_ERROR, PATH_ERROR_APLICATION } from "../../constants";
+import { Resolve } from "../../domain/contracts/Resolve";
+import { FormatDocument, TitleConversion } from "../../domain/entities";
+import { CreateFile } from "../../domain/entities/CreateFile";
 
 export class CreateError {
-  constructor (
-    private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
-    private readonly pathResolver: Resolve,
-    private readonly logger: LogFailure & LogSuccess
-  ) { }
+	constructor(
+		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+		private readonly pathResolver: Resolve,
+		private readonly logger: LogFailure & LogSuccess,
+	) {}
 
-  handle (pathFull: string, name = 'Error', test = true, properites = undefined, onlyTest = false): string {
-    const fileInString = this.fileStorage.readFileString({
-      path: this.pathResolver.pathresolve(__dirname, PATH_ERROR)
-    })
+	handle(pathFull: string, name = "Error", test = true, properites = undefined, onlyTest = false): string {
+		const fileInString = this.fileStorage.readFileString({
+			path: this.pathResolver.pathresolve(__dirname, PATH_ERROR),
+		});
 
-    if (fileInString == null) {
-      throw new FileNotFound()
-    }
+		if (fileInString == null) {
+			throw new FileNotFound();
+		}
 
-    const titleConversion = new TitleConversion(name)
-    const UpperCase = titleConversion.GetCamelCaseName()
-    const titleFormated = titleConversion.GetFormatedTitleFileName()
-    const path = titleConversion.getPathFromTitle()
-    const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument()
+		const titleConversion = new TitleConversion(name);
+		const UpperCase = titleConversion.GetCamelCaseName();
+		const titleFormated = titleConversion.GetFormatedTitleFileName();
+		const path = titleConversion.getPathFromTitle();
+		const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
 
-    const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}/${path}`
+		const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}/${path}`;
 
-    const createFile = new CreateFile(
-      this.fileStorage,
-      this.pathResolver
-    )
+		const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-    const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
-    this.logger.log({ message: `\n diretorio do error: ${pathToWrite}` })
+		const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+		this.logger.log({ message: `\n diretorio do error: ${pathToWrite}` });
 
-    this.fileStorage.appendFile({
-      path: `${pathFolder}/index.ts`,
-      content: `export * from './${titleFormated.replace('.ts', '')}'\n`
-    })
+		this.fileStorage.appendFile({
+			path: `${pathFolder}/index.ts`,
+			content: `export * from './${titleFormated.replace(".ts", "")}'\n`,
+		});
 
-    return replacedFileString
-  }
+		return replacedFileString;
+	}
 }

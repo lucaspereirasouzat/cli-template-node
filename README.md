@@ -20,7 +20,6 @@ This cli is a tool for generate clean code using template from
 
 ## Installation
 
-zoxide can be installed in 4 easy steps:
 
 1. **Install command**
 
@@ -32,7 +31,7 @@ OR for
 npx clean_code_template_cli
 ```
 
-2.Name File
+2. Name File
 
 The name of the file must be used with camel Case to put inside classNames and transfom correctly name of files like Like NameOfFile
 

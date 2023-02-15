@@ -1,7 +1,0 @@
-.husky
-.vscode
-coverage
-dist
-documentation
-node_modules
-public

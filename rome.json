@@ -1,0 +1,23 @@
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noCommentText": "error",
+        "recommended": true
+      }
+    },
+    "ignore": [
+      "resources/*.html"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "lineWidth": 120,
+    "ignore": [
+      "resources/*.html"
+    ]
+  }
+}

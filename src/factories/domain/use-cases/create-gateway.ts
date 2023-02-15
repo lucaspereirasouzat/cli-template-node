@@ -1,10 +1,6 @@
-import { CreateGateway } from "../../../domain/use-cases/create-gateway"
-import { makeFileStorage, makeLogger, makePath } from "../../infra/gateway"
+import { CreateGateway } from "../../../domain/use-cases/create-gateway";
+import { makeFileStorage, makeLogger, makePath } from "../../infra/gateway";
 
 export const makeGateway = (): CreateGateway => {
-  return new CreateGateway(
-    makeFileStorage(),
-    makePath(),
-    makeLogger()
-  )
-}
+	return new CreateGateway(makeFileStorage(), makePath(), makeLogger());
+};

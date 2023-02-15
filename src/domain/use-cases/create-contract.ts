@@ -39,7 +39,7 @@ export class CreateContract {
 
       const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated)
       this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` })
-      this.fileStorage.appendFile({
+            this.fileStorage.appendFile({
         path: `${pathFolder}/index.ts`,
         content: `export * from './${titleFormated.replace('.ts', '')}'\n`
       })
