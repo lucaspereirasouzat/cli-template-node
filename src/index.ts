@@ -1,13 +1,23 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
-// import packajson from 'package.json'
+import packajson from './package.json'
 import adapter from './main/adapter'
+import latestVersion from 'latest-version';
+
+(async() => {
+ const version = await latestVersion('clean_code_template_cli')
+ if(version !== packajson.version){
+  console.log('new version avaible');
+
+ }
+})()
+
 
 const program = new Command()
 program
   .name('clean_code_template_cli')
   .description('CLI based on template clean arquiteture')
-  .version('0.0.47')
+  .version(packajson.version)
 
 program
   .command('create <name>')
@@ -27,7 +37,6 @@ program
   .action((name, options) => {
     adapter(name, options, process.cwd())
   })
-
 program.parse(process.argv)
 
 const options = program.opts()
