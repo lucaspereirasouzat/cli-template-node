@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"CouldNotWrite",{enumerable:true,get:()=>CouldNotWrite});class CouldNotWrite extends Error{constructor(){super("Could not write");this.name="CouldNotWrite"}}
