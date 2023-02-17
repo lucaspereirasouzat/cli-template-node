@@ -52,14 +52,14 @@ describe("Create Controller", () => {
 	});
 	it("should be able validate if folder exists ", () => {
 		useCase.handle("aa");
-		expect(fileStorage.folderExists).toHaveReturnedTimes(2);
+		expect(fileStorage.folderExists).toHaveReturnedTimes(3);
 		expect(fileStorage.folderExists).toBeCalledWith({ path: "aa/src/application/controllers/" });
 	});
 	it("should be able to create folder ", () => {
 		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
 		useCase.handle("aa");
 
-		expect(fileStorage.makeDir).toHaveReturnedTimes(2);
+		expect(fileStorage.makeDir).toHaveReturnedTimes(3);
 		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/application/controllers/" });
 	});
 });
