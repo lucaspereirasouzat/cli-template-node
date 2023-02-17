@@ -23,7 +23,7 @@
   },
   "main": "./index.js",
   "scripts": {
-    "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src",
+    "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
     "postpublish": "git reset --hard",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
