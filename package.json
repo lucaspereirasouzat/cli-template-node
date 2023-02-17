@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -36,7 +36,7 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "lint": "rome check ./src",
-    // "lint:fix": "npm run lint -- --fix"
+    "prepare": "husky install"
   },
   "dependencies": {
     "chalk": "^5.1.2",
@@ -53,6 +53,7 @@
     "@types/node": "^18.11.10",
     "@vitest/coverage-c8": "^0.28.3",
     "@vitest/ui": "^0.27.2",
+    "husky": "^8.0.3",
     "nodemon": "^2.0.20",
     "regenerator-runtime": "^0.13.11",
     "rome": "^11.0.0",
