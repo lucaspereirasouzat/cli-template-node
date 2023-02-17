@@ -2,10 +2,10 @@
 import { Command } from "commander";
 import packajson from "./package.json";
 import adapter from "./main/adapter";
-import latestVersion from "latest-version";
+import latestVersion from "package-json";
 
 (async () => {
-	const version = await latestVersion("clean_code_template_cli");
+	const {version} = await latestVersion("clean_code_template_cli");
   console.log(version);
 
 	if (version !== packajson.version) {
