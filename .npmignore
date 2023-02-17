@@ -1,0 +1,7 @@
+index.ts
+.swcrc
+.lintstagedrc.json
+.editorconfig
+rome.json
+vitest.config.ts
+tsconfig.json
