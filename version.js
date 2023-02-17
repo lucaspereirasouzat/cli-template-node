@@ -1,2 +1,0 @@
-#!/usr/bin/env node
-"use strict";Object.defineProperty(exports,"__esModule",{value:true});const _changelog=_interopRequireDefault(require("changelog"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}_changelog.default.generate("clean_code_template_cli",showChanges);function showChanges(data){data.versions.forEach(function(version){console.log(version.version);console.log(version.date);version.changes.forEach(function(change){console.log(change)})});console.log(data.project)}
