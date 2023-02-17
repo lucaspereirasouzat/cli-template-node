@@ -40,9 +40,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "chalk": "^5.1.2",
     "commander": "^9.4.1",
-    "inquirer": "^9.1.4",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"
   },
