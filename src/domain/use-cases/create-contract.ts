@@ -46,52 +46,52 @@ export class CreateContract {
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 			this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` });
 
-			// let pathCombined = "";
-			// const splitedPath = path.split("/");
+			let pathCombined = "";
+			const splitedPath = path.split("/");
 
-			// // const pathFileFolder = DOMAIN_CONTRACT_PATH;
-			// // const pathFolderSetInde = PATH_USE_CASE_DOMAIN;
-			// // const NEXT_INDEX = 1;
-			// // const FIRST_INDEX = 0;
-			// // console.log(splitedPath);
+			const pathFileFolder = DOMAIN_CONTRACT_PATH;
+			// const pathFolderSetInde = PATH_USE_CASE_DOMAIN;
+			const NEXT_INDEX = 1;
+			const FIRST_INDEX = 0;
+			console.log(splitedPath);
 
-			// // splitedPath.forEach((pathSplited, index) => {
-			// // 	console.log("splitedPath  for", pathSplited, index);
+			splitedPath.forEach((pathSplited, index) => {
+				console.log("splitedPath  for", pathSplited, index);
 
-			// // 	const nextPath = splitedPath[index + NEXT_INDEX];
-			// // 	console.log("nextPath", nextPath);
+				const nextPath = splitedPath[index + NEXT_INDEX];
+				console.log("nextPath", nextPath);
 
-			// // 	if (pathSplited && nextPath) {
-			// // 		pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
-			// // 		console.log("pathCombined", pathCombined);
-			// // 		if (index === FIRST_INDEX) {
-			// // 			const indexFileString = this.fileStorage.readFileString({
-			// // 				path: this.pathResolver.pathresolve(__dirname, pathFileFolder),
-			// // 			});
+				if (pathSplited && nextPath) {
+					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
+					console.log("pathCombined", pathCombined);
+					// if (index === FIRST_INDEX) {
+					// 	const indexFileString = this.fileStorage.readFileString({
+					// 		path: this.pathResolver.pathresolve(__dirname, pathFileFolder),
+					// 	});
 
-			// // 			let isInsideString = false;
-			// // 			if (indexFileString) {
-			// // 				isInsideString = indexFileString.includes(`export * from './${nextPath}'`);
-			// // 			}
+					// 	let isInsideString = false;
+					// 	if (indexFileString) {
+					// 		isInsideString = indexFileString.includes(`export * from './${nextPath}'`);
+					// 	}
 
-			// // 			if (!isInsideString) {
-			// // 				this.fileStorage.appendFile({
-			// // 					path: `${pathFull}/src/${pathFolderSetInde}/index.ts`,
-			// // 					content: `export * from './${nextPath}'\n`,
-			// // 				});
-			// // 			}
-			// // 		}
-			// // 		console.log("passou", pathCombined);
+					// 	if (!isInsideString) {
+					// 		this.fileStorage.appendFile({
+					// 			path: `${pathFull}/src/${pathFolderSetInde}/index.ts`,
+					// 			content: `export * from './${nextPath}'\n`,
+					// 		});
+					// 	}
+					// }
+					// console.log("passou", pathCombined);
 
-			// // 		this.fileStorage.makeDir({
-			// // 			path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}`,
-			// // 		});
-			// // 		this.fileStorage.appendFile({
-			// // 			path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}/index.ts`,
-			// // 			content: `export * from './${nextPath}'\n`,
-			// // 		});
-			// // 	}
-			// // });
+					// this.fileStorage.makeDir({
+					// 	path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}`,
+					// });
+					// this.fileStorage.appendFile({
+					// 	path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}/index.ts`,
+					// 	content: `export * from './${nextPath}'\n`,
+					// });
+				}
+			});
 
 			this.fileStorage.appendFile({
 				path: `${pathFolder}/index.ts`,
