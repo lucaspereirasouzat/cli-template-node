@@ -61,27 +61,27 @@ export class CreateContract {
 				const nextPath = splitedPath[index + NEXT_INDEX];
 				console.log("nextPath", nextPath);
 
-				if (pathSplited && nextPath) {
+				if (pathSplited) {
 					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
 					console.log("pathCombined", pathCombined);
-					// if (index === FIRST_INDEX) {
-					// 	const indexFileString = this.fileStorage.readFileString({
-					// 		path: this.pathResolver.pathresolve(__dirname, pathFileFolder),
-					// 	});
+					if (index === FIRST_INDEX) {
+						const indexFileString = this.fileStorage.readFileString({
+							path: this.pathResolver.pathresolve(__dirname, `${pathFileFolder}/index.ts`),
+						});
 
-					// 	let isInsideString = false;
-					// 	if (indexFileString) {
-					// 		isInsideString = indexFileString.includes(`export * from './${nextPath}'`);
-					// 	}
+						let isInsideString = false;
+						if (indexFileString) {
+							isInsideString = indexFileString.includes(`export * from './${nextPath}'`);
+						}
 
-					// 	if (!isInsideString) {
-					// 		this.fileStorage.appendFile({
-					// 			path: `${pathFull}/src/${pathFolderSetInde}/index.ts`,
-					// 			content: `export * from './${nextPath}'\n`,
-					// 		});
-					// 	}
-					// }
-					// console.log("passou", pathCombined);
+						if (!isInsideString) {
+							this.fileStorage.appendFile({
+								path: `${pathFull}/src/${pathFileFolder}/index.ts`,
+								content: `export * from './${nextPath}'\n`,
+							});
+						}
+					}
+					console.log("passou", pathCombined);
 
 					// this.fileStorage.makeDir({
 					// 	path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}`,

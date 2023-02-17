@@ -9,9 +9,7 @@ export default (name: string, options: Options, fullpath: string): void => {
   const keys = Object.keys(rest)
   keys.forEach(element => {
     try {
-      console.log(fullpath, name, test, properties, onlyTest, element)
-      const response = routes(element)?.handle(fullpath, name, test, properties, onlyTest)
-      console.log(response)
+     routes(element)?.handle(fullpath, name, test, properties, onlyTest)
     } catch (error) {
       console.log(error)
     }

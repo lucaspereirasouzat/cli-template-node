@@ -3,7 +3,7 @@
     "swc": true
   },
   "compilerOptions": {
-    "target": "es2021",
+    "target": "es2020",
     "module": "commonjs",
     "lib": [
       "es6",

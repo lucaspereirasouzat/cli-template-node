@@ -23,7 +23,8 @@
   },
   "main": "./index.js",
   "scripts": {
-    "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist",
+
+    "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src",
     "postpublish": "git clean -fd",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
@@ -43,6 +44,7 @@
     "commander": "^9.4.1",
     "inquirer": "^9.1.4",
     "latest-version": "^7.0.0",
+    "package-json": "^8.1.0",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"
   },
