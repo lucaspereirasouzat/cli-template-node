@@ -23,9 +23,9 @@
   },
   "main": "./index.js",
   "scripts": {
-    "buildAndClean": "npm run build && cp -r ./dist/* . && rm -rf ./dist ",
-    "prepublishOnly": "npm run buildAndClean && rm -rf ./src && rm -rf tests",
-    "postpublish": "git reset --hard",
+    "buildAndClean": "npm run build && cp -r ./dist/* . && rm -rf ./dist",
+    "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
+    "postpublish": "git reset --hard && npm clean -fd",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
     "create": "npm run build && npm run test",
