@@ -5,4 +5,3 @@ export * from "./FolderExists";
 export * from "./AppendFile";
 export * from "./logger";
 export * from "./FileExists";
-export * from './costumer-error'
