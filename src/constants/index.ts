@@ -37,6 +37,10 @@ export const PATH_FACTORY_REPOSITORY = '../../resources/views/templates/Reposito
 export const REPOSITORY_PATH = 'infra/repos/postgres'
 export const REPOSITORY_FACTORY_PATH = 'main/factories/infra/repos/postgres'
 
+export const PATH_VALIDATION = "../../resources/views/templates/Validation.html";
+export const PATH_VALIDATION_TEST = "../../resources/views/templates/ValidationTest.html";
+export const VALIDATION_PATH = "application/validation";
+
 export const constant = {
   controler: {
     templates: {
