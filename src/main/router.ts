@@ -1,4 +1,4 @@
-import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository, makeValidation } from '../factories/domain/use-cases'
+import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository, makeValidation, makeRoute } from '../factories/domain/use-cases'
 
 export default (option: string) => {
   return {
@@ -10,7 +10,7 @@ export default (option: string) => {
     entity: makeEntity(),
     contract: makeContract(),
     validation: makeValidation(),
-    route: () => {},
+    route: makeRoute(),
     midleware: () => {}
   }[option]
 }
