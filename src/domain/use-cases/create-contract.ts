@@ -48,31 +48,7 @@ export class CreateContract {
 
 			const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
 
-      // const splitedPath = path.split("/");
       createFile.createIndex(path,pathFileFolder, titleFormated)
-      // const NEXT_INDEX = 1;
-			// const FIRST_INDEX = 0;
-
-			// let pathCombined = "";
-			// splitedPath.forEach((pathSplited, index) => {
-			// 	const nextPath = splitedPath[index + NEXT_INDEX];
-			// 	if (pathSplited) {
-			// 		pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
-			// 		if (index === FIRST_INDEX) {
-			// 			createFile.validateAndAppendToIndex(
-			// 				pathFileFolder,
-			// 				new TitleConversion(pathSplited).GetTranformToKebabCase(),
-			// 			);
-			// 		}
-
-			// 		createFile.validateAndAppendToIndex(
-			// 			`${pathFileFolder}/${pathCombined}`,
-			// 			new TitleConversion(nextPath).GetTranformToKebabCase(),
-			// 		);
-			// 	}
-			// });
-
-			// createFile.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
 
 			return replacedFileString;
 		}

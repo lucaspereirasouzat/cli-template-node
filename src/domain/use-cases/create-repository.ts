@@ -41,10 +41,7 @@ export class CreateRepository {
 
 			this.logger.log({ message: `\n diretorio do repository ${pathToWrite}` });
 
-			this.fileStorage.appendFile({
-				path: `${pathFolder}/index.ts`,
-				content: `export * from './${titleFormated.replace(".ts", "")}'\n`,
-			});
+      createFile.createIndex(path, pathFolder, titleFormated);
 
 			const fileFactoryInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_REPOSITORY),
@@ -63,10 +60,7 @@ export class CreateRepository {
 
 			this.logger.log({ message: `\n diretorio do factory repository ${pathToFactoryWrite}` });
 
-			this.fileStorage.appendFile({
-				path: `${pathFactoryFolder}/index.ts`,
-				content: `export * from './${titleFormated.replace(".ts", "")}'\n`,
-			});
+      createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
 
 		const fileInTestString = this.fileStorage.readFileString({

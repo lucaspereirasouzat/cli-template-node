@@ -45,10 +45,7 @@ export class CreateEntity {
 
 			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
 
-			this.fileStorage.appendFile({
-				path: `${pathFolder}/index.ts`,
-				content: `export * from './${titleFormated.replace(".ts", "")}'\n`,
-			});
+			createFile.createIndex(path, pathFolder, titleFormated);
 		}
 
 		const fileInTestString = this.fileStorage.readFileString({
