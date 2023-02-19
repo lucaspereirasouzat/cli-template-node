@@ -46,36 +46,33 @@ export class CreateContract {
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 			this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` });
 
-			let pathCombined = "";
-			const splitedPath = path.split("/");
-
 			const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
-			// const pathFolderSetInde = PATH_USE_CASE_DOMAIN;
-			const NEXT_INDEX = 1;
-			const FIRST_INDEX = 0;
 
-			splitedPath.forEach((pathSplited, index) => {
+      // const splitedPath = path.split("/");
+      createFile.createIndex(path,pathFileFolder, titleFormated)
+      // const NEXT_INDEX = 1;
+			// const FIRST_INDEX = 0;
 
-				const nextPath = splitedPath[index + NEXT_INDEX];
+			// let pathCombined = "";
+			// splitedPath.forEach((pathSplited, index) => {
+			// 	const nextPath = splitedPath[index + NEXT_INDEX];
+			// 	if (pathSplited) {
+			// 		pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
+			// 		if (index === FIRST_INDEX) {
+			// 			createFile.validateAndAppendToIndex(
+			// 				pathFileFolder,
+			// 				new TitleConversion(pathSplited).GetTranformToKebabCase(),
+			// 			);
+			// 		}
 
-				if (pathSplited) {
-					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
-					if (index === FIRST_INDEX) {
-						createFile.validateAndAppendToIndex(
-							pathFileFolder,
-							new TitleConversion(pathSplited).GetTranformToKebabCase(),
-						);
-					}
-					console.log("passou", pathCombined);
+			// 		createFile.validateAndAppendToIndex(
+			// 			`${pathFileFolder}/${pathCombined}`,
+			// 			new TitleConversion(nextPath).GetTranformToKebabCase(),
+			// 		);
+			// 	}
+			// });
 
-					createFile.validateAndAppendToIndex(
-						`${pathFileFolder}/${pathCombined}`,
-						new TitleConversion(nextPath).GetTranformToKebabCase(),
-					);
-				}
-			});
-
-			createFile.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
+			// createFile.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
 
 			return replacedFileString;
 		}

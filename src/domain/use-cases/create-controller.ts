@@ -37,7 +37,6 @@ export class CreateController {
 			const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${path}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
 			this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` });
@@ -52,7 +51,6 @@ export class CreateController {
 			});
 
 			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
-
 			const pathFactoryFolder = `${pathFull}/src/${CONTROLLER_FACTORY_PATH}/${path}`;
 			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
 
@@ -62,7 +60,7 @@ export class CreateController {
 				titleFormated,
 			);
 
-			this.logger.log({ message: `\n diretorio do factory gateway ${pathToFactoryWrite}` });
+			this.logger.log({ message: `\n diretorio do factory controller ${pathToFactoryWrite}` });
 
 			this.fileStorage.appendFile({
 				path: `${pathFactoryFolder}/index.ts`,
@@ -80,9 +78,7 @@ export class CreateController {
 
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
 			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/`;
-
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				fileInTestString,

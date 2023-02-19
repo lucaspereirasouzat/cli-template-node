@@ -1,5 +1,9 @@
 import { AppendFile, FolderExists, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { Resolve } from "domain/contracts/Resolve";
+import { TitleConversion } from "./TitleConversion";
+
+const NEXT_INDEX = 1;
+const FIRST_INDEX = 0;
 
 export class CreateFile {
 		constructor(
@@ -22,9 +26,9 @@ export class CreateFile {
 			return pathToWrite;
 		}
 
-    transformPath():string{
-      return
-    }
+		transformPath(): string {
+			return;
+		}
 
 		validateAndAppendToIndex(pathFileFolder: string, pathSplited: string): void {
 			let indexFileString = "";
@@ -34,14 +38,12 @@ export class CreateFile {
 					path: this.pathResolver.pathresolve(`${pathFileFolder}/index.ts`),
 				});
 			} catch (error) {
-				console.log(error);
 			}
 
 			let isInsideString = false;
 			if (indexFileString) {
 				isInsideString = indexFileString.includes(`export * from './${pathSplited}'`);
 			}
-      console.log(isInsideString);
 
 			if (!isInsideString) {
 				this.fileStorage.appendFile({
@@ -51,21 +53,25 @@ export class CreateFile {
 			}
 		}
 
-		// createIndex (path: string): void {
-		//   const indexFileString = this.fileStorage.readFileString({
-		//     // path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY)
-		//   })
+		createIndex(path: string, pathFileFolder: string, titleFormated: string): void {
+			let splitedPath = path.split("/");
 
-		//   let isInsideString = false
-		//   if (indexFileString) {
-		//     // isInsideString = indexFileString.includes(`export * from './${nextPath}'`)
-		//   }
+			let pathCombined = "";
+			splitedPath.forEach((pathSplited, index) => {
+				const nextPath = splitedPath[index + NEXT_INDEX];
+				if (pathSplited) {
+					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
+					if (index === FIRST_INDEX) {
+						this.validateAndAppendToIndex(pathFileFolder, new TitleConversion(pathSplited).GetTranformToKebabCase());
+					}
 
-		//   if (!isInsideString) {
-		//     this.fileStorage.appendFile({
-		//       // path: `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/index.ts`,
-		//       // content: `export * from './${nextPath}'\n`
-		//     })
-		//   }
-		// }
+					this.validateAndAppendToIndex(
+						`${pathFileFolder}/${pathCombined}`,
+						new TitleConversion(nextPath).GetTranformToKebabCase(),
+					);
+				}
+			});
+
+			this.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
+		}
 	}
