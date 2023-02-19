@@ -26,6 +26,7 @@ program
 	.option("-rep, --repo", "Create repository")
 	.option("-ent, --entity", "Create entity")
 	.option("-val, --validation", "Create Validation")
+	.option("-rot, --route", "Create Route")
 	.action((name, options) => {
 		adapter(name, options, process.cwd());
 	});
