@@ -49,54 +49,33 @@ export class CreateContract {
 			let pathCombined = "";
 			const splitedPath = path.split("/");
 
-			const pathFileFolder = DOMAIN_CONTRACT_PATH;
+			const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
 			// const pathFolderSetInde = PATH_USE_CASE_DOMAIN;
 			const NEXT_INDEX = 1;
 			const FIRST_INDEX = 0;
-			console.log(splitedPath);
 
 			splitedPath.forEach((pathSplited, index) => {
-				console.log("splitedPath  for", pathSplited, index);
 
 				const nextPath = splitedPath[index + NEXT_INDEX];
-				console.log("nextPath", nextPath);
 
 				if (pathSplited) {
 					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
-					console.log("pathCombined", pathCombined);
 					if (index === FIRST_INDEX) {
-						const indexFileString = this.fileStorage.readFileString({
-							path: this.pathResolver.pathresolve(__dirname, `${pathFileFolder}/index.ts`),
-						});
-
-						let isInsideString = false;
-						if (indexFileString) {
-							isInsideString = indexFileString.includes(`export * from './${nextPath}'`);
-						}
-
-						if (!isInsideString) {
-							this.fileStorage.appendFile({
-								path: `${pathFull}/src/${pathFileFolder}/index.ts`,
-								content: `export * from './${nextPath}'\n`,
-							});
-						}
+						createFile.validateAndAppendToIndex(
+							pathFileFolder,
+							new TitleConversion(pathSplited).GetTranformToKebabCase(),
+						);
 					}
 					console.log("passou", pathCombined);
 
-					// this.fileStorage.makeDir({
-					// 	path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}`,
-					// });
-					// this.fileStorage.appendFile({
-					// 	path: `${pathFull}/src/${pathFolderSetInde}/${pathCombined}/index.ts`,
-					// 	content: `export * from './${nextPath}'\n`,
-					// });
+					createFile.validateAndAppendToIndex(
+						`${pathFileFolder}/${pathCombined}`,
+						new TitleConversion(nextPath).GetTranformToKebabCase(),
+					);
 				}
 			});
 
-			this.fileStorage.appendFile({
-				path: `${pathFolder}/index.ts`,
-				content: `export * from './${titleFormated.replace(".ts", "")}'\n`,
-			});
+			createFile.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
 
 			return replacedFileString;
 		}

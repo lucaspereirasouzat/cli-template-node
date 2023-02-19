@@ -42,9 +42,19 @@ export class TitleConversion {
 			.join("");
 	}
 
-	public GetFormatedTitleFileName(): string {
-		return `${this.getSplitedArray()
+	public GetTranformToKebabCase() {
+		return this.getSplitedArray()
 			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX)}`)
-			.join("-")}.ts`;
+			.join("-");
+	}
+
+	public GetTranformToSnakeCase() {
+		return this.getSplitedArray()
+			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX)}`)
+			.join("_");
+	}
+
+	public GetFormatedTitleFileName(): string {
+		return `${this.GetTranformToKebabCase()}.ts`;
 	}
 }
