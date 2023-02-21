@@ -2,7 +2,7 @@
   "name": "clean_code_template_cli",
   "description": "Professional API using Clean Architecture and TDD.",
   "license": "GPL-3.0-or-later",
-  "version": "0.0.66",
+  "version": "0.0.67",
   "keywords": [
     "clean architecture",
     "clean code",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "commander": "^9.4.1",
-    "pino": "^8.8.0",
+    "pino": "^8.10.0",
     "pino-pretty": "^9.1.1"
   },
   "devDependencies": {
