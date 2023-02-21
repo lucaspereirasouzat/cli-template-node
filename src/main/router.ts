@@ -11,6 +11,6 @@ export default () => {
 			contract: makeContract(),
 			validation: makeValidation(),
 			route: makeRoute(),
-			midleware: makeMiddleware()
+			midleware: makeMiddleware(),
 		};
 }
