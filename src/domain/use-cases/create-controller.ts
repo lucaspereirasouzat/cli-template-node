@@ -41,7 +41,7 @@ export class CreateController {
 
 			this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` });
 
-      createFile.createIndex(path, pathFolder, titleFormated);
+			createFile.createIndex(path, pathFolder, titleFormated);
 
 			const fileFactoryInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_CONTROLLER),
@@ -59,7 +59,7 @@ export class CreateController {
 
 			this.logger.log({ message: `\n diretorio do factory controller ${pathToFactoryWrite}` });
 
-      createFile.createIndex(path, pathFactoryFolder, titleFormated);
+			createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
 
 		const fileInTestString = this.fileStorage.readFileString({

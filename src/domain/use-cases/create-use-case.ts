@@ -38,8 +38,10 @@ export class CreateUseCase {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			console.log("create Index", pathToWrite);
 
-      createFile.createIndex(path, pathFolder, titleFormated);
+			createFile.createIndex(path, pathFolder, titleFormated);
+			console.log("post Index", pathToWrite);
 
 			this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
 
@@ -60,7 +62,7 @@ export class CreateUseCase {
 
 			this.logger.log({ message: `\n diretorio do factory usecase ${pathToFactoryWrite}` });
 
-      createFile.createIndex(path, pathFactoryFolder, titleFormated);
+			createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
 
 		const fileInTestString = this.fileStorage.readFileString({
