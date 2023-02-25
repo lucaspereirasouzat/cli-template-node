@@ -38,10 +38,10 @@ export class CreateEntity {
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
 
-			const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}/${path}`;
+			const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}`;
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
 			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
 

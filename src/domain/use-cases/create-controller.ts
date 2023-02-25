@@ -34,10 +34,10 @@ export class CreateController {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}/${path}`;
+			const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
 			this.logger.log({ message: `\n diretorio da controller ${pathToWrite}` });
 
@@ -48,11 +48,11 @@ export class CreateController {
 			});
 
 			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
-			const pathFactoryFolder = `${pathFull}/src/${CONTROLLER_FACTORY_PATH}/${path}`;
+			const pathFactoryFolder = `${pathFull}/src/${CONTROLLER_FACTORY_PATH}`;
 			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToFactoryWrite = createFactoryFile.createFile(
-				pathFactoryFolder,
+				`${pathFactoryFolder}/${path}`,
 				replacedFactoryFileString,
 				titleFormated,
 			);

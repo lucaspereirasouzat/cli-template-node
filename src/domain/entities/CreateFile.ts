@@ -54,6 +54,8 @@ export class CreateFile {
 		}
 
 		createIndex(path: string, pathFileFolder: string, titleFormated: string): void {
+      console.log(path, pathFileFolder, titleFormated);
+
 			let splitedPath = path.split("/");
       console.log('splitedPath', splitedPath,titleFormated);
 

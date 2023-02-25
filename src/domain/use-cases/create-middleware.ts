@@ -33,11 +33,11 @@ export class CreateMiddleware {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${MIDDLEWARE_PATH}/${path}`;
+			const pathFolder = `${pathFull}/src/${MIDDLEWARE_PATH}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
       createFile.createIndex(path, pathFolder, titleFormated);
 
@@ -49,11 +49,11 @@ export class CreateMiddleware {
 
 			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
 
-			const pathFactoryFolder = `${pathFull}/src/${MIDDLEWARE_MAIN_PATH}/${path}`;
+			const pathFactoryFolder = `${pathFull}/src/${MIDDLEWARE_MAIN_PATH}`;
 			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToFactoryWrite = createFactoryFile.createFile(
-				pathFactoryFolder,
+				`${pathFactoryFolder}/${path}`,
 				replacedFactoryFileString,
 				titleFormated,
 			);

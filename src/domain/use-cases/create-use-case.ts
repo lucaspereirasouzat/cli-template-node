@@ -33,15 +33,13 @@ export class CreateUseCase {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${PATH_USE_CASE_DOMAIN}/${path}`;
+			const pathFolder = `${pathFull}/src/${PATH_USE_CASE_DOMAIN}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
-			console.log("create Index", pathToWrite);
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
 			createFile.createIndex(path, pathFolder, titleFormated);
-			console.log("post Index", pathToWrite);
 
 			this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
 
@@ -51,11 +49,10 @@ export class CreateUseCase {
 
 			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
 
-			const pathFactoryFolder = `${pathFull}/src/${PATH_USE_CASE_GATEWAY}/${path}`;
-			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
+			const pathFactoryFolder = `${pathFull}/src/${PATH_USE_CASE_GATEWAY}`;
 
-			const pathToFactoryWrite = createFactoryFile.createFile(
-				pathFactoryFolder,
+			const pathToFactoryWrite = createFile.createFile(
+				`${pathFactoryFolder}/${path}`,
 				replacedFactoryFileString,
 				titleFormated,
 			);

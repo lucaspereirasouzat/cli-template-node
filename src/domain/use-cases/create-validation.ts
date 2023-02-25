@@ -26,6 +26,7 @@ export class CreateValidation {
 		const UpperCase = titleConversion.GetCamelCaseName();
 		const titleFormated = titleConversion.GetFormatedTitleFileName();
 		const path = titleConversion.getPathFromTitle();
+		const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 		if (!onlyTest) {
 			const fileInString = this.fileStorage.readFileString({
@@ -37,11 +38,8 @@ export class CreateValidation {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-
-			const pathFolder = `${pathFull}/src/${VALIDATION_PATH}/${path}`;
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			const pathFolder = `${pathFull}/src/${VALIDATION_PATH}`;
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
 			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
 
@@ -57,8 +55,6 @@ export class CreateValidation {
 		}
 
 		if (test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
 			const pathTestFolder = `${pathFull}/tests/${VALIDATION_PATH}/`;
 
 			const pathToWriteTest = createFile.createFile(

@@ -28,11 +28,11 @@ export class CreateError {
 			const path = titleConversion.getPathFromTitle();
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
 
-			const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}/${path}`;
+			const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
+			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 			this.logger.log({ message: `\n diretorio do error: ${pathToWrite}` });
 
 			createFile.createIndex(path, pathFolder, titleFormated);

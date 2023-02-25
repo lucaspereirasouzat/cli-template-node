@@ -32,15 +32,15 @@ export class CreateGateway {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-
-			const pathFolder = `${pathFull}/src/${GATEWAY_PATH_APLICATION}/${path}`;
+      const originalPath = `${pathFull}/src/${GATEWAY_PATH_APLICATION}`
+			const pathFolder = `${originalPath}/${path}`;
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
 			this.logger.log({ message: `\n diretorio do gateway ${pathToWrite}` });
 
-			createFile.createIndex(path, pathFolder, titleFormated);
+			createFile.createIndex(path, originalPath, titleFormated);
 
 			const fileFactoryInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_GATEWAY),
@@ -48,11 +48,11 @@ export class CreateGateway {
 
 			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
 
-			const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}/${path}`;
+			const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}`;
 			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToFactoryWrite = createFactoryFile.createFile(
-				pathFactoryFolder,
+				`${pathFactoryFolder}/${path}`,
 				replacedFactoryFileString,
 				titleFormated,
 			);
