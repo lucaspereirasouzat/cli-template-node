@@ -1,0 +1,7 @@
+import { makeJwtTokenHandler } from '@/main/factories/infra/gateways'
+import { {{ className }} } from '@/application/middlewares'
+
+export const make{{ className }} = (): {{ className }} => {
+  const jwt = makeJwtTokenHandler()
+  return new {{ className }}(jwt.validate.bind(jwt))
+}

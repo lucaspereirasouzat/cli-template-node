@@ -54,16 +54,27 @@ export class CreateFile {
 		}
 
 		createIndex(path: string, pathFileFolder: string, titleFormated: string): void {
-			const splitedPath = path.split("/");
+      console.log(path, pathFileFolder, titleFormated);
+
+			let splitedPath = path.split("/");
+      console.log('splitedPath', splitedPath,titleFormated);
+
 			let pathCombined = "";
 			splitedPath.forEach((pathSplited, index) => {
+      console.log('splitedPath Foreach', pathSplited, index);
+
 				const nextPath = splitedPath[index + NEXT_INDEX];
 				if (pathSplited) {
+      console.log('splitedPath Foreach if', pathSplited, index);
 
 					pathCombined += index === FIRST_INDEX ? `${pathSplited}` : `/${pathSplited}`;
 					if (index === FIRST_INDEX) {
 						this.validateAndAppendToIndex(pathFileFolder, new TitleConversion(pathSplited).GetTranformToKebabCase());
 					}
+          console.log('pathCombined',pathCombined);
+
+          console.log('passou first Index','path',pathSplited,`${pathFileFolder}/${pathCombined}`,
+						new TitleConversion(nextPath).GetTranformToKebabCase());
 
 					this.validateAndAppendToIndex(
 						`${pathFileFolder}/${pathCombined}`,
@@ -71,6 +82,13 @@ export class CreateFile {
 					);
 				}
 			});
+      console.log('title',titleFormated);
+      console.log('pathFileFolder',pathFileFolder);
+      console.log('pathCombined',pathCombined);
+
+      console.log('path',`${pathFileFolder}/${pathCombined}`);
+
+          console.log('passou first Index','path',`${pathFileFolder}/${pathCombined}`, 'title',`${titleFormated.replace(".ts", "")}`);
 			this.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
 		}
 	}

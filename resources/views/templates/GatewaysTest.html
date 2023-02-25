@@ -1,0 +1,21 @@
+import { {{ className }} } from '@/infra/gateways'
+
+describe('{{ className }}', () => {
+  let item: string
+  let sut: {{ className }}
+
+  beforeAll(() => {
+    item = 'any_salt'
+  })
+
+  beforeEach(() => {
+    sut = new {{ className }}()
+  })
+
+  it('should return handle', async () => {
+   // final.mockReturnValue(Buffer.from('1'))
+    const encrpted = sut.handle()
+
+    expect(encrpted).toEqual(true)
+  })
+})
