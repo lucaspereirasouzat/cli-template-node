@@ -1,4 +1,4 @@
-import { CreateRepository } from '../../../domain/use-cases/create-repository'
+import { CreateRepository } from '@/domain/use-cases/create-repository'
 import { makeFileStorage, makeLogger, makePath } from '../../infra/gateway'
 
 export const makeRepository = (): CreateRepository => {

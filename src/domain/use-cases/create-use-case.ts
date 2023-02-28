@@ -1,15 +1,13 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
 import {
 	PATH_USE_CASE,
 	PATH_USE_CASE_TEST,
 	PATH_USE_CASE_DOMAIN,
 	PATH_USE_CASE_FACTORY,
 	PATH_USE_CASE_GATEWAY,
-} from "../../constants";
-import { Resolve } from "../../domain/contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../../domain/entities";
-import { CreateFile } from "../../domain/entities/CreateFile";
+} from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateUseCase {
 	constructor(

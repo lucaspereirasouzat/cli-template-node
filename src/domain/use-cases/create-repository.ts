@@ -1,14 +1,13 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
 import {
 	PATH_REPOSITORY,
 	PATH_FACTORY_REPOSITORY,
 	PATH_REPOSITORY_TEST,
 	REPOSITORY_PATH,
 	REPOSITORY_FACTORY_PATH,
-} from "../../constants";
-import { Resolve } from "../contracts/Resolve";
-import { FormatDocument, TitleConversion, CreateFile } from "../entities";
+} from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateRepository {
 	constructor(

@@ -1,14 +1,13 @@
 import { CouldNotWrite, FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
 import {
 	PATH_GATEWAY,
 	PATH_FACTORY_GATEWAY,
 	PATH_GATEWAY_TEST,
 	GATEWAY_PATH_APLICATION,
 	GATEWAY_FACTORY_PATH,
-} from "../../constants";
-import { Resolve } from "../../domain/contracts/Resolve";
-import { FormatDocument, TitleConversion, CreateFile } from "../../domain/entities";
+} from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateGateway {
 	constructor(

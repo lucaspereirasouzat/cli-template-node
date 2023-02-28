@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { ReadFile, WriteFile, FolderExists, MakeDir, AppendFile, FileExists } from '../../domain/contracts'
+import { ReadFile, WriteFile, FolderExists, MakeDir, AppendFile, FileExists } from '@/domain/contracts/filestorage'
 
 export class FileStorage implements ReadFile, WriteFile, FolderExists, MakeDir, AppendFile, FileExists {
   fileExists (input: FileExists.Input): FileExists.Output {
@@ -22,7 +22,7 @@ export class FileStorage implements ReadFile, WriteFile, FolderExists, MakeDir, 
     return fs.existsSync(input.path)
   }
 
-  makeDir (input: MakeDir.Input): MakeDir.Output {
+  makeDir (input: MakeDir.Input): void {
     fs.mkdirSync(input.path, { recursive: true })
   }
 }

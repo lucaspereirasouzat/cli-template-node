@@ -12,8 +12,8 @@
     ],
     "declaration": true,
     "outDir": "lib",
-    "rootDir": "./src",
-    "baseUrl": "./src",
+    "rootDir": ".",
+    "baseUrl": "./",
     "strict": false,
     "types": [
       "node"
@@ -37,8 +37,9 @@
     },
   },
   "include": [
-    "src/**/*"
-, "index.ts"  ],
+    "src/**/*",
+    "index.ts"
+  ],
   "exclude": [
     "**/node_modules/**/**",
     "dist"

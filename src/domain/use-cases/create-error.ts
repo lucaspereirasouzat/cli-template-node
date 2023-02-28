@@ -1,9 +1,7 @@
+import { Resolve, AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
-import { PATH_ERROR, PATH_ERROR_APLICATION } from "../../constants";
-import { Resolve } from "../../domain/contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../../domain/entities";
-import { CreateFile } from "../../domain/entities/CreateFile";
+import { PATH_ERROR, PATH_ERROR_APLICATION } from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateError {
 	constructor(

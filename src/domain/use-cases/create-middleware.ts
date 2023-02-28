@@ -1,15 +1,13 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
+import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
+import { Resolve, AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "@/domain/contracts";
 import {
 	MIDDLEWARE_PATH,
   PATH_MIDDLEWARE,
   PATH_MIDDLEWARE_TEST,
   MIDDLEWARE_MAIN_PATH,
   PATH_MAIN_MIDDLEWARE
-} from "../../constants";
-import { Resolve } from "../contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../entities";
-import { CreateFile } from "../entities/CreateFile";
+} from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateMiddleware {
 	constructor(

@@ -1,4 +1,4 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
+import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
 import {
 	AppendFile,
 	FileExists,
@@ -8,11 +8,10 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-} from "../contracts";
-import { PATH_VALIDATION,PATH_VALIDATION_TEST,VALIDATION_PATH } from "../../constants";
-import { Resolve } from "../contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../entities";
-import { CreateFile } from "../entities/CreateFile";
+  Resolve
+} from "@/domain/contracts";
+import { PATH_VALIDATION,PATH_VALIDATION_TEST,VALIDATION_PATH } from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateValidation {
 	constructor(
@@ -41,7 +40,7 @@ export class CreateValidation {
 			const pathFolder = `${pathFull}/src/${VALIDATION_PATH}`;
 			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
-			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
+			this.logger.log({ message: `\n diretorio do validation ${pathToWrite}` });
 
 			createFile.createIndex(path, pathFolder, titleFormated);
 		}
@@ -56,13 +55,12 @@ export class CreateValidation {
 
 		if (test) {
 			const pathTestFolder = `${pathFull}/tests/${VALIDATION_PATH}/`;
-
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				fileInTestString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
-			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n diretorio do test ${pathToWriteTest}` });
 		}
 
 		return fileInTestString;

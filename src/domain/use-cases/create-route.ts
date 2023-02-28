@@ -1,4 +1,4 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
+import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
 import {
 	AppendFile,
 	FileExists,
@@ -8,11 +8,10 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-} from "../contracts";
-import { PATH_ROUTE,PATH_ROUTE_TEST,ROUTE_PATH } from "../../constants";
-import { Resolve } from "../contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../entities";
-import { CreateFile } from "../entities/CreateFile";
+  Resolve
+} from "@/domain/contracts";
+import { PATH_ROUTE,PATH_ROUTE_TEST,ROUTE_PATH } from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateRoute {
 	constructor(

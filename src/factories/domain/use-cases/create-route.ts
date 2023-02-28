@@ -1,4 +1,4 @@
-import { CreateRoute } from '../../../domain/use-cases/create-route'
+import { CreateRoute } from '@/domain/use-cases/create-route'
 import { makeFileStorage, makeLogger, makePath } from '../../infra/gateway'
 
 export const makeRoute = ():CreateRoute  => {

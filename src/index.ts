@@ -3,11 +3,10 @@ import { Command } from "commander";
 import packajson from "./package.json";
 import adapter from "./main/adapter";
 
-
 const program = new Command();
 program
-	.name("clean_code_template_cli")
-	.description("CLI based on template clean arquiteture")
+	.name(packajson.name)
+	.description(packajson.description)
 	.version(packajson.version);
 
 program
@@ -17,7 +16,6 @@ program
 	.option("-onlyTest", "--onlyTest", "Run only test")
 	.option("-pro", "--properties", "Properties")
 	.option("-cta, --contract", "Create Contract")
-	.option("-rot, --route", "Create Route")
 	.option("-mid, --midleware", "Create Midleware")
 	.option("-err, --error", "Create error")
 	.option("-ctl, --controller", "Create Controller")

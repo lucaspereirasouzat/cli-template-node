@@ -1,4 +1,4 @@
-import { FileNotFound } from "../entities/errors";
+import { FileNotFound } from "@/domain/entities/errors";
 import {
 	FolderExists,
 	LogFailure,
@@ -8,11 +8,11 @@ import {
 	WriteFile,
 	AppendFile,
 	FileExists,
-} from "../contracts";
-import { PATH_CONTRACT, DOMAIN_CONTRACT_PATH } from "../../constants";
-import { Resolve } from "../../domain/contracts/Resolve";
-import { TitleConversion, FormatDocument } from "../../domain/entities";
-import { CreateFile } from "../../domain/entities/CreateFile";
+} from "@/domain/contracts";
+import { PATH_CONTRACT, DOMAIN_CONTRACT_PATH } from "@/constants";
+import { Resolve } from "@/domain/contracts/Resolve";
+import { TitleConversion, FormatDocument } from "@/domain/entities";
+import { CreateFile } from "@/domain/entities/CreateFile";
 
 export class CreateContract {
 	constructor(

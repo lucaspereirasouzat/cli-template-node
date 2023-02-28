@@ -1,16 +1,15 @@
-import { FileNotFound, CouldNotWrite } from "../../domain/entities/errors";
-import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } from "../contracts";
+import { FileNotFound, CouldNotWrite } from "@/domain/entities/errors";
+import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } from "@/domain/contracts";
 import {
 	PATH_CONTROLLER,
 	PATH_CONTROLLER_TEST,
 	PATH_CONTROLLER_APLICATION,
 	PATH_FACTORY_CONTROLLER,
 	CONTROLLER_FACTORY_PATH,
-} from "../../constants";
-import { LogFailure, LogSuccess } from "../../domain/contracts/logger";
-import { Resolve } from "../../domain/contracts/Resolve";
-import { FormatDocument, TitleConversion } from "../../domain/entities";
-import { CreateFile } from "../entities/CreateFile";
+} from "@/constants";
+import { LogFailure, LogSuccess } from "@/domain/contracts/logger";
+import { Resolve } from "@/domain/contracts/Resolve";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateController {
 	constructor(

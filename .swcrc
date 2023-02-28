@@ -13,7 +13,7 @@
       ]
     },
     "preserveAllComments": false,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "loose": false,
     "externalHelpers": false,
     "transform": {
@@ -23,5 +23,6 @@
   },
   "module": {
     "type": "commonjs"
-  }
+  },
+  "experimental": {}
 }
