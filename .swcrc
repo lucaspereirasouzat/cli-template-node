@@ -1,5 +1,5 @@
 {
-  "minify": true,
+  "minify": false,
   "jsc": {
     "parser": {
       "syntax": "typescript",
@@ -13,7 +13,7 @@
       ]
     },
     "preserveAllComments": false,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "loose": false,
     "externalHelpers": false,
     "transform": {
@@ -23,6 +23,5 @@
   },
   "module": {
     "type": "commonjs"
-  },
-  "experimental": {}
+  }
 }
