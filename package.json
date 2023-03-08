@@ -23,7 +23,7 @@
   },
   "main": "./dist/index.js",
   "scripts": {
-    "buildAndClean": "npm run build",
+    "buildAndClean": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
     "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
     "postpublish": "git reset --hard && git clean -fd",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",
