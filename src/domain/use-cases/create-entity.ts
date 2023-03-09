@@ -60,9 +60,11 @@ export class CreateEntity {
 
 			const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/`;
 
+      const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
+
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
-				fileInTestString,
+				replacedFileTestString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
 			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
