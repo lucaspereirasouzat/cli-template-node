@@ -60,9 +60,16 @@ export class CreateRoute {
 
 			const pathTestFolder = `${pathFull}/tests/${ROUTE_PATH}/`;
 
+
+			const replacedFactoryTestFileString = new FormatDocument(
+				fileInTestString,
+				UpperCase,
+				properites,
+			).formatDocument();
+
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
-				fileInTestString,
+				replacedFactoryTestFileString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
 			this.logger.log({ message: `\n diretorio da route test ${pathToWriteTest}` });

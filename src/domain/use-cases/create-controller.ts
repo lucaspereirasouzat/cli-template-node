@@ -72,9 +72,10 @@ export class CreateController {
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/`;
-			const pathToWriteTest = createFile.createFile(
+			const replacedFactoryTestFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
+      const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
-				fileInTestString,
+				replacedFactoryTestFileString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
 			this.logger.log({ message: `\n diretorio da controller test ${pathToWriteTest}` });
