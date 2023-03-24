@@ -1,8 +1,10 @@
-import { {{ className }} } from "../../../domain/use-cases"
-//import { makeFileStorage } from "../../infra/gateway"
+import { setup{{ className }}, {{ className }} } from "@/domain/use-cases"
+//import { makeFileStorage } from "@/main/factories/infra/gateways"
+//import { makePgUserProfileRepo } from '@/main/factories/infra/repos/postgres'
+
 
 export const make{{ className }} = (): {{ className }} => {
-  return new {{ className }} (
+  return setup{{ className }} (
     // makeFileStorage
   )
 }

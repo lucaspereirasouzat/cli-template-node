@@ -30,7 +30,7 @@
     "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
     "create": "npm run build && npm run test",
     "build": "swc src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "local:link": "npm run prepublishOnly && npm link",
+    "local:link": "npm run buildAndClean && npm link",
     "local": "sudo npm i -g && template_node",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
     "test": "vitest",
