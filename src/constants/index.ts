@@ -55,4 +55,10 @@ export const DECORATOR_PATH = "aplication/decorators/";
 export const PATH_DECORATOR_GATEWAY = "main/factories/aplication/decorators/";
 export const PATH_DECORATOR = "../../resources/views/templates/Decorator.html";
 export const PATH_DECORATOR_TEST = "../../resources/views/templates/DecoratorTest.html";
-export const PATH_DECORATOR_FACTORY = "../../resources/views/templates/FactoryUseCase.html";
+export const PATH_DECORATOR_FACTORY = "../../resources/views/templates/FactoryDecorator.html";
+
+export const EVENTS_PATH = "aplication/events/";
+export const PATH_EVENTS_GATEWAY = "main/factories/aplication/events/";
+export const PATH_EVENTS = "../../resources/views/templates/Events.html";
+export const PATH_EVENTS_TEST = "../../resources/views/templates/EventsTest.html";
+export const PATH_EVENTS_FACTORY = "../../resources/views/templates/FactoryEvent.html";

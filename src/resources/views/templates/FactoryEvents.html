@@ -1,0 +1,8 @@
+import { make{{ className }} } from '@/main/factories/domain/use-cases'
+import { Consumer, {{ className }} } from '@/application/events'
+import { makePgTransactionConsumer } from '@/main/factories/application/decorators'
+
+export const make{{ className }} = (): Consumer => {
+  const consumer = new {{ className }}(make{{ className }}())
+  return makePgTransactionConsumer(consumer)
+}
