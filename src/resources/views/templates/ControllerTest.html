@@ -1,5 +1,5 @@
 import { Controller, {{ className }} } from '@/application/controllers'
-//import { ServerError, UnauthorizedError } from '@/application/errors'
+import { ServerError, UnauthorizedError } from '@/application/errors'
 
 describe('{{ className }}', () => {
   let sut: {{ className }}
@@ -26,5 +26,27 @@ describe('{{ className }}', () => {
 
   it('should extend Controller', async () => {
     expect(sut).toBeInstanceOf({{ className }})
+  })
+
+  it('should build Validators correctly on save', async () => {
+    const validators = sut.buildValidators({ tenantId })
+
+    expect(validators).toEqual([
+      new Required(tenantId, 'tenantId')
+    ])
+  })
+
+  it('should return 500 if fails new {{ className }}', async () => {
+    sutSubscriptionShow = jest.fn()
+    sutSubscriptionShow.mockRejectedValueOnce(new Error())
+
+    sut = new {{ className }}(sutSubscriptionShow)
+
+    const httpResponse = await sut.handle({ tenantId })
+
+    expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: new ServerError()
+    })
   })
 });

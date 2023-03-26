@@ -1,0 +1,7 @@
+import { Controller } from '@/application/controllers'
+import { {{ className }} } from '@/application/decorators'
+import { makeValidators } from '@/main/factories/infra/gateways'
+
+export const make{{ className }} = (controller: Controller): {{ className }} => {
+  return new {{ className }}(controller, makeValidators())
+}

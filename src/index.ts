@@ -25,6 +25,7 @@ program
 	.option("-ent, --entity", "Create entity")
 	.option("-val, --validation", "Create Validation")
 	.option("-rot, --route", "Create Route")
+	.option("-dec, --decorator", "Create Decorator")
 	.action((name, options) => {
 		adapter(name, options, process.cwd());
 	});

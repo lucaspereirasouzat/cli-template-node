@@ -1,31 +1,40 @@
 import { Controller } from '@/application/controllers'
-import { HttpResponse, unauthorized, ok } from '@/application/helpers'
-import { ValidationBuilder as Builder, Validator } from '@/application/validation'
-//import { AuthenticationError } from '@/domain/entities'
-//import { {{ className }} } from '@/domain/use-cases'
+import { HttpResponse, ok } from '@/application/helpers'
+import { ValidationBuilder as Builder, Validator } from 'library-validators'
+import { CreateCustomer } from '@/domain/contracts/repos'
+import { {{ className }}UseCase } from '@/domain/use-cases'
 
-type HttpRequest = { {{ properites }} }
-type Model = Error | { success: boolean }
-
-export class {{ className }} extends Controller {
-constructor (private readonly {{ classNameLower }}: {{ className }}) {
-super()
+type HttpRequest = {
+  name: string
+  nickname: string
+  email: string
+  inscription: string
+  firstName: string
+  lastName: string
+  password: string
+  domain: string
 }
+type Model = Error | CreateCustomer.Output
 
-async perform ({ {{ properites }} }: HttpRequest): Promise<HttpResponse<Model>> {
-  try {
-  const result = await this.{{ classNameLower }}({ {{ properites }} })
-  return ok(result)
-  } catch (error) {
-  if (error instanceof AuthenticationError) return unauthorized()
-  throw error
-  }
+export class {{ className }}Controller extends Controller {
+  constructor (private readonly {{ className }}: {{ className }}UseCase) {
+    super()
   }
 
-  override buildValidators ({ {{ properites }} }: HttpRequest): Validator[] {
-  return [
-  ...Builder.of({ value: message, fieldName: 'message' }).required().build(),
-  ...Builder.of({ value: topic, fieldName: 'topic' }).required().build()
-  ]
+  async perform (input: HttpRequest): Promise<HttpResponse<Model>> {
+    const data = await this.{{ className }}(input)
+    return ok(data)
   }
+
+  override buildValidators ({ name, email, inscription, firstName, lastName, password, domain }: HttpRequest): Validator[] {
+    return [
+      ...Builder.of({ value: name, fieldName: 'name' }).required().build(),
+      ...Builder.of({ value: email, fieldName: 'email' }).required().build(),
+      ...Builder.of({ value: firstName, fieldName: 'firstName' }).required().build(),
+      ...Builder.of({ value: lastName, fieldName: 'lastName' }).required().build(),
+      ...Builder.of({ value: inscription, fieldName: 'inscription' }).required().build(),
+      ...Builder.of({ value: password, fieldName: 'password' }).required().build(),
+      ...Builder.of({ value: domain, fieldName: 'domain' }).required().build()
+    ]
   }
+}
