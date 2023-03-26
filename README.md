@@ -15,7 +15,12 @@
 </div>
 ## Getting started
 
-This cli is a tool for generate clean code using template from
+This cli is a tool for generate clean code using template from Rodrigo Manguinhos clean-typescript
+
+## Author
+
+- **Lucas Pereira**
+
 
 
 ## Installation
