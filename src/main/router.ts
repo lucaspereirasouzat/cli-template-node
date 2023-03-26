@@ -1,4 +1,4 @@
-import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository, makeValidation, makeRoute, makeMiddleware,makeDecorator, makeEvents } from '@/factories/domain/use-cases'
+import { makeContract, makeController, makeEntity, makeError, makeGateway, makeUseCase, makeRepository, makeValidation, makeRoute, makeMiddleware,makeDecorator, makeEvents, makeAdapter } from '@/factories/domain/use-cases'
 
 export default () => {
   return {
@@ -13,6 +13,7 @@ export default () => {
 			route: makeRoute(),
 			midleware: makeMiddleware(),
       decorator: makeDecorator(),
-      events: makeEvents()
+      events: makeEvents(),
+      adapter: makeAdapter(),
 		};
 }

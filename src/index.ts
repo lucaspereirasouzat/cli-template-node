@@ -27,6 +27,7 @@ program
 	.option("-rot, --route", "Create Route")
 	.option("-dec, --decorator", "Create Decorator")
 	.option("-evt, --events", "Create Events")
+	.option("-adp, --adapter", "Create Adapter")
 	.action((name, options) => {
 		adapter(name, options, process.cwd());
 	});

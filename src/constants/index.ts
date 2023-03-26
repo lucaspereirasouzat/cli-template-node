@@ -62,3 +62,8 @@ export const PATH_EVENTS_GATEWAY = "main/factories/aplication/events/";
 export const PATH_EVENTS = "../../resources/views/templates/Events.html";
 export const PATH_EVENTS_TEST = "../../resources/views/templates/EventsTest.html";
 export const PATH_EVENTS_FACTORY = "../../resources/views/templates/FactoryEvent.html";
+
+
+export const PATH_ADAPTER_PATH = "main/adapters";
+export const PATH_ADAPTER = "../../resources/views/templates/Adapter.html";
+export const PATH_ADAPTER_TEST = "../../resources/views/templates/AdapterTest.html";
