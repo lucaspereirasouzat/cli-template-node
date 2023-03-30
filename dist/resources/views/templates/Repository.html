@@ -1,0 +1,53 @@
+//import { {{ className }}Show, {{ className }}Update } from '@/domain/contracts/repos'
+import { PgRepository } from '@/infra/repos/postgres/repository'
+import { Pg{{ className }} } from './entities'
+
+export class Pg{{ className }}Repository extends PgRepository // implements {
+  async {{ className }} (input: {{ className }}.Input): Promise<{{ className }}.Output> {
+
+  }
+
+  async show ({ id }: {{ className }}Show.Input): Promise<{{ className }}Show.Output> {
+    const pg{{classNameLower}}Repo = await this.getRepository(Pg{{className}})
+    const {{classNameLower}} = await pg{{className}}Repo.findOne({ id })
+
+    if ({{classNameLower}} !== undefined) {
+      return {
+        id: {{classNameLower}}.id,
+        contactId: {{classNameLower}}.contactId,
+        email: {{classNameLower}}.email,
+        default: {{classNameLower}}.default as boolean,
+        created_at: {{classNameLower}}.createdAt,
+        updated_at: {{classNameLower}}.updatedAt
+      }
+    }
+  }
+    async store (input: {{ className }}Store.Input): Promise<{{ className }}Store.Output> {
+    const pg{{ className }}Repo = await this.getRepository(Pg{{ className }})
+    const contactEmail = await pg{{ className }}Repo.save(input)
+
+    return {
+      id: contactEmail.id,
+      contactId: contactEmail.contactId,
+      email: contactEmail.email,
+      default: contactEmail.default as boolean,
+      created_at: contactEmail.createdAt
+    }
+  }
+
+  async update ({ emailId, ...input }: {{ className }}Update.Input): Promise<{{ className }}Update.Output> {
+    const pg{{ className }}Repo = await this.getRepository(Pg{{ className }})
+
+    const result = await pg{{ className }}.update({ id: emailId }, input)
+
+    return result.affected != null && result.affected > 0
+  }
+
+  async delete ({ id }: {{ className }}Delete.Input): Promise<{{ className }}Delete.Output> {
+    const pg{{ className }}Repo = await this.getRepository(Pg{{ className }})
+
+    const result = await pg{{ className }}Repo.delete({ id })
+
+    return result.affected != null && result.affected > 0
+  }
+}

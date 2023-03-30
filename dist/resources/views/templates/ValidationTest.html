@@ -1,0 +1,28 @@
+import { InvalidFieldError } from '@/application/errors'
+import { {{ className }} } from '@/application/validation'
+
+describe('{{ className }}', () => {
+  it('should return InvalidFieldError if value date is invalid', () => {
+    const sut = new {{ className }}('test', 'date')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(new InvalidFieldError('date'))
+  })
+
+  it('should return InvalidFieldError if value date is number valid', () => {
+    const sut = new {{ className }}('test', 'date')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(new InvalidFieldError('date'))
+  })
+
+  it('should not return InvalidFieldError if value is valid', () => {
+    const sut = new {{ className }}('test', 'date')
+
+    const error = sut.validate()
+
+    expect(error).toEqual(undefined)
+  })
+})

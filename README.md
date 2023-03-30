@@ -22,7 +22,6 @@ This cli is a tool for generate clean code using template from Rodrigo Manguinho
 - **Lucas Pereira**
 
 
-
 ## Installation
 
 
@@ -59,6 +58,9 @@ Will create a controller inside a folder /src/application/controllers
 ```sh
 clean_code_template_cli create {{nameFile}} -ctl
 ```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Controller.html
+
  - Test
 
 This command need be combined with ctl,use,gat,rep,ent to generate a test
@@ -71,6 +73,9 @@ Will generate a contract file to use for a repository or gateway
 ```sh
 clean_code_template_cli create {{nameFile}} -cta
 ```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Contract.html
+
 - Properties
 
 This command need be combined with ctl,use,gat,rep,ent and add properties file
@@ -92,6 +97,9 @@ This command will generate Usecase file inside /src/domain/use-cases
 ```sh
 clean_code_template_cli create {{nameFile}} -use
 ```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Contract.html
+
 - Gateway
 
 This command will generate Gateway file inside /src/infra/gateways
@@ -99,6 +107,9 @@ This command will generate Gateway file inside /src/infra/gateways
 ```sh
 clean_code_template_cli create {{nameFile}} -gat
 ```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Gateways.html
+
 - Repository
 
 This command will generate Repository file inside /src/infra/repos/postgres
@@ -106,6 +117,8 @@ This command will generate Repository file inside /src/infra/repos/postgres
 ```sh
 clean_code_template_cli create {{nameFile}} -rep
 ```
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Repository.html
+
 - Entities
 
 This command will generate Entities file inside /src/domain/entities
@@ -113,6 +126,7 @@ This command will generate Entities file inside /src/domain/entities
 ```sh
 clean_code_template_cli create {{nameFile}} -ent
 ```
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Entity.html
 
 - Error
 
@@ -121,4 +135,17 @@ This command will generate Error file inside /src/domain/entities/errors
 ```sh
 clean_code_template_cli create {{nameFile}} -err
 ```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Error.html
+
+
+- Adapter
+
+This command will generate Adapter file inside /src/domain/entities/errors
+
+```sh
+clean_code_template_cli create {{nameFile}} -err
+```
+
+will create https://github.com/Warmachine13/cli-template-node/blob/6ac6e789c1af09917704bac93ef0165c39ac5e7d/src/resources/views/templates/Error.html
 

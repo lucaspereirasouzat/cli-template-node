@@ -1,0 +1,57 @@
+import { {{ className }} } from '@/infra/repos/postgres'
+import { PgConnection } from '@/infra/repos/postgres/helpers'
+import { PgRepository } from '@/infra/repos/postgres/repository'
+import { makeFakeDb } from '@/tests/infra/repos/postgres/mocks'
+import { IBackup } from 'pg-mem'
+import { {{ className }} } from '@/infra/repos/postgres/entities'
+import { v4 as uuidv4 } from 'uuid'
+import { Repository } from 'typeorm'
+
+describe('{{ className }}', () => {
+  let sut: {{ className }}
+  let connection: PgConnection
+  let backup: IBackup
+  let {{ className }}Repo: Repository<{{ className }}>
+
+  beforeAll(async () => {
+    connection = PgConnection.getInstance()
+    const db = await makeFakeDb(undefined)
+    backup = db.backup()
+    {{ className }}Repo = connection.getRepository({{ className }})
+  })
+
+  afterAll(async () => {
+    await connection.disconnect()
+  })
+
+  beforeEach(() => {
+    backup.restore()
+    sut = new {{ className }}()
+  })
+
+  it('should extend PgRepository', async () => {
+    expect(sut).toBeInstanceOf(PgRepository)
+  })
+  it('should check return success false', async () => {
+    const customer = await sut.checkCustomerEmail({ email: 'foo@bar.com' })
+    expect(customer).toEqual(undefined)
+  })
+
+  describe('checkCustomerEmail', () => {
+    it('should return customer when send input email', async () => {
+      const customer = await pgCustomerRepo.save({
+        uuid: uuidv4(),
+        name: 'Foo',
+        nickname: 'foobar',
+        email: 'foo@bar.com',
+        status: 'enabled'
+      })
+      expect(customer.id).toBe(1)
+      expect(customer.uuid).toBeTruthy()
+
+      const customerEmail = await sut.checkCustomerEmail({ email: customer.email })
+      expect(customerEmail).toEqual({ exists: true })
+    })
+  })
+
+})

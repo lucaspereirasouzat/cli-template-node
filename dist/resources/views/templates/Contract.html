@@ -1,0 +1,12 @@
+export interface {{ className }} {
+  {{ classNameLower }}: (input: {{ className }}.Input) => Promise<{{ className }}.Output>
+}
+
+export namespace {{ className }} {
+  export type Input = {
+    {{ properites }}
+  }
+  export type Output = undefined | {
+    {{ properites }}
+  }
+}

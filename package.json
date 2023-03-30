@@ -15,15 +15,15 @@
     "jest"
   ],
   "bin": {
-    "clean_code_template_cli": "./index.js"
+    "clean_code_template_cli": "./dist/index.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Warmachine13/cli-template-node.git"
   },
-  "main": "./index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "buildAndClean": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
+    "buildAndClean": "npm run build",
     "prepublishOnly": "npm run build && cp -r ./dist/* . && rm -rf ./dist && rm -rf ./src && rm -rf tests",
     "postpublish": "git reset --hard && git clean -fd",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' ./index.ts",

@@ -1,0 +1,52 @@
+import { Controller, {{ className }} } from '@/application/controllers'
+import { ServerError, UnauthorizedError } from '@/application/errors'
+
+describe('{{ className }}', () => {
+  let sut: {{ className }}
+  let sutAdressUseCase: jest.Mock
+
+  const sutAdressCreatedAt = new Date()
+  const sutAdressMock = {
+    createdAt: sutAdressCreatedAt,
+    district: '',
+    number: 0,
+    userId: 1,
+    city: 'city',
+    state: 'state',
+    street: 'street',
+    zipcode: 'zipcode',
+    country: 'country',
+    complement: 'complement'
+  }
+
+  beforeEach(() => {
+    sutAdressUseCase = jest.fn().mockResolvedValue(sutAdressMock)
+    sut = new {{ className }}(sutAdressUseCase)
+  })
+
+  it('should extend Controller', async () => {
+    expect(sut).toBeInstanceOf({{ className }})
+  })
+
+  it('should build Validators correctly on save', async () => {
+    const validators = sut.buildValidators({ tenantId })
+
+    expect(validators).toEqual([
+      new Required(tenantId, 'tenantId')
+    ])
+  })
+
+  it('should return 500 if fails new {{ className }}', async () => {
+    sutSubscriptionShow = jest.fn()
+    sutSubscriptionShow.mockRejectedValueOnce(new Error())
+
+    sut = new {{ className }}(sutSubscriptionShow)
+
+    const httpResponse = await sut.handle({ tenantId })
+
+    expect(httpResponse).toEqual({
+      statusCode: 500,
+      data: new ServerError()
+    })
+  })
+});

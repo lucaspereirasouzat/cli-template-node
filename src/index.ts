@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import packajson from "./package.json";
+import packajson from "../package.json";
 import adapter from "./main/adapter";
 
 const program = new Command();

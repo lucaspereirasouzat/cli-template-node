@@ -1,0 +1,12 @@
+//import { LoadFacebookUser, TokenGenerator } from '@/domain/contracts/gateways'
+//import { LoadUserAccount, SaveFacebookAccount } from '@/domain/contracts/repos'
+//import { AccessToken, FacebookAccount, AuthenticationError } from '@/domain/entities'
+
+type Setup = () => {{ className }}
+type Input = { {{ properties }} }
+type Output = { accessToken: string }
+export type {{ className }} = (input: Input) => Promise<Output>
+
+export const setup{{ className }}: Setup = () => async input => {
+
+}
