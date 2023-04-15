@@ -7,3 +7,6 @@ README.md
 .swcrc
 .lintstagedrc.json
 .editorconfig
+/src
+/tests
+/.vscode
