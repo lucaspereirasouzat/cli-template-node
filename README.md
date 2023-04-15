@@ -7,7 +7,6 @@
   "MD033": false,
   "MD041": false
 } -->
-
 <div align="center">
 
 # Clean code Template cli
