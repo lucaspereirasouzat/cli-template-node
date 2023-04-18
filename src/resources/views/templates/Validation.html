@@ -1,4 +1,4 @@
-import { InvalidFieldError } from '@/application/errors'
+// import { InvalidFieldError } from '@/application/errors'
 import { Validator } from './validator'
 
 export class {{ className }} implements Validator {
@@ -8,6 +8,6 @@ export class {{ className }} implements Validator {
   ) { }
 
   validate (): Error | undefined {
-    if (isNaN(Date.parse(this.value.toString()))) return new InvalidFieldError(this.field)
+   // if (isNaN(Date.parse(this.value.toString()))) return new InvalidFieldError(this.field)
   }
 }
