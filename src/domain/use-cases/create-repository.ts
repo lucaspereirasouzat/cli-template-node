@@ -70,7 +70,7 @@ export class CreateRepository {
 
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${REPOSITORY_PATH}`;
+			const pathTestFolder = `${pathFull}/tests/${REPOSITORY_PATH}/${path}`;
 			const testnameFile = titleFormated.replace(".ts", ".spec.ts");
 
 			const replacedFactoryTestFileString = new FormatDocument(

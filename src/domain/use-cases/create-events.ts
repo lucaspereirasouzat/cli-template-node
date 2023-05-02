@@ -54,7 +54,7 @@ export class CreateEvents {
 		}
 
 		if (test) {
-			const pathTestFolder = `${pathFull}/tests/${EVENTS_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${EVENTS_PATH}/${path}`;
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				fileInTestString,

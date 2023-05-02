@@ -57,7 +57,7 @@ export class CreateEntity {
 
 		if (test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/${path}`;
       const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,

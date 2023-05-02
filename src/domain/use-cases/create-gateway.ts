@@ -71,7 +71,7 @@ export class CreateGateway {
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH_APLICATION}`;
+			const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH_APLICATION}/${path}`;
 
 			const testnameFile = titleFormated.replace(".ts", ".spec.ts");
 

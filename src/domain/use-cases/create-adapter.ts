@@ -57,7 +57,7 @@ export class CreateAdapter {
 
 		if (test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_ADAPTER_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${PATH_ADAPTER_PATH}/${path}`;
       const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,

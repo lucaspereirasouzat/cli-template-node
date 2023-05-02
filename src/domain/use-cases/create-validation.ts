@@ -54,7 +54,7 @@ export class CreateValidation {
 		}
 
 		if (test) {
-			const pathTestFolder = `${pathFull}/tests/${VALIDATION_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${VALIDATION_PATH}/${path}`;
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				fileInTestString,

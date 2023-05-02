@@ -54,7 +54,7 @@ export class CreateDecorator {
 		}
 
 		if (test) {
-			const pathTestFolder = `${pathFull}/tests/${DECORATOR_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${DECORATOR_PATH}/${path}`;
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				fileInTestString,

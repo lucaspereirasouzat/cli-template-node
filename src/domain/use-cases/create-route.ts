@@ -58,7 +58,7 @@ export class CreateRoute {
 		if (test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathTestFolder = `${pathFull}/tests/${ROUTE_PATH}/`;
+			const pathTestFolder = `${pathFull}/tests/${ROUTE_PATH}/${path}`;
 
 
 			const replacedFactoryTestFileString = new FormatDocument(

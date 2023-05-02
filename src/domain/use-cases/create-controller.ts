@@ -71,7 +71,7 @@ export class CreateController {
 
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/`;
+			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/${path}`;
 			const replacedFactoryTestFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
       const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
