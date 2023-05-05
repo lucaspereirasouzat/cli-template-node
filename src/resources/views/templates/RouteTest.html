@@ -7,8 +7,8 @@ import { IBackup } from 'pg-mem'
 import { getConnection } from 'typeorm'
 import request from 'supertest'
 
-describe('Login Routes', () => {
-  describe('POST /login/facebook', () => {
+describe('{{ className }} Routes', () => {
+  describe('POST /{{ classNameLower }}', () => {
     let backup: IBackup
     const loadUserSpy = jest.fn()
 
@@ -29,7 +29,7 @@ describe('Login Routes', () => {
       loadUserSpy.mockResolvedValueOnce({ facebookId: 'any_id', name: 'any_name', email: 'any_email' })
 
       const { status, body } = await request(app)
-        .post('/api/')
+        .post('/api/{{ classNameLower }}')
         .send({ token: 'valid_token' })
 
       expect(status).toBe(200)
@@ -38,7 +38,7 @@ describe('Login Routes', () => {
 
     it('should return 401 with UnauthorizedError', async () => {
       const { status, body } = await request(app)
-        .post('/api/')
+        .post('/api/{{ classNameLower }}')
         .send({ token: 'invalid_token' })
 
       expect(status).toBe(401)
