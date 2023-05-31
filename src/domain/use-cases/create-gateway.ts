@@ -4,7 +4,7 @@ import {
 	PATH_GATEWAY,
 	PATH_FACTORY_GATEWAY,
 	PATH_GATEWAY_TEST,
-	GATEWAY_PATH_APLICATION,
+	GATEWAY_PATH_APPLICATION,
 	GATEWAY_FACTORY_PATH,
 } from "@/constants";
 import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
@@ -31,7 +31,7 @@ export class CreateGateway {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-      const originalPath = `${pathFull}/src/${GATEWAY_PATH_APLICATION}`
+      const originalPath = `${pathFull}/src/${GATEWAY_PATH_APPLICATION}`
 			const pathFolder = `${originalPath}/${path}`;
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
@@ -71,7 +71,7 @@ export class CreateGateway {
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
-			const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH_APLICATION}/${path}`;
+			const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH_APPLICATION}/${path}`;
 
 			const testnameFile = titleFormated.replace(".ts", ".spec.ts");
 

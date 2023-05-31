@@ -1,6 +1,6 @@
 import { Resolve, AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "../contracts";
 import { FileNotFound } from "../entities/errors";
-import { PATH_ERROR, PATH_ERROR_APLICATION } from "@/constants";
+import { PATH_ERROR, PATH_ERROR_APPLICATION } from "@/constants";
 import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateError {
@@ -26,7 +26,7 @@ export class CreateError {
 			const path = titleConversion.getPathFromTitle();
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
 
-			const pathFolder = `${pathFull}/src/${PATH_ERROR_APLICATION}`;
+			const pathFolder = `${pathFull}/src/${PATH_ERROR_APPLICATION}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 

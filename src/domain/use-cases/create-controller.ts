@@ -3,7 +3,7 @@ import { FolderExists, MakeDir, ReadFile, WriteFile, AppendFile, FileExists } fr
 import {
 	PATH_CONTROLLER,
 	PATH_CONTROLLER_TEST,
-	PATH_CONTROLLER_APLICATION,
+	PATH_CONTROLLER_APPLICATION,
 	PATH_FACTORY_CONTROLLER,
 	CONTROLLER_FACTORY_PATH,
 } from "@/constants";
@@ -33,7 +33,7 @@ export class CreateController {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APLICATION}`;
+			const pathFolder = `${pathFull}/src/${PATH_CONTROLLER_APPLICATION}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
@@ -71,7 +71,7 @@ export class CreateController {
 
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APLICATION}/${path}`;
+			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APPLICATION}/${path}`;
 			const replacedFactoryTestFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
       const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
