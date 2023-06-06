@@ -8,9 +8,9 @@ describe('{{ className }}', () => {
   })
 
   it('should create with empty initials when pictureUrl is provided', () => {
-    sut.execute()
+    const result = sut.execute()
 
-    expect(sut).toEqual({
+    expect(result).toEqual({
     })
   })
 })

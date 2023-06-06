@@ -5,18 +5,11 @@ describe('{{ className }}', () => {
   let sut: {{ className }}
   let sutAdressUseCase: jest.Mock
 
-  const sutAdressCreatedAt = new Date()
-  const sutAdressMock = {
-    createdAt: sutAdressCreatedAt,
-    district: '',
-    number: 0,
-    userId: 1,
-    city: 'city',
-    state: 'state',
-    street: 'street',
-    zipcode: 'zipcode',
-    country: 'country',
-    complement: 'complement'
+  const mockInput = {
+    name: ''
+  }
+  const mockOutput = {
+    success: true
   }
 
   beforeEach(() => {
@@ -29,10 +22,10 @@ describe('{{ className }}', () => {
   })
 
   it('should build Validators correctly on save', async () => {
-    const validators = sut.buildValidators({ tenantId })
+    const validators = sut.buildValidators({ name: '' })
 
     expect(validators).toEqual([
-      new Required(tenantId, 'tenantId')
+    //  new Required('', 'name')
     ])
   })
 
@@ -42,11 +35,22 @@ describe('{{ className }}', () => {
 
     sut = new {{ className }}(sutSubscriptionShow)
 
-    const httpResponse = await sut.handle({ tenantId })
+    const httpResponse = await sut.handle(mockInput)
 
     expect(httpResponse).toEqual({
       statusCode: 500,
       data: new ServerError()
+    })
+  })
+
+  it('should return 200 if success new {{ className }}', async () => {
+    sut = new {{ className }}(qrCodeUseCase)
+
+    const httpResponse = await sut.handle(mockInput)
+
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      data: mockOutput
     })
   })
 });

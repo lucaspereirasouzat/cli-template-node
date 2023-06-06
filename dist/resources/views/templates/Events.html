@@ -5,11 +5,6 @@ import { {{ className }} } from '@/domain/use-cases'
 
 type TcpRequest = {
   name: string
-  email: string
-  inscription: string
-  domain: string
-  userId: string
-  tenantId: string
 }
 type Model = Error | { success: boolean }
 
@@ -18,19 +13,14 @@ export class {{ className }}Consumer extends Consumer {
     super()
   }
 
-  async perform ({ name, email, inscription, domain, userId, tenantId }: TcpRequest): Promise<TcpResponse<Model>> {
-    await this.{{ className }}({ name, email, inscription, domain, userId, tenantId })
+  async perform (input: TcpRequest): Promise<TcpResponse<Model>> {
+    await this.{{ className }}(input)
     return tcpOk({ success: true })
   }
 
-  override buildValidators ({ name, email, inscription, domain, userId, tenantId }: TcpRequest): Validator[] {
+  override buildValidators ({ name }: TcpRequest): Validator[] {
     return [
       ...Builder.of({ value: name, fieldName: 'name' }).required().build(),
-      ...Builder.of({ value: email, fieldName: 'email' }).required().build(),
-      ...Builder.of({ value: inscription, fieldName: 'inscription' }).required().build(),
-      ...Builder.of({ value: domain, fieldName: 'domain' }).required().build(),
-      ...Builder.of({ value: userId, fieldName: 'userId' }).required().build(),
-      ...Builder.of({ value: tenantId, fieldName: 'tenantId' }).required().build()
     ]
   }
 }

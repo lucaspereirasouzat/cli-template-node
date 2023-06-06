@@ -6,13 +6,6 @@ import { {{ className }}UseCase } from '@/domain/use-cases'
 
 type HttpRequest = {
   name: string
-  nickname: string
-  email: string
-  inscription: string
-  firstName: string
-  lastName: string
-  password: string
-  domain: string
 }
 type Model = Error | CreateCustomer.Output
 
@@ -29,12 +22,6 @@ export class {{ className }}Controller extends Controller {
   override buildValidators ({ name, email, inscription, firstName, lastName, password, domain }: HttpRequest): Validator[] {
     return [
       ...Builder.of({ value: name, fieldName: 'name' }).required().build(),
-      ...Builder.of({ value: email, fieldName: 'email' }).required().build(),
-      ...Builder.of({ value: firstName, fieldName: 'firstName' }).required().build(),
-      ...Builder.of({ value: lastName, fieldName: 'lastName' }).required().build(),
-      ...Builder.of({ value: inscription, fieldName: 'inscription' }).required().build(),
-      ...Builder.of({ value: password, fieldName: 'password' }).required().build(),
-      ...Builder.of({ value: domain, fieldName: 'domain' }).required().build()
     ]
   }
 }

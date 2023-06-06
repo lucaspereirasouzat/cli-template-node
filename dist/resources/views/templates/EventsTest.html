@@ -6,7 +6,9 @@ import { v4 as uuidv4 } from 'uuid'
 describe('{{ className }}', () => {
   let sut: {{ className }}
   let sutCoreDestroyTenantData: jest.Mock
-  let mockInput: object
+  let mockInput: {
+    name: 'a'
+  }
 
   beforeAll(() => {
     mockInput = {
