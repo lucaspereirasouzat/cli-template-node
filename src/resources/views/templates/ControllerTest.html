@@ -1,9 +1,10 @@
-import { Controller, {{ className }} } from '@/application/controllers'
+import { Controller, {{ className }}Controller } from '@/application/controllers'
 import { ServerError, UnauthorizedError } from '@/application/errors'
+// import { Required } from 'library-validator'
 
-describe('{{ className }}', () => {
-  let sut: {{ className }}
-  let sutAdressUseCase: jest.Mock
+describe('{{ className }}Controller', () => {
+  let sut: {{ className }}Controller
+  let sutUseCase: jest.Mock
 
   const mockInput = {
     name: ''
@@ -13,12 +14,12 @@ describe('{{ className }}', () => {
   }
 
   beforeEach(() => {
-    sutAdressUseCase = jest.fn().mockResolvedValue(sutAdressMock)
-    sut = new {{ className }}(sutAdressUseCase)
+    sutUseCase = jest.fn().mockResolvedValue(mockOutput)
+    sut = new {{ className }}Controller(sutUseCase)
   })
 
   it('should extend Controller', async () => {
-    expect(sut).toBeInstanceOf({{ className }})
+    expect(sut).toBeInstanceOf({{ className }}Controller)
   })
 
   it('should build Validators correctly on save', async () => {
@@ -29,11 +30,11 @@ describe('{{ className }}', () => {
     ])
   })
 
-  it('should return 500 if fails new {{ className }}', async () => {
-    sutSubscriptionShow = jest.fn()
-    sutSubscriptionShow.mockRejectedValueOnce(new Error())
+  it('should return 500 if fails new {{ className }}Controller', async () => {
+    sutUseCase = jest.fn()
+    sutUseCase.mockRejectedValueOnce(new Error())
 
-    sut = new {{ className }}(sutSubscriptionShow)
+    sut = new {{ className }}Controller(sutUseCase)
 
     const httpResponse = await sut.handle(mockInput)
 
@@ -43,8 +44,8 @@ describe('{{ className }}', () => {
     })
   })
 
-  it('should return 200 if success new {{ className }}', async () => {
-    sut = new {{ className }}(qrCodeUseCase)
+  it('should return 200 if success new {{ className }}Controller', async () => {
+    sut = new {{ className }}Controller(sutUseCase)
 
     const httpResponse = await sut.handle(mockInput)
 
