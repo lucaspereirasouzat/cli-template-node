@@ -1,5 +1,5 @@
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { CreateRepository } from "../../../src/domain/use-cases/create-repository";
+import { CreateRepository } from "@/domain/use-cases/create-repository";
 import {
   ReadFile,
   FolderExists,
@@ -9,8 +9,8 @@ import {
   LogSuccess,
   AppendFile,
   FileExists
-} from "../../../src/domain/contracts";
-import { Resolve } from "../../../src/domain/contracts/Resolve";
+} from "@/domain/contracts";
+import { Resolve } from "@/domain/contracts/Resolve";
 
 describe("Create Repository", () => {
   let useCase: CreateRepository;

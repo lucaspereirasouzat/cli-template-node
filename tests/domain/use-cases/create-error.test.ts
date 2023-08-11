@@ -1,5 +1,5 @@
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { CreateError } from "../../../src/domain/use-cases/create-error";
+import { CreateError } from "@/domain/use-cases/create-error";
 import {
 	ReadFile,
 	FolderExists,
@@ -9,8 +9,8 @@ import {
 	LogSuccess,
 	AppendFile,
 	FileExists,
-} from "../../../src/domain/contracts";
-import { Resolve } from "../../../src/domain/contracts/Resolve";
+} from "@/domain/contracts";
+import { Resolve } from "@/domain/contracts/Resolve";
 
 describe("Create Error", () => {
 	let useCase: CreateError;

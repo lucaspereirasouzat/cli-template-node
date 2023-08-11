@@ -17,9 +17,7 @@ export class TitleConversion {
 			return this.name.substring(SECOND_INDEX, lastIndexPath + SECOND_INDEX);
 		}
 
-		const path = this.name.slice(FIRST_INDEX, lastIndexPath + SECOND_INDEX);
-
-		return path;
+		return this.name.slice(FIRST_INDEX, lastIndexPath + SECOND_INDEX);
 	}
 
 	private separateTitle(): string {

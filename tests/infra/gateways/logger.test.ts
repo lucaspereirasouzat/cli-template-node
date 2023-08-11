@@ -1,8 +1,5 @@
-// import { Logger } from '@/infra/gateways'
-import { Logger } from "../../../src/infra/gateways/logger";
-
+import { Logger } from "@/infra/gateways/logger";
 import { vitest, describe, beforeAll, beforeEach, it, expect } from 'vitest'
-// import { Logger } from "pino"
 
 const fakePino = {
   info: vitest.fn(),
@@ -21,16 +18,6 @@ vitest.doMock('pino', () => { return fakePinoFunc })
 
 describe('Logger', () => {
   let sut: Logger
-  // let fakepino: vitest.Mocked<typeof pino>
-  // let template: string
-  // let data: Record<string, unknown>
-
-  beforeAll(() => {
-    // template = 'anyTemplate'
-    // data = { a: '1' }
-    // fakepino = pino as vitest.Mocked<typeof pino>
-  })
-
   beforeEach(() => {
     sut = new Logger()
   })

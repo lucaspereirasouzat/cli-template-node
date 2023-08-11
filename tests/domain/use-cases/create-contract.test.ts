@@ -1,5 +1,5 @@
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { CreateContract } from "../../../src/domain/use-cases/create-contract";
+import { CreateContract } from "@/domain/use-cases/create-contract";
 import {
   ReadFile,
   FolderExists,
@@ -9,8 +9,8 @@ import {
   LogSuccess,
   AppendFile,
   FileExists
-} from "../../../src/domain/contracts";
-import { Resolve } from "../../../src/domain/contracts/Resolve";
+} from "@/domain/contracts";
+import { Resolve } from "@/domain/contracts/Resolve";
 
 describe("Create Contract", () => {
   let useCase: CreateContract;
@@ -41,11 +41,10 @@ describe("Create Contract", () => {
   });
   it("should be able to create a new file", () => {
     useCase.handle("aa");
-    // expect(fileStorage.readFileString).toHaveReturnedTimes(1);
     expect(fileStorage.readFileString).toBeCalledWith({
       path: "path",
     });
-    // /home/lucasp/Documents/cli-template-node/cli-template-node/src/resources/views/templates/Controller.html
+
   });
   it("should be able validate if not exists ", () => {
     const error = new Error("File Not found");

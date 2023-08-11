@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it,beforeEach, vitest } from "vitest";
-import { AppendFile, FolderExists, MakeDir, ReadFile, WriteFile } from "../../../src/domain/contracts";
-import { Resolve } from "../../../src/domain/contracts/Resolve";
+import { AppendFile, FolderExists, MakeDir, ReadFile, WriteFile } from "@/domain/contracts";
+import { Resolve } from "@/domain/contracts/Resolve";
 
-import {CreateFile} from '../../../src/domain/entities/CreateFile'
+import {CreateFile} from '@/domain/entities/CreateFile'
 describe('CreateFile', () => {
   let sut: CreateFile
    let fileStorage: ReadFile & FolderExists & MakeDir & WriteFile & AppendFile;

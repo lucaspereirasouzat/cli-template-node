@@ -1,6 +1,5 @@
-import path from 'path'
-import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { Path } from "../../../src/infra/gateways/path";
+import { it, describe, expect, beforeEach } from "vitest";
+import { Path } from "@/infra/gateways/path";
 
 describe("Path", () => {
   let sut: Path;
@@ -23,19 +22,4 @@ describe("Path", () => {
     expect(typeof sut.pathresolve).toBe("function");
   });
 
-  // it("should validate makeDir", () => {
-  //   expect(sut.pathresolve).toBeDefined();
-
-  //   sut.pathresolve({ pathResolve: "aaa" });
-  //   expect(path.resolve).toHaveBeenCalledWith("aaa");
-  // });
-  // it("should validate readFileString", () => {
-  //   sut.readFileString({ path: "aaa" });
-  //   expect(fs.readFileSync).toHaveBeenCalledWith("aaa", "utf8");
-  // });
-  // it("should validate writeFileString", () => {
-  //   sut.writeFileString({ path: "aaa", content: "bbb" });
-  //   expect(sut.writeFileString).toBeDefined();
-  //   expect(fs.writeFileSync).toHaveBeenCalledWith("aaa", "bbb");
-  // });
 });

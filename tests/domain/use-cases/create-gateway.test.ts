@@ -1,5 +1,5 @@
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { CreateGateway } from "../../../src/domain/use-cases/create-gateway";
+import { CreateGateway } from "@/domain/use-cases/create-gateway";
 import {
 	ReadFile,
 	FolderExists,
@@ -9,8 +9,8 @@ import {
 	LogSuccess,
 	AppendFile,
 	FileExists,
-} from "../../../src/domain/contracts";
-import { Resolve } from "../../../src/domain/contracts/Resolve";
+} from "@/domain/contracts";
+import { Resolve } from "@/domain/contracts/Resolve";
 
 describe("Create Gateway", () => {
 	let useCase: CreateGateway;
@@ -21,7 +21,7 @@ describe("Create Gateway", () => {
 	beforeEach(() => {
 		fileStorage = vitest.fn();
 
-		fileStorage.readFileString = vitest.fn(() => `{{ className }}`);
+		fileStorage.readFileString = vitest.fn(() => "{{ className }}");
 		fileStorage.folderExists = vitest.fn(() => true);
 		fileStorage.makeDir = vitest.fn(() => true);
 		fileStorage.writeFileString = vitest.fn(() => true);

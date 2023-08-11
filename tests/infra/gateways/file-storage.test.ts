@@ -1,6 +1,6 @@
 import fs from "fs";
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { FileStorage } from "../../../src/infra/gateways/file-storage";
+import { FileStorage } from "@/infra/gateways/file-storage";
 
 vitest.mock("fs");
 describe("FileStorage", () => {

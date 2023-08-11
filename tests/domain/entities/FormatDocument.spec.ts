@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "vitest";
 
-import {FormatDocument} from '../../../src/domain/entities/FormatDocument'
+import {FormatDocument} from '@/domain/entities/FormatDocument'
 describe('FormatDocument', () => {
   let sut: FormatDocument
 
