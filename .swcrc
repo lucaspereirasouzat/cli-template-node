@@ -17,6 +17,11 @@
     "loose": false,
     "externalHelpers": false,
     "transform": {
+      "optimizer": {
+        "jsonify": {
+          "minCost": 0
+        }
+      },
       "legacyDecorator": true,
       "decoratorMetadata": true
     }
