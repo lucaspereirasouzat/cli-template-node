@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"makePath",{enumerable:true,get:function(){return makePath}});const _path=require("../../../infra/gateways/path");const makePath=()=>{return new _path.Path};
