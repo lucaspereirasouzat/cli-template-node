@@ -9,7 +9,7 @@ type TcpRequest = {
 type Model = Error | { success: boolean }
 
 export class {{ className }}Consumer extends Consumer {
-  constructor (private readonly subscriptionTrialCreate: {{ className }}) {
+  constructor (private readonly {{ className }}: {{ className }}) {
     super()
   }
 
