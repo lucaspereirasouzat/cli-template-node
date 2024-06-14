@@ -8,10 +8,10 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-  Resolve
+	Resolve,
 } from "@/domain/contracts";
 import { PATH_ENTITY, PATH_ENTITY_TEST, PATH_ENTITY_PATH } from "@/constants";
-import { FormatDocument, TitleConversion,CreateFile } from "@/domain/entities";
+import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateEntity {
 	constructor(
@@ -58,7 +58,7 @@ export class CreateEntity {
 		if (test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 			const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/${path}`;
-      const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
+			const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
 			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				replacedFileTestString,

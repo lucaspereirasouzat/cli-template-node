@@ -8,9 +8,9 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-  Resolve
+	Resolve,
 } from "@/domain/contracts";
-import { PATH_EVENTS,PATH_EVENTS_TEST,EVENTS_PATH } from "@/constants";
+import { PATH_EVENTS, PATH_EVENTS_TEST, EVENTS_PATH } from "@/constants";
 import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateEvents {
@@ -54,10 +54,14 @@ export class CreateEvents {
 		}
 
 		if (onlyTest || test) {
-      const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-		  const pathTestFolder = `${pathFull}/tests/${EVENTS_PATH}/${path}`;
-			const replacedFactoryTestFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
-      const pathToWriteTest = createFile.createFile(
+			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
+			const pathTestFolder = `${pathFull}/tests/${EVENTS_PATH}/${path}`;
+			const replacedFactoryTestFileString = new FormatDocument(
+				fileInTestString,
+				UpperCase,
+				properites,
+			).formatDocument();
+			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				replacedFactoryTestFileString,
 				titleFormated.replace(".ts", ".spec.ts"),

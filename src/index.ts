@@ -4,10 +4,7 @@ import packajson from "../package.json";
 import adapter from "./main/adapter";
 
 const program = new Command();
-program
-	.name(packajson.name)
-	.description(packajson.description)
-	.version(packajson.version);
+program.name(packajson.name).description(packajson.description).version(packajson.version);
 
 program
 	.command("create <name>")

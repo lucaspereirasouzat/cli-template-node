@@ -62,4 +62,21 @@ describe("Create Entity", () => {
 		expect(fileStorage.makeDir).toHaveReturnedTimes(2);
 		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/domain/entities/" });
 	});
+
+	it("should be able to write file ", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(fileStorage.writeFileString).toHaveReturnedTimes(2);
+		expect(fileStorage.writeFileString).toBeCalledWith({
+			content: "Entity",
+			path: "path",
+		});
+	});
+	it("should be create path", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(pathresolve.pathresolve).toBeCalled();
+	});
 });
