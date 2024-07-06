@@ -72,8 +72,12 @@ export class CreateController {
 		if (onlyTest || test) {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 			const pathTestFolder = `${pathFull}/tests/${PATH_CONTROLLER_APPLICATION}/${path}`;
-			const replacedFactoryTestFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
-      const pathToWriteTest = createFile.createFile(
+			const replacedFactoryTestFileString = new FormatDocument(
+				fileInTestString,
+				UpperCase,
+				properites,
+			).formatDocument();
+			const pathToWriteTest = createFile.createFile(
 				pathTestFolder,
 				replacedFactoryTestFileString,
 				titleFormated.replace(".ts", ".spec.ts"),

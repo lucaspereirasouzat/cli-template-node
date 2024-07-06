@@ -37,7 +37,7 @@ export class CreateRepository {
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
-			this.logger.log({ message: `\n diretorio do repository ${pathToWrite}` });
+			this.logger.log({ message: `\n repository directory: ${pathToWrite}` });
       createFile.createIndex(path, pathFolder, titleFormated);
 
 			const fileFactoryInString = this.fileStorage.readFileString({
@@ -55,7 +55,7 @@ export class CreateRepository {
 				titleFormated,
 			);
 
-			this.logger.log({ message: `\n diretorio do factory repository ${pathToFactoryWrite}` });
+			this.logger.log({ message: `\n repository factory directory: ${pathToFactoryWrite}` });
 
       createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
@@ -80,7 +80,7 @@ export class CreateRepository {
 			).formatDocument();
 
 			const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFactoryTestFileString, testnameFile);
-			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n repository test directory:${pathToWriteTest}` });
 		}
 		return "replacedFileString";
 	}

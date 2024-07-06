@@ -1,5 +1,5 @@
-import { Logger } from '@/infra/gateways/logger'
+import { Logger } from "@/infra/gateways/logger";
 
 export const makeLogger = (): Logger => {
-  return new Logger()
-}
+	return new Logger();
+};

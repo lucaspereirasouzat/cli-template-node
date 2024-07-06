@@ -1,5 +1,14 @@
 import { CouldNotWrite, FileNotFound } from "../entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
+import {
+	AppendFile,
+	FolderExists,
+	LogFailure,
+	LogSuccess,
+	MakeDir,
+	ReadFile,
+	WriteFile,
+	Resolve,
+} from "@/domain/contracts";
 import {
 	PATH_GATEWAY,
 	PATH_FACTORY_GATEWAY,
@@ -31,13 +40,13 @@ export class CreateGateway {
 			}
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-      const originalPath = `${pathFull}/src/${GATEWAY_PATH_APPLICATION}`
+			const originalPath = `${pathFull}/src/${GATEWAY_PATH_APPLICATION}`;
 			const pathFolder = `${originalPath}/${path}`;
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
 
-			this.logger.log({ message: `\n diretorio do gateway ${pathToWrite}` });
+			this.logger.log({ message: `\n gateway directory: ${pathToWrite}` });
 
 			createFile.createIndex(path, originalPath, titleFormated);
 
@@ -56,9 +65,9 @@ export class CreateGateway {
 				titleFormated,
 			);
 
-			this.logger.log({ message: `\n diretorio do factory gateway ${pathToFactoryWrite}` });
+			this.logger.log({ message: `\n gateway factory directory: ${pathToFactoryWrite}` });
 
-      createFile.createIndex(path, pathFactoryFolder, titleFormated);
+			createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
 		const fileInTestString = this.fileStorage.readFileString({
 			path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY_TEST),
@@ -82,7 +91,7 @@ export class CreateGateway {
 			).formatDocument();
 
 			const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFactoryTestFileString, testnameFile);
-			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n gateway test directory: ${pathToWriteTest}` });
 		}
 		return "item";
 	}

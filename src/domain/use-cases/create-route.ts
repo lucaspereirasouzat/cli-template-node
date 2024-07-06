@@ -42,7 +42,7 @@ export class CreateRoute {
 
 			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
 
-			this.logger.log({ message: `\n diretorio do route ${pathToWrite}` });
+			this.logger.log({ message: `\n route directory: ${pathToWrite}` });
 
 			createFile.createIndex(path, pathFolder, titleFormated);
 		}
@@ -72,7 +72,7 @@ export class CreateRoute {
 				replacedFactoryTestFileString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
-			this.logger.log({ message: `\n diretorio da route test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n test directory:${pathToWriteTest}` });
 		}
 
 		return fileInTestString;

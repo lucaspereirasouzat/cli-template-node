@@ -1,5 +1,5 @@
 import { it, describe, expect, beforeEach, vitest } from "vitest";
-import { CreateController } from "@/domain/use-cases/create-controller";
+import { CreateAdapter } from "@/domain/use-cases/create-adapter";
 import {
 	ReadFile,
 	FolderExists,
@@ -12,8 +12,8 @@ import {
 } from "@/domain/contracts";
 import { Resolve } from "@/domain/contracts/Resolve";
 
-describe("Create Controller", () => {
-	let useCase: CreateController;
+describe("Create Adapter", () => {
+	let useCase: CreateAdapter;
 	let fileStorage: ReadFile & FolderExists & MakeDir & WriteFile & AppendFile & FileExists;
 	let logger: LogFailure & LogSuccess;
 	let pathresolve: Resolve;
@@ -37,7 +37,7 @@ describe("Create Controller", () => {
 	});
 
 	beforeEach(() => {
-		useCase = new CreateController(fileStorage, pathresolve, logger);
+		useCase = new CreateAdapter(fileStorage, pathresolve, logger);
 	});
 	it("should be able to create a new file", () => {
 		useCase.handle("aa");
@@ -52,23 +52,20 @@ describe("Create Controller", () => {
 	});
 	it("should be able validate if folder exists ", () => {
 		useCase.handle("aa");
-		expect(fileStorage.folderExists).toHaveReturnedTimes(3);
-		expect(fileStorage.folderExists).toBeCalledWith({ path: "aa/src/application/controllers/" });
+		expect(fileStorage.folderExists).toBeCalledWith({ path: "aa/src/main/adapters/" });
 	});
 	it("should be able to create folder ", () => {
 		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
 		useCase.handle("aa");
 
-		expect(fileStorage.makeDir).toHaveReturnedTimes(3);
-		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/application/controllers/" });
+		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/main/adapters/" });
 	});
 	it("should be able to write file ", () => {
 		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
 		useCase.handle("aa");
 
-		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Controller",
+			content: "Adapter",
 			path: "path",
 		});
 	});

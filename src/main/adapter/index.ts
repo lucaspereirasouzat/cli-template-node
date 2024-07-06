@@ -1,7 +1,7 @@
-import routes from '../router'
+import routes from "../router";
 
 interface Options {
-  [key: string]: boolean
+	[key: string]: boolean;
 }
 
 export default (name: string, options: Options, fullpath: string): void => {

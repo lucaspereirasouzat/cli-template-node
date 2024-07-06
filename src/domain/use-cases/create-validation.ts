@@ -8,9 +8,9 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-  Resolve
+	Resolve,
 } from "@/domain/contracts";
-import { PATH_VALIDATION,PATH_VALIDATION_TEST,VALIDATION_PATH } from "@/constants";
+import { PATH_VALIDATION, PATH_VALIDATION_TEST, VALIDATION_PATH } from "@/constants";
 import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateValidation {

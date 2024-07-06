@@ -8,9 +8,9 @@ import {
 	MakeDir,
 	ReadFile,
 	WriteFile,
-  Resolve
+	Resolve,
 } from "@/domain/contracts";
-import { PATH_DECORATOR,PATH_DECORATOR_TEST,DECORATOR_PATH } from "@/constants";
+import { PATH_DECORATOR, PATH_DECORATOR_TEST, DECORATOR_PATH } from "@/constants";
 import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
 
 export class CreateDecorator {

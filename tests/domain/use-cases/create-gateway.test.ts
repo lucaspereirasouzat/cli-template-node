@@ -62,4 +62,21 @@ describe("Create Gateway", () => {
 		expect(fileStorage.makeDir).toHaveReturnedTimes(3);
 		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/main/factories/infra/gateways/" });
 	});
+
+	it("should be able to write file ", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
+		expect(fileStorage.writeFileString).toBeCalledWith({
+			content: "Gateway",
+			path: "path",
+		});
+	});
+	it("should be create path", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(pathresolve.pathresolve).toBeCalled();
+	});
 });

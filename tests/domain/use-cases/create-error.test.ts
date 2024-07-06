@@ -62,4 +62,21 @@ describe("Create Error", () => {
 		expect(fileStorage.makeDir).toHaveReturnedTimes(1);
 		expect(fileStorage.makeDir).toBeCalledWith({ path: "aa/src/domain/entities/errors/" });
 	});
+
+	it("should be able to write file ", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(fileStorage.writeFileString).toHaveReturnedTimes(1);
+		expect(fileStorage.writeFileString).toBeCalledWith({
+			content: "Error",
+			path: "path",
+		});
+	});
+	it("should be create path", () => {
+		fileStorage.folderExists = vitest.fn().mockReturnValueOnce(false);
+		useCase.handle("aa");
+
+		expect(pathresolve.pathresolve).toBeCalled();
+	});
 });

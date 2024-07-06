@@ -11,7 +11,7 @@ export class CreateError {
 	) {}
 
 	handle(pathFull: string, name = "Error", test = true, properites = undefined, onlyTest = false): string {
-		if(!onlyTest){
+		if (!onlyTest) {
 			const fileInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_ERROR),
 			});

@@ -39,14 +39,14 @@ export class CreateContract {
 
 			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
 
-      const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
+			const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;
 
 			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
 
 			const pathToWrite = createFile.createFile(`${pathFileFolder}/${path}`, replacedFileString, titleFormated);
 			this.logger.log({ message: `\n diretorio do contract ${pathToWrite}` });
 
-      createFile.createIndex(path,pathFileFolder, titleFormated)
+			createFile.createIndex(path, pathFileFolder, titleFormated);
 
 			return replacedFileString;
 		}

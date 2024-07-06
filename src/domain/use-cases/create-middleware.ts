@@ -39,7 +39,7 @@ export class CreateMiddleware {
 
       createFile.createIndex(path, pathFolder, titleFormated);
 
-			this.logger.log({ message: `\n diretorio do MIDDLEWARE ${pathToWrite}` });
+			this.logger.log({ message: `\n middleware directory: ${pathToWrite}` });
 
 			const fileFactoryInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_MAIN_MIDDLEWARE),
@@ -56,7 +56,7 @@ export class CreateMiddleware {
 				titleFormated,
 			);
 
-			this.logger.log({ message: `\n diretorio do factory middleware ${pathToFactoryWrite}` });
+			this.logger.log({ message: `\n middleware factory directory: ${pathToFactoryWrite}` });
 
       createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
@@ -79,7 +79,7 @@ export class CreateMiddleware {
 				replacedFileString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
-			this.logger.log({ message: `\n diretorio do middleware test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n middleware factory test directory: ${pathToWriteTest}` });
 		}
 		return "replacedFileString";
 	}

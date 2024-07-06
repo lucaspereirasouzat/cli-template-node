@@ -1,5 +1,14 @@
 import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
+import {
+	AppendFile,
+	FolderExists,
+	LogFailure,
+	LogSuccess,
+	MakeDir,
+	ReadFile,
+	WriteFile,
+	Resolve,
+} from "@/domain/contracts";
 import {
 	PATH_USE_CASE,
 	PATH_USE_CASE_TEST,
@@ -39,7 +48,7 @@ export class CreateUseCase {
 
 			createFile.createIndex(path, pathFolder, titleFormated);
 
-			this.logger.log({ message: `\n diretorio do Usecase ${pathToWrite}` });
+			this.logger.log({ message: `\n use-case directory: ${pathToWrite}` });
 
 			const fileFactoryInString = this.fileStorage.readFileString({
 				path: this.pathResolver.pathresolve(__dirname, PATH_USE_CASE_FACTORY),
@@ -55,7 +64,7 @@ export class CreateUseCase {
 				titleFormated,
 			);
 
-			this.logger.log({ message: `\n diretorio do factory usecase ${pathToFactoryWrite}` });
+			this.logger.log({ message: `\n use-case factory directory: ${pathToFactoryWrite}` });
 
 			createFile.createIndex(path, pathFactoryFolder, titleFormated);
 		}
@@ -78,8 +87,8 @@ export class CreateUseCase {
 				replacedFileString,
 				titleFormated.replace(".ts", ".spec.ts"),
 			);
-			this.logger.log({ message: `\n diretorio do usecase test ${pathToWriteTest}` });
+			this.logger.log({ message: `\n use-case test directory: ${pathToWriteTest}` });
 		}
-		return "replacedFileString";
+		return fileInTestString;
 	}
 }
