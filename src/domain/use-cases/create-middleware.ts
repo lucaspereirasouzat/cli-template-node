@@ -1,5 +1,4 @@
-import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
-import { Resolve, AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile } from "@/domain/contracts";
+import { Resolve, AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile, FileExists } from "@/domain/contracts";
 import {
 	MIDDLEWARE_PATH,
   PATH_MIDDLEWARE,
@@ -7,79 +6,49 @@ import {
   MIDDLEWARE_MAIN_PATH,
   PATH_MAIN_MIDDLEWARE
 } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import { TitleConversion, ConstructorFile } from "@/domain/entities";
 
 export class CreateMiddleware {
 	constructor(
-		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
 		private readonly pathResolver: Resolve,
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
 	handle(pathFull: string, name = "Middleware", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated,
+      }
+    );
 		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_MIDDLEWARE),
-			});
-
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
-
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${MIDDLEWARE_PATH}`;
-
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
-
-      createFile.createIndex(path, pathFolder, titleFormated);
-
-			this.logger.log({ message: `\n middleware directory: ${pathToWrite}` });
-
-			const fileFactoryInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_MAIN_MIDDLEWARE),
-			});
-
-			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
-
-			const pathFactoryFolder = `${pathFull}/src/${MIDDLEWARE_MAIN_PATH}`;
-			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToFactoryWrite = createFactoryFile.createFile(
-				`${pathFactoryFolder}/${path}`,
-				replacedFactoryFileString,
-				titleFormated,
-			);
-
-			this.logger.log({ message: `\n middleware factory directory: ${pathToFactoryWrite}` });
-
-      createFile.createIndex(path, pathFactoryFolder, titleFormated);
-		}
-
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_MIDDLEWARE_TEST),
-		});
-
-		if (fileInTestString == null) {
-			throw new CouldNotWrite();
+      constructorFile
+      .mountFile({
+        fullPathFolder: MIDDLEWARE_PATH,
+        pathfileString: PATH_MIDDLEWARE
+      })
+      .mountFile({
+        pathfileString: PATH_MAIN_MIDDLEWARE,
+        fullPathFolder: MIDDLEWARE_MAIN_PATH
+      })
 		}
 
 		if (onlyTest || test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathTestFolder = `${pathFull}/tests/${MIDDLEWARE_PATH}/${path}`;
-			const replacedFileString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
-			const pathToWriteTest = createFile.createFile(
-				pathTestFolder,
-				replacedFileString,
-				titleFormated.replace(".ts", ".spec.ts"),
-			);
-			this.logger.log({ message: `\n middleware factory test directory: ${pathToWriteTest}` });
+      constructorFile
+      .mountFileTest({
+        fullPathFolder: MIDDLEWARE_PATH,
+        pathfileString: PATH_MIDDLEWARE_TEST
+      })
 		}
 		return "replacedFileString";
 	}

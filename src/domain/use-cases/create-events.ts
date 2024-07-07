@@ -11,7 +11,7 @@ import {
 	Resolve,
 } from "@/domain/contracts";
 import { PATH_EVENTS, PATH_EVENTS_TEST, EVENTS_PATH } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import { FormatDocument, TitleConversion, CreateFile, ConstructorFile } from "@/domain/entities";
 
 export class CreateEvents {
 	constructor(
@@ -21,54 +21,36 @@ export class CreateEvents {
 	) {}
 
 	handle(pathFull: string, name = "EVENTS", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
-		const createFile = new CreateFile(this.fileStorage, this.pathResolver);
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated,
+      }
+    );
 
 		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_EVENTS),
-			});
-
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
-
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const pathFolder = `${pathFull}/src/${EVENTS_PATH}`;
-			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
-
-			this.logger.log({ message: `\n diretorio do eVENTS ${pathToWrite}` });
-
-			createFile.createIndex(path, pathFolder, titleFormated);
-		}
-
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_EVENTS_TEST),
-		});
-
-		if (fileInTestString == null) {
-			throw new CouldNotWrite();
+      constructorFile.mountFile({
+        fullPathFolder: EVENTS_PATH,
+        pathfileString: PATH_EVENTS
+      })
 		}
 
 		if (onlyTest || test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${EVENTS_PATH}/${path}`;
-			const replacedFactoryTestFileString = new FormatDocument(
-				fileInTestString,
-				UpperCase,
-				properites,
-			).formatDocument();
-			const pathToWriteTest = createFile.createFile(
-				pathTestFolder,
-				replacedFactoryTestFileString,
-				titleFormated.replace(".ts", ".spec.ts"),
-			);
-			this.logger.log({ message: `\n diretorio da event test ${pathToWriteTest}` });
+      constructorFile.mountFileTest({
+        fullPathFolder: EVENTS_PATH,
+        pathfileString: PATH_EVENTS_TEST
+      })
 		}
 
-		return fileInTestString;
+		return '';
 	}
 }

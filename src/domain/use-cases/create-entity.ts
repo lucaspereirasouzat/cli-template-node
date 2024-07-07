@@ -11,7 +11,7 @@ import {
 	Resolve,
 } from "@/domain/contracts";
 import { PATH_ENTITY, PATH_ENTITY_TEST, PATH_ENTITY_PATH } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import { FormatDocument, TitleConversion, CreateFile, ConstructorFile } from "@/domain/entities";
 
 export class CreateEntity {
 	constructor(
@@ -21,52 +21,36 @@ export class CreateEntity {
 	) {}
 
 	handle(pathFull: string, name = "Entity", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated,
+      }
+    );
 
 		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY),
-			});
-
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
-
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-
-			const pathFolder = `${pathFull}/src/${PATH_ENTITY_PATH}`;
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
-
-			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
-
-			createFile.createIndex(path, pathFolder, titleFormated);
-		}
-
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_ENTITY_TEST),
-		});
-
-		if (fileInTestString == null) {
-			throw new CouldNotWrite();
+      constructorFile.mountFile({
+        fullPathFolder: PATH_ENTITY_PATH,
+        pathfileString: PATH_ENTITY
+      })
 		}
 
 		if (test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_ENTITY_PATH}/${path}`;
-			const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
-			const pathToWriteTest = createFile.createFile(
-				pathTestFolder,
-				replacedFileTestString,
-				titleFormated.replace(".ts", ".spec.ts"),
-			);
-			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
+      constructorFile.mountFileTest({
+        fullPathFolder: PATH_ENTITY_PATH,
+        pathfileString: PATH_ENTITY_TEST
+      })
 		}
 
-		return fileInTestString;
+		return '';
 	}
 }

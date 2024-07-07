@@ -13,7 +13,7 @@ export class FormatDocument {
 			.replace(/{{ className }}/g, this.titleDocument)
 			.replace(
 				/{{ classNameLower }}/g,
-				`${this.titleDocument.charAt(START_INDEX).toLowerCase()}${this.titleDocument.slice(SECOND_INDEX)}`,
+				this.titleDocument.toLowerCase(),
 			)
 			.replace(/{{ properites }}/g, this.properties ? JSON.stringify(this.properties) : "");
 	}

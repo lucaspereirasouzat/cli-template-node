@@ -1,4 +1,3 @@
-import { CouldNotWrite, FileNotFound } from "../entities/errors";
 import {
 	AppendFile,
 	FolderExists,
@@ -8,6 +7,7 @@ import {
 	ReadFile,
 	WriteFile,
 	Resolve,
+  FileExists,
 } from "@/domain/contracts";
 import {
 	PATH_GATEWAY,
@@ -16,82 +16,49 @@ import {
 	GATEWAY_PATH_APPLICATION,
 	GATEWAY_FACTORY_PATH,
 } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import { TitleConversion, ConstructorFile } from "@/domain/entities";
 
 export class CreateGateway {
 	constructor(
-		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
 		private readonly pathResolver: Resolve,
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
 	handle(pathFull: string, name = "Gateway", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated,
+      }
+    );
 		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY),
-			});
-
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
-
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-			const originalPath = `${pathFull}/src/${GATEWAY_PATH_APPLICATION}`;
-			const pathFolder = `${originalPath}/${path}`;
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToWrite = createFile.createFile(pathFolder, replacedFileString, titleFormated);
-
-			this.logger.log({ message: `\n gateway directory: ${pathToWrite}` });
-
-			createFile.createIndex(path, originalPath, titleFormated);
-
-			const fileFactoryInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_GATEWAY),
-			});
-
-			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
-
-			const pathFactoryFolder = `${pathFull}/src/${GATEWAY_FACTORY_PATH}`;
-			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToFactoryWrite = createFactoryFile.createFile(
-				`${pathFactoryFolder}/${path}`,
-				replacedFactoryFileString,
-				titleFormated,
-			);
-
-			this.logger.log({ message: `\n gateway factory directory: ${pathToFactoryWrite}` });
-
-			createFile.createIndex(path, pathFactoryFolder, titleFormated);
-		}
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_GATEWAY_TEST),
-		});
-
-		if (fileInTestString === "") {
-			throw new CouldNotWrite();
+      constructorFile
+      .mountFile({
+        fullPathFolder: GATEWAY_PATH_APPLICATION,
+        pathfileString: PATH_GATEWAY
+      })
+      .mountFile({
+        fullPathFolder: GATEWAY_FACTORY_PATH,
+        pathfileString: PATH_FACTORY_GATEWAY
+      })
 		}
 
 		if (onlyTest || test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathTestFolder = `${pathFull}/tests/${GATEWAY_PATH_APPLICATION}/${path}`;
-
-			const testnameFile = titleFormated.replace(".ts", ".spec.ts");
-
-			const replacedFactoryTestFileString = new FormatDocument(
-				fileInTestString,
-				UpperCase,
-				properites,
-			).formatDocument();
-
-			const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFactoryTestFileString, testnameFile);
-			this.logger.log({ message: `\n gateway test directory: ${pathToWriteTest}` });
+      constructorFile
+      .mountFileTest({
+        fullPathFolder: GATEWAY_PATH_APPLICATION,
+        pathfileString: PATH_GATEWAY_TEST
+      })
 		}
 		return "item";
 	}

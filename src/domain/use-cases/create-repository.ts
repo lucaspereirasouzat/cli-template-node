@@ -1,5 +1,4 @@
-import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
-import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve } from "@/domain/contracts";
+import { AppendFile, FolderExists, LogFailure, LogSuccess, MakeDir, ReadFile, WriteFile,Resolve, FileExists } from "@/domain/contracts";
 import {
 	PATH_REPOSITORY,
 	PATH_FACTORY_REPOSITORY,
@@ -7,80 +6,50 @@ import {
 	REPOSITORY_PATH,
 	REPOSITORY_FACTORY_PATH,
 } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import { TitleConversion, ConstructorFile } from "@/domain/entities";
 
 export class CreateRepository {
 	constructor(
-		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile,
+		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
 		private readonly pathResolver: Resolve,
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
 	handle(pathFull: string, name = "Repository", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated,
+      }
+    );
 
 		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY),
-			});
-
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
-
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
-
-			const pathFolder = `${pathFull}/src/${REPOSITORY_PATH}`;
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
-
-			this.logger.log({ message: `\n repository directory: ${pathToWrite}` });
-      createFile.createIndex(path, pathFolder, titleFormated);
-
-			const fileFactoryInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_FACTORY_REPOSITORY),
-			});
-
-			const replacedFactoryFileString = new FormatDocument(fileFactoryInString, UpperCase, properites).formatDocument();
-
-			const pathFactoryFolder = `${pathFull}/src/${REPOSITORY_FACTORY_PATH}`;
-			const createFactoryFile = new CreateFile(this.fileStorage, this.pathResolver);
-
-			const pathToFactoryWrite = createFactoryFile.createFile(
-				`${pathFactoryFolder}/${path}`,
-				replacedFactoryFileString,
-				titleFormated,
-			);
-
-			this.logger.log({ message: `\n repository factory directory: ${pathToFactoryWrite}` });
-
-      createFile.createIndex(path, pathFactoryFolder, titleFormated);
-		}
-
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_REPOSITORY_TEST),
-		});
-
-		if (fileInTestString === "") {
-			throw new CouldNotWrite();
+      constructorFile
+      .mountFile({
+        fullPathFolder: REPOSITORY_PATH,
+        pathfileString: PATH_REPOSITORY
+      })
+      .mountFile({
+        fullPathFolder: REPOSITORY_FACTORY_PATH,
+        pathfileString: PATH_FACTORY_REPOSITORY
+      })
 		}
 
 		if (onlyTest || test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${REPOSITORY_PATH}/${path}`;
-			const testnameFile = titleFormated.replace(".ts", ".spec.ts");
-
-			const replacedFactoryTestFileString = new FormatDocument(
-				fileInTestString,
-				UpperCase,
-				properites,
-			).formatDocument();
-
-			const pathToWriteTest = createFile.createFile(pathTestFolder, replacedFactoryTestFileString, testnameFile);
-			this.logger.log({ message: `\n repository test directory:${pathToWriteTest}` });
+      constructorFile
+      .mountFile({
+        fullPathFolder: REPOSITORY_PATH,
+        pathfileString: PATH_REPOSITORY_TEST
+      })
 		}
 		return "replacedFileString";
 	}

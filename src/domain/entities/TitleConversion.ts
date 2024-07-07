@@ -55,4 +55,22 @@ export class TitleConversion {
 	public GetFormatedTitleFileName(): string {
 		return `${this.GetTranformToKebabCase()}.ts`;
 	}
+
+  public getFormatedFields(): FormatedFields {
+    const UpperCase = this.GetCamelCaseName();
+    const titleFormated = this.GetFormatedTitleFileName();
+    const path = this.getPathFromTitle();
+
+    return {
+      UpperCase,
+      titleFormated,
+      path
+    }
+  }
+}
+
+interface FormatedFields {
+  UpperCase: string
+  titleFormated: string
+  path: string
 }

@@ -1,72 +1,91 @@
 import { CouldNotWrite, FileNotFound } from "@/domain/entities/errors";
 import {
-	AppendFile,
-	FileExists,
-	FolderExists,
-	LogFailure,
-	LogSuccess,
-	MakeDir,
-	ReadFile,
-	WriteFile,
-	Resolve,
+  AppendFile,
+  FileExists,
+  FolderExists,
+  LogFailure,
+  LogSuccess,
+  MakeDir,
+  ReadFile,
+  WriteFile,
+  Resolve,
 } from "@/domain/contracts";
-import { PATH_ADAPTER, PATH_ADAPTER_TEST, PATH_ADAPTER_PATH } from "@/constants";
-import { FormatDocument, TitleConversion, CreateFile } from "@/domain/entities";
+import {
+  PATH_ADAPTER,
+  PATH_ADAPTER_TEST,
+  PATH_ADAPTER_PATH,
+} from "@/constants";
+import { FormatDocument, TitleConversion, CreateFile, ConstructorFile } from "@/domain/entities";
 
 export class CreateAdapter {
-	constructor(
-		private readonly fileStorage: ReadFile & WriteFile & FolderExists & MakeDir & AppendFile & FileExists,
-		private readonly pathResolver: Resolve,
-		private readonly logger: LogFailure & LogSuccess,
-	) {}
+  constructor(
+    private readonly fileStorage: ReadFile &
+      WriteFile &
+      FolderExists &
+      MakeDir &
+      AppendFile &
+      FileExists,
+    private readonly pathResolver: Resolve,
+    private readonly logger: LogFailure & LogSuccess
+  ) {}
 
-	handle(pathFull: string, name = "Adapter", test = true, properites = undefined, onlyTest = false): string {
-		const titleConversion = new TitleConversion(name);
-		const UpperCase = titleConversion.GetCamelCaseName();
-		const titleFormated = titleConversion.GetFormatedTitleFileName();
-		const path = titleConversion.getPathFromTitle();
+  handle(
+    pathFull: string,
+    name = "Adapter",
+    test = true,
+    properites = undefined,
+    onlyTest = false
+  ): string {
+    const { UpperCase, titleFormated, path } = new TitleConversion(
+      name
+    ).getFormatedFields();
 
-		if (!onlyTest) {
-			const fileInString = this.fileStorage.readFileString({
-				path: this.pathResolver.pathresolve(__dirname, PATH_ADAPTER),
-			});
+    const constructorFile = new ConstructorFile(
+      this.fileStorage,
+      this.pathResolver,
+      this.logger,
+      {
+        UpperCase,
+        properites,
+        pathFull,
+        path,
+        titleFormated
+      }
+    )
 
-			if (fileInString == null) {
-				throw new FileNotFound();
-			}
+    if (!onlyTest) {
+      constructorFile.mountFile({
+        fullPathFolder: PATH_ADAPTER_PATH,
+        pathfileString: PATH_ADAPTER
+      })
+    }
 
-			const replacedFileString = new FormatDocument(fileInString, UpperCase, properites).formatDocument();
+    const fileInTestString = this.fileStorage.readFileString({
+      path: this.pathResolver.pathresolve(__dirname, PATH_ADAPTER_TEST),
+    });
 
-			const pathFolder = `${pathFull}/src/${PATH_ADAPTER_PATH}`;
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
+    if (fileInTestString == null) {
+      throw new CouldNotWrite();
+    }
 
-			const pathToWrite = createFile.createFile(`${pathFolder}/${path}`, replacedFileString, titleFormated);
+    if (test) {
+      const createFile = new CreateFile(this.fileStorage, this.pathResolver);
+      const pathTestFolder = `${pathFull}/tests/${PATH_ADAPTER_PATH}/${path}`;
+      const replacedFileTestString = new FormatDocument(
+        fileInTestString,
+        UpperCase,
+        properites
+      ).formatDocument();
+      const pathToWriteTest = createFile.createFile(
+        pathTestFolder,
+        replacedFileTestString,
+        titleFormated.replace(".ts", ".spec.ts")
+      );
+      this.logger.log({
+        message: `\n diretorio da entidade test ${pathToWriteTest}`,
+      });
+    }
 
-			this.logger.log({ message: `\n diretorio da entidade ${pathToWrite}` });
-
-			createFile.createIndex(path, pathFolder, titleFormated);
-		}
-
-		const fileInTestString = this.fileStorage.readFileString({
-			path: this.pathResolver.pathresolve(__dirname, PATH_ADAPTER_TEST),
-		});
-
-		if (fileInTestString == null) {
-			throw new CouldNotWrite();
-		}
-
-		if (test) {
-			const createFile = new CreateFile(this.fileStorage, this.pathResolver);
-			const pathTestFolder = `${pathFull}/tests/${PATH_ADAPTER_PATH}/${path}`;
-			const replacedFileTestString = new FormatDocument(fileInTestString, UpperCase, properites).formatDocument();
-			const pathToWriteTest = createFile.createFile(
-				pathTestFolder,
-				replacedFileTestString,
-				titleFormated.replace(".ts", ".spec.ts"),
-			);
-			this.logger.log({ message: `\n diretorio da entidade test ${pathToWriteTest}` });
-		}
-
-		return fileInTestString;
-	}
+    return fileInTestString;
+  }
 }
