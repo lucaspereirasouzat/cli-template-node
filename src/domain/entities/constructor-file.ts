@@ -76,7 +76,7 @@ export class ConstructorFile {
       this.defaultFile.UpperCase,
       this.defaultFile.properites
     ).formatDocument();
-    const pathFolder = `${this.defaultFile.pathFull}/test/${fullPathFolder}`;
+    const pathFolder = `${this.defaultFile.pathFull}/tests/${fullPathFolder}`;
 
     const createFile = new CreateFile(this.fileStorage, this.pathResolver);
     const pathToWrite = createFile.createFile(
