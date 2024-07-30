@@ -39,7 +39,7 @@ export class CreateController {
     pathFull: string,
     name = "Controller",
     test = true,
-    properites = undefined,
+    properties = undefined,
     onlyTest = false
   ): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(
@@ -51,7 +51,7 @@ export class CreateController {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated,

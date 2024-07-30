@@ -19,7 +19,7 @@ export class CreateRoute {
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
-	handle(pathFull: string, name = "Route", test = true, properites = undefined, onlyTest = false): string {
+	handle(pathFull: string, name = "Route", test = true, properties = undefined, onlyTest = false): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(name).getFormatedFields();
 
     const constructorFile = new ConstructorFile(
@@ -28,7 +28,7 @@ export class CreateRoute {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated

@@ -34,7 +34,7 @@ export class CreateContract {
     pathFull: string,
     name = "Contract",
     test = true,
-    properites = undefined,
+    properties = undefined,
     onlyTest = false
   ): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(
@@ -46,7 +46,7 @@ export class CreateContract {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated,
@@ -69,7 +69,7 @@ export class CreateContract {
       // const replacedFileString = new FormatDocument(
       //   fileInString,
       //   UpperCase,
-      //   properites
+      //   properties
       // ).formatDocument();
 
       // const pathFileFolder = `${pathFull}/src/${DOMAIN_CONTRACT_PATH}`;

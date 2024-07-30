@@ -71,6 +71,6 @@ export class CreateFile {
 					);
 				}
 			});
-			this.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(".ts", "")}`);
+			this.validateAndAppendToIndex(`${pathFileFolder}/${pathCombined}`, `${titleFormated.replace(/\.spec\.ts|\.ts/, "")}`);
 		}
 	}

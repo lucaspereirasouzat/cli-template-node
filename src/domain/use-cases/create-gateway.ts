@@ -25,7 +25,7 @@ export class CreateGateway {
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
-	handle(pathFull: string, name = "Gateway", test = true, properites = undefined, onlyTest = false): string {
+	handle(pathFull: string, name = "Gateway", test = true, properties = undefined, onlyTest = false): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(
       name
     ).getFormatedFields();
@@ -35,7 +35,7 @@ export class CreateGateway {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated,

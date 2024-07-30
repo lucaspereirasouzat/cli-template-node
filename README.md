@@ -238,13 +238,13 @@ export namespace {{ className }} {
 
 export type Input = {
 
-{{ properites }}
+{{ properties }}
 
 }
 
 export type Output = undefined | {
 
-{{ properites }}
+{{ properties }}
 
 }
 
