@@ -33,7 +33,7 @@ export class CreateAdapter {
     pathFull: string,
     name = "Adapter",
     test = true,
-    properites = undefined,
+    properties = undefined,
     onlyTest = false
   ): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(
@@ -46,7 +46,7 @@ export class CreateAdapter {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated
@@ -74,7 +74,7 @@ export class CreateAdapter {
       const replacedFileTestString = new FormatDocument(
         fileInTestString,
         UpperCase,
-        properites
+        properties
       ).formatDocument();
       const pathToWriteTest = createFile.createFile(
         pathTestFolder,

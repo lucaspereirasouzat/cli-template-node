@@ -15,7 +15,7 @@ export class CreateMiddleware {
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
-	handle(pathFull: string, name = "Middleware", test = true, properites = undefined, onlyTest = false): string {
+	handle(pathFull: string, name = "Middleware", test = true, properties = undefined, onlyTest = false): string {
     const { UpperCase, titleFormated, path } = new TitleConversion(
       name
     ).getFormatedFields();
@@ -25,7 +25,7 @@ export class CreateMiddleware {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated,

@@ -15,6 +15,6 @@ export class FormatDocument {
 				/{{ classNameLower }}/g,
 				this.titleDocument.toLowerCase(),
 			)
-			.replace(/{{ properites }}/g, this.properties ? JSON.stringify(this.properties) : "");
+			.replace(/{{ properties }}/g, this.properties ? JSON.stringify(this.properties) : "");
 	}
 }

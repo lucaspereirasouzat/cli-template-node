@@ -13,7 +13,7 @@ import { ReadFileAndGetString } from "./read-file-and-get-string";
 
 interface DefaultFile {
   UpperCase: string;
-  properites: object;
+  properties: object;
   pathFull: string;
   path: string;
   titleFormated: string;
@@ -47,7 +47,7 @@ export class ConstructorFile {
     const replacedFileString = new FormatDocument(
       stringFile,
       this.defaultFile.UpperCase,
-      this.defaultFile.properites
+      this.defaultFile.properties
     ).formatDocument();
     const pathFolder = `${this.defaultFile.pathFull}/src/${fullPathFolder}`;
 
@@ -74,7 +74,7 @@ export class ConstructorFile {
     const replacedFileString = new FormatDocument(
       stringFile,
       this.defaultFile.UpperCase,
-      this.defaultFile.properites
+      this.defaultFile.properties
     ).formatDocument();
     const pathFolder = `${this.defaultFile.pathFull}/tests/${fullPathFolder}`;
 
@@ -82,7 +82,7 @@ export class ConstructorFile {
     const pathToWrite = createFile.createFile(
       `${pathFolder}/${this.defaultFile.path}`,
       replacedFileString,
-      this.defaultFile.titleFormated
+      this.defaultFile.titleFormated.replace(".ts", ".spec.ts")
     );
 
     this.logger.log({ message: `\n diretorio - ${fullPathFolder} - ${pathToWrite}` });

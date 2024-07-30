@@ -19,7 +19,7 @@ export class CreateDecorator {
 		private readonly logger: LogFailure & LogSuccess,
 	) {}
 
-	handle(pathFull: string, name = "DECORATOR", test = true, properites = undefined, onlyTest = false): string {
+	handle(pathFull: string, name = "DECORATOR", test = true, properties = undefined, onlyTest = false): string {
    const { UpperCase, titleFormated, path } = new TitleConversion(
       name
     ).getFormatedFields();
@@ -29,7 +29,7 @@ export class CreateDecorator {
       this.logger,
       {
         UpperCase,
-        properites,
+        properties,
         pathFull,
         path,
         titleFormated,

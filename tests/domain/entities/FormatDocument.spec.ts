@@ -14,13 +14,13 @@ describe('FormatDocument', () => {
       const result = sut.formatDocument()
       expect(result).toEqual('testssss test testssss')
     })
-    it('should return with properites', () => {
-      sut = new FormatDocument('{{ className }} test {{ classNameLower }} {{ properites }}', 'testssss')
+    it('should return with properties', () => {
+      sut = new FormatDocument('{{ className }} test {{ classNameLower }} {{ properties }}', 'testssss')
       const result = sut.formatDocument()
       expect(result).toEqual('testssss test testssss ')
     })
-    it('should return with properites stringfy', () => {
-      sut = new FormatDocument('{{ className }} test {{ classNameLower }} {{ properites }}', 'testssss', {a: 'aa'})
+    it('should return with properties stringfy', () => {
+      sut = new FormatDocument('{{ className }} test {{ classNameLower }} {{ properties }}', 'testssss', {a: 'aa'})
       const result = sut.formatDocument()
       expect(result).toEqual('testssss test testssss {"a":"aa"}')
     })
