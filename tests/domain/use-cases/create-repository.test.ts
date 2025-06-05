@@ -11,6 +11,7 @@ import {
 	FileExists,
 } from "@/domain/contracts";
 import { Resolve } from "@/domain/contracts/Resolve";
+import { FileNotFound } from "@/domain/entities/errors";
 
 describe("Create Repository", () => {
 	let useCase: CreateRepository;
@@ -46,7 +47,7 @@ describe("Create Repository", () => {
 		});
 	});
 	it("should be able validate if not exists ", () => {
-		const error = new Error("File Not found");
+		const error = new FileNotFound()
 		fileStorage.readFileString = vitest.fn().mockReturnValueOnce(undefined);
 		expect(() => useCase.handle("aa")).toThrow(error);
 	});

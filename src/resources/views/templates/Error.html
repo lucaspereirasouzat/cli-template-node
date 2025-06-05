@@ -1,6 +1,43 @@
-export class {{ className }} extends Error {
+import { NotFoundError } from '@/application/errors'
+
+export class {{ className }}Error extends Error {
   constructor () {
-    super('{{ className }}')
-    this.name = '{{ className }}'
+    super('{{ className }} Error')
+    this.name = '{{ className }}Error'
+  }
+}
+export class {{ className }}NotFoundError extends NotFoundError {
+  constructor () {
+    super('{{ className }} Not Found')
+    this.name = '{{ className }}NotFoundError'
+  }
+}
+
+export class {{ className }}StoreError extends Error {
+  constructor () {
+    super('{{ className }} Store Error')
+    this.name = '{{ className }}StoreError'
+  }
+}
+
+
+export class {{ className }}UpdateError extends Error {
+  constructor () {
+    super('{{ className }} Update Error')
+    this.name = '{{ className }}UpdateError'
+  }
+}
+
+export class {{ className }}AlreadyExistsError extends Error {
+  constructor () {
+    super('{{ className }} Already Exists')
+    this.name = '{{ className }}AlreadyExistsError'
+  }
+}
+
+export class {{ className }}InvalidError extends Error {
+  constructor () {
+    super('{{ className }} Invalid')
+    this.name = '{{ className }}InvalidError'
   }
 }
