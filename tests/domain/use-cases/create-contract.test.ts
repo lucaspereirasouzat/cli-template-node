@@ -70,7 +70,7 @@ describe("Create Contract", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(1);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Contract",
+			content: "contract",
 			path: "path",
 		});
 	});

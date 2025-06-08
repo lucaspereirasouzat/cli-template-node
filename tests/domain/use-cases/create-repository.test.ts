@@ -70,7 +70,7 @@ describe("Create Repository", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Repository",
+			content: "repository",
 			path: "path",
 		});
 	});

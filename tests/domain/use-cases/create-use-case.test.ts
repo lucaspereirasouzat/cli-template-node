@@ -70,7 +70,7 @@ describe("Create UseCase", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "UseCase",
+			content: "useCase",
 			path: "path",
 		});
 	});

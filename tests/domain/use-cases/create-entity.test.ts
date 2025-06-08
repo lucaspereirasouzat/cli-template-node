@@ -70,7 +70,7 @@ describe("Create Entity", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(2);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Entity",
+			content: "entity",
 			path: "path",
 		});
 	});

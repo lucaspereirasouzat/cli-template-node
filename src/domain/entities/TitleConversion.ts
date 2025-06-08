@@ -1,3 +1,5 @@
+import { FormatTitle } from "./FormatTitle";
+
 const REGEX_SPLITED_CAMEL_CASE = /([a-z])([A-Z])/g;
 const FIRST_INDEX = 0;
 const SECOND_INDEX = 1;
@@ -5,6 +7,20 @@ const NOT_FOUND_INDEX = -1;
 export class TitleConversion {
 	path = "";
 	constructor(private readonly name: string) {}
+
+
+  private getClassNameFromPath(): string {
+    const segments = this.name.split('/').slice(-2);
+    return segments
+      .map(segment =>
+        segment
+          .replace(REGEX_SPLITED_CAMEL_CASE, "$1 $2")
+          .split(" ")
+          .map(word => word.charAt(FIRST_INDEX).toUpperCase() + word.slice(SECOND_INDEX))
+          .join("")
+      )
+      .join("");
+  }
 
 	public getPathFromTitle(): string {
 		const lastIndexPath = this.name.lastIndexOf("/");
@@ -41,23 +57,24 @@ export class TitleConversion {
 	}
 
 	public GetTranformToKebabCase() {
-		return this.getSplitedArray()
-			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX)}`)
-			.join("-");
+		return new FormatTitle(this.getSplitedArray()
+			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX).toLowerCase()}`)
+			.join("-")).getFormat('kebab-case');
 	}
 
 	public GetTranformToSnakeCase() {
-		return this.getSplitedArray()
-			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX)}`)
-			.join("_");
+		return new FormatTitle(this.getSplitedArray()
+			.map((item) => `${item.charAt(FIRST_INDEX).toLowerCase()}${item.slice(SECOND_INDEX).toLowerCase()}`)
+			.join("_")).getFormat('snake_case');
 	}
 
 	public GetFormatedTitleFileName(): string {
 		return `${this.GetTranformToKebabCase()}.ts`;
 	}
 
+
   public getFormatedFields(): FormatedFields {
-    const UpperCase = this.GetCamelCaseName();
+    const UpperCase = new FormatTitle(this.getClassNameFromPath()).getFormat('camelCase');
     const titleFormated = this.GetFormatedTitleFileName();
     const path = this.getPathFromTitle();
 

@@ -70,7 +70,7 @@ describe("Create Gateway", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Gateway",
+			content: "gateway",
 			path: "path",
 		});
 	});

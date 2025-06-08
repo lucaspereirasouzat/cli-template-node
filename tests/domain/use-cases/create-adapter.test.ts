@@ -66,7 +66,7 @@ describe("Create Adapter", () => {
 		useCase.handle("aa");
 
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "Adapter",
+			content: "adapter",
 			path: "path",
 		});
 	});
