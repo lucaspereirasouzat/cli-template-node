@@ -69,7 +69,7 @@ describe("Create Controller", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(3);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "controller",
+			content: "Controller",
 			path: "path",
 		});
 	});

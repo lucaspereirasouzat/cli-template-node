@@ -70,7 +70,7 @@ describe("Create Error", () => {
 
 		expect(fileStorage.writeFileString).toHaveReturnedTimes(1);
 		expect(fileStorage.writeFileString).toBeCalledWith({
-			content: "error",
+			content: "Error",
 			path: "path",
 		});
 	});

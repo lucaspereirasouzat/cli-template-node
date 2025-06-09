@@ -74,7 +74,7 @@ export class TitleConversion {
 
 
   public getFormatedFields(): FormatedFields {
-    const UpperCase = new FormatTitle(this.getClassNameFromPath()).getFormat('camelCase');
+    const UpperCase = new FormatTitle(this.getClassNameFromPath()).getFormat('PascalCase');
     const titleFormated = this.GetFormatedTitleFileName();
     const path = this.getPathFromTitle();
 
