@@ -277,13 +277,13 @@ will create
 
 
 
-type Setup = () => {{ className }}
+type Setup = () => {{ className }}UseCase
 
 type Input = { {{ properties }} }
 
 type Output = { accessToken: string }
 
-export type {{ className }} = (input: Input) => Promise<Output>
+export type {{ className }}UseCase = (input: Input) => Promise<Output>
 
 
 

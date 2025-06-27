@@ -1,9 +1,9 @@
-import { {{ className }}, setup{{ className }} } from '@/domain/use-cases'
+import { {{ className }}UseCase, setup{{ className }} } from '@/domain/use-cases'
 // import { AppendFile } from "@/domain/contracts/gateways";
-// import { MockProxy, mock } from 'jest-mock-extended'
+import { MockProxy, mock } from 'jest-mock-extended'
 
-describe('{{ className }}', () => {
-  let sut: {{ className }}
+describe('{{ className }}UseCase', () => {
+  let sut: {{ className }}UseCase
 //let fileStorage: MockProxy<AppendFile>
 
   beforeAll(() => {
